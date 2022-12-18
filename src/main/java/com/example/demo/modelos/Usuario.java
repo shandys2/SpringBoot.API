@@ -1,11 +1,14 @@
 package com.example.demo.modelos;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "USUARIOS")
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

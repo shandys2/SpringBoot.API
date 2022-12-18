@@ -3,8 +3,10 @@ package com.example.demo.network;
 import com.example.demo.controllers.MainController;
 import com.example.demo.daos.PokemonDao;
 import com.example.demo.daos.UsuarioDao;
+import com.example.demo.daos.repoPokemon;
 import com.example.demo.modelos.ElementoListado;
 import com.example.demo.modelos.PokemonListFormat;
+import jakarta.transaction.Transactional;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,41 +29,43 @@ import java.util.List;
 import java.util.function.Function;
 
 @Service
+@Transactional
 public class ConexionApi {
 
-
-    public ConexionApi() throws MalformedURLException {
-
-    }
-
-
+   /* @Autowired
+    repoPokemon repPokemon;
+    */
+    @Autowired
+    PokemonDao pokemonDao;
     public static ConexionApi conexionApi;
     final String URL_FREE_TO_PLAY = "https://www.freetogame.com/api/games";
     final String URL_POKEAPI = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
     final String URL_NETFLIX = "https://api.tvmaze.com/shows";
-
+    URL urlGame;
+    URL urlPoke;
+    URL urlNetflix;
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
     String response = null;
     StringBuffer stringBuffer;
     // create a client
-    URL urlGame = new URL(URL_FREE_TO_PLAY);
-    URL urlPoke = new URL(URL_POKEAPI);
-    URL urlNetflix = new URL(URL_NETFLIX);
 
     Integer API;
-
     List<ElementoListado> listaElementos;
 
-    public ConexionApi(int api) throws IOException {
+    public ConexionApi() throws MalformedURLException {}
 
+
+    public void setApi(int api) throws IOException {
         this.API=api;
-        setURL(api);
-        conectar();
+        setURL();
     }
+    public void setURL() throws IOException {
+        this.urlGame = new URL(URL_FREE_TO_PLAY);
+        this.urlPoke = new URL(URL_POKEAPI);
+        this.urlNetflix = new URL(URL_NETFLIX);
 
-    public void setURL(int api) throws IOException {
-        switch (api) {
+        switch (this.API) {
             case 1:
                 urlConnection = (HttpURLConnection) urlGame.openConnection();
                 break;
@@ -76,6 +80,7 @@ public class ConexionApi {
         }
         urlConnection.setRequestMethod("GET");
 
+        conectar();
     }
 
     public void conectar() throws IOException {
@@ -88,8 +93,6 @@ public class ConexionApi {
             reader = new BufferedReader(new InputStreamReader(inputStream));
         }
     }
-
-
 
     public List<ElementoListado> getListadoItems() throws IOException {
 
@@ -107,7 +110,7 @@ public class ConexionApi {
         try {
             if (API==1){
                 JSONArray jsonArray = new JSONArray(response);
-                System.out.println("sadadad"+jsonArray);
+
                 for (int i = 0; i <jsonArray.length() ; i++) {
                     try {
                         JSONObject jsonObject = new JSONObject(jsonArray.getString(i));
@@ -127,14 +130,12 @@ public class ConexionApi {
             }
             if (API==2){
 
-                List<PokemonListFormat> list= MainController.repPokemon.getAllPokemon();
-
-                if (list.size()==0){
+                List<PokemonListFormat> list= pokemonDao.getAllPokemon();
+                if (list==null || list.size()==0){
                     listaElementos=cargarPokemons();
                 }else {
                     listaElementos=  ElementoListado.parse(list);
                 }
-
                 return listaElementos;
             }
             if (API==3){
@@ -150,6 +151,8 @@ public class ConexionApi {
                     elementoListado.imagen=jsonObject.getJSONObject("image").getString("medium");
                     listaElementos.add(elementoListado);
                     System.out.println(elementoListado.toString());
+
+
                 }
             }
         } catch (JSONException e) {
@@ -228,13 +231,22 @@ public class ConexionApi {
                 elementoListado.id=objectPokemon.getInt("id");
                 elementoListado.imagen=objectPokemon.getJSONObject("sprites").getString("front_default");
 
+                if (elementoListado.imagen==null){
+                    System.out.println("ERROR POKEMON -->" +elementoListado.name + " NO AÑIADIDO POR FALTA DE IMAGEN");
+
+                }else{
+                    System.out.println(elementoListado.toString());
+                    lista.add(elementoListado);
+                    PokemonListFormat pokemon=  new PokemonListFormat(elementoListado.getName(), elementoListado.getImagen());
+                    pokemonDao.save(pokemon);
+                }
+
+                urlConnection.disconnect();
+
             }catch (Exception e){
-                System.out.println("POKEMON NO DISPONIBLE");
+                System.out.println("ERROR POKEMON -->"+  elementoListado.name+" NO DISPONIBLE EN LA API");
             }
-            System.out.println(elementoListado.toString());
-            lista.add(elementoListado);
-            PokemonListFormat pokemon=  new PokemonListFormat(elementoListado.getName(), elementoListado.getImagen());
-            MainController.repPokemon.save(pokemon);
+
 
         }
         return lista;
