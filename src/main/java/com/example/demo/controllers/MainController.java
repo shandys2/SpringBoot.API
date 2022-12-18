@@ -1,25 +1,20 @@
 package com.example.demo.controllers;
 
 
-import com.example.demo.daos.PokemonDao;
 import com.example.demo.modelos.ElementoListado;
-import com.example.demo.modelos.PokemonListFormat;
 
 import com.example.demo.modelos.Usuario;
 import com.example.demo.daos.UsuarioDao;
 
 import com.example.demo.network.ConexionApi;
-import jakarta.transaction.Transactional;
-import org.aspectj.apache.bcel.classfile.Method;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.spel.spi.Function;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
 @RestController
-@Transactional
 public class MainController {
 
     @Autowired
@@ -27,10 +22,26 @@ public class MainController {
     @Autowired
     ConexionApi conexionApi;
 
-    @PostMapping(value="/crearUsuario",  consumes = {"application/json"})
-    public boolean crearUsuario(@RequestBody Usuario usuario) {
-         repUsuario.save(usuario);
-        return usuario != null;
+    @PostMapping(value="/crearUsuario",consumes=MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
+    public Usuario crearUsuario(@RequestBody Usuario usuario) {
+        System.out.println("ANTES  ->" + usuario.getId());
+        repUsuario.save(usuario);  //Aqui ya le esta metiendo el id, esta mutando el usuario
+        System.out.println("DESPUES  ->" + usuario.getId());
+        return usuario;
+    }
+    @PostMapping(value="/borrarUsuario",consumes=MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
+    public Object borrarUsuario(@RequestBody Usuario usuario) {
+
+     String respuesta;
+        try {
+            repUsuario.deleteById(usuario.getId());
+        }catch (Exception e){
+            respuesta="Ha habido un error";
+            return respuesta;
+        }
+     //Aqui ya le esta metiendo el id, esta mutando el usuario
+
+        return "usuario "+usuario.getNombre()+" eliminado";
     }
 
     @GetMapping("/login")
@@ -38,7 +49,7 @@ public class MainController {
 
         Usuario usuario = repUsuario.getUsuarioByName(nombre);
         if(usuario != null){
-            return usuario.getContraseña().equals(password);
+            return usuario.getPassword().equals(password);
         }
         return false;
     }
@@ -46,7 +57,6 @@ public class MainController {
     public  List<ElementoListado> getListado(@RequestParam int api) throws IOException {
 
       conexionApi.setApi(api);
-
       List<ElementoListado> listado =conexionApi.getListadoItems();
 
         return listado;

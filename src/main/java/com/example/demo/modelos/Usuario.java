@@ -13,15 +13,15 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
-    private int id;
+    private Integer id;
 
-    @Column(name = "nombreUsuario", nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name="email", nullable = false)
+    @Column(name="email", nullable = true)
     private String email;
     public Usuario(){
     }
@@ -32,6 +32,14 @@ public class Usuario implements Serializable {
         this.email=email;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -40,11 +48,19 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getContraseña() {
+    public String getPassword() {
         return password;
     }
 
-    public void setContraseña(String password) {
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
