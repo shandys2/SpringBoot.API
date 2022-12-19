@@ -3,7 +3,7 @@ package com.example.demo.modelos;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class EntidadAbstract {
+public abstract class EntidadAbstract implements IElemento {
 
     //Comunes para las demas entidaddes
 
@@ -11,9 +11,10 @@ public abstract class EntidadAbstract {
     public String name;
     public String image;
     public String description;
-
+    public String version;
+    public String publisher;
+    public String genero;
     List<Comentario> comentarios;
-
 
     public Integer getId() {
         return id;
