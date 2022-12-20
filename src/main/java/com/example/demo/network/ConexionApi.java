@@ -4,9 +4,7 @@ import com.example.demo.controllers.MainController;
 import com.example.demo.daos.PokemonDao;
 import com.example.demo.daos.UsuarioDao;
 import com.example.demo.daos.repoPokemon;
-import com.example.demo.modelos.ElementoGeneral;
-import com.example.demo.modelos.ElementoListado;
-import com.example.demo.modelos.PokemonListFormat;
+import com.example.demo.modelos.*;
 import jakarta.transaction.Transactional;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -139,13 +138,14 @@ public class ConexionApi {
             }
             response = stringBuffer.toString();
 
-            ElementoGeneral elemento = new ElementoGeneral();
+            ElementoGeneral elemento = null;
 
             try {
                 JSONObject jsonObject = new JSONObject(response);
 
-                switch (API){
+                    switch (API){
                     case 1 :
+                        elemento=new ElementoGeneral();
                         elemento.setId(jsonObject.getInt("id"));
                         elemento.setName(jsonObject.getString("title"));
                         elemento.setImage(jsonObject.getString("thumbnail"));
@@ -153,8 +153,18 @@ public class ConexionApi {
                         elemento.setGenero(jsonObject.getString("genre"));
                         elemento.setPublisher(jsonObject.getString("publisher"));
                         elemento.setVersion(jsonObject.getString("release_date"));
+                        HashMap<Object,Object> cosasJuegos= new HashMap<>();
+                        cosasJuegos.put("valor1", "valorrrrrrr");
+                        cosasJuegos.put("valor2", "valorrrrrrr");
+                        cosasJuegos.put("valor3", "valorrrrrrr");
+                        cosasJuegos.put("valor4", "valorrrrrrr");
+                        cosasJuegos.put("valor5", "valorrrrrrr");
+
+
+                        ((ElementoGeneral) elemento).setCosas(cosasJuegos);
                         break;
                     case 2 :
+                        elemento=new ElementoGeneral();
                         elemento.setId(jsonObject.getInt("id"));
                         elemento.setName(jsonObject.getJSONObject("pokemon").getString("name"));
                         elemento.setVersion(jsonObject.getJSONObject("version_group").getString("name"));
@@ -162,8 +172,26 @@ public class ConexionApi {
                         elemento.setPublisher("GAME FREAK");
                         elemento.setImage(getPokemonImage());
                         elemento.setDescription( getPokemonDescription());
+                        HashMap<Object,Object> cosas= new HashMap<>();
+                        HashMap<Object,Object> cosasRow= new HashMap<>();
+                        cosasRow.put("stats 1", "valorrrrrrr");
+                        cosasRow.put("stats 2", "valorrrrrrr");
+                        cosasRow.put("stats 3", "valorrrrrrr");
+                        cosas.put("stats",cosasRow);
+                        cosasRow= new HashMap<>();
+                        cosasRow.put("altura", "valorrrrrrr");
+                        cosasRow.put("peso", "valorrrrrrr");
+                        cosas.put("dimensiones",cosasRow);
+                        cosasRow= new HashMap<>();
+                        cosasRow.put("habilidad1", "valorrrrrrr");
+                        cosasRow.put("habilidad2", "valorrrrrrr");
+                        cosas.put("habilidades",cosasRow);
+
+                        ((ElementoGeneral) elemento).setCosas(cosas);
+                        //stats :   (dimensiones)altura peso  : habilidades
                         break;
                     case 3 :
+                        elemento=new ElementoGeneral();
                         elemento.setId(jsonObject.getInt("id"));
                         elemento.setName(jsonObject.getString("name"));
                         elemento.setImage(jsonObject.getJSONObject("image").getString("medium"));
@@ -171,14 +199,22 @@ public class ConexionApi {
                         elemento.setPublisher(jsonObject.getJSONObject("network").getString("name"));
                         elemento.setVersion(jsonObject.getString("premiered"));
                         elemento.setGenero(parseGeneros(jsonObject.getJSONArray("genres")));
+                        HashMap<Object,Object> cosasNetflix= new HashMap<>();
+                        cosasNetflix.put("valor1", "valorrrrrrr");
+                        cosasNetflix.put("valor2", "valorrrrrrr");
+                        cosasNetflix.put("valor3", "valorrrrrrr");
+                        cosasNetflix.put("valor4", "valorrrrrrr");
+                        cosasNetflix.put("valor5", "valorrrrrrr");
+                        cosasNetflix.put("valor6", "valorrrrrrr");
+                        cosasNetflix.put("valor7", "valorrrrrrr");
+                        cosasNetflix.put("valor8", "valorrrrrrr");
+                        cosasNetflix.put("valor9", "valorrrrrrr");
+                        ((ElementoGeneral) elemento).setCosas(cosasNetflix);
                         break;
                 }
-
             }catch (Exception e){
-
             }
                 return elemento;
-
     }
 
     public List<ElementoListado> getListadoItems() throws IOException {

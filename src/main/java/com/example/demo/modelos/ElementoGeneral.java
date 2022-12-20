@@ -1,12 +1,14 @@
 package com.example.demo.modelos;
 
+import java.util.HashMap;
 import java.util.List;
 
-public class ElementoGeneral implements IElemento {
+public class ElementoGeneral {
 
     //Comunes para las demas entidaddes
 
     public Integer id;
+    public String tipo;
 
     public String name;
     public String image;
@@ -16,29 +18,7 @@ public class ElementoGeneral implements IElemento {
     public String genero;
     List<Comentario> comentarios;
 
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
+    HashMap<Object,Object> cosas;
 
     public Integer getId() {
         return id;
@@ -46,6 +26,14 @@ public class ElementoGeneral implements IElemento {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getName() {
@@ -71,11 +59,44 @@ public class ElementoGeneral implements IElemento {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
     public List<Comentario> getComentarios() {
         return comentarios;
     }
 
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public HashMap<Object, Object> getCosas() {
+        return cosas;
+    }
+
+    public void setCosas(HashMap<Object, Object> cosas) {
+        this.cosas = cosas;
     }
 }

@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
+@RequestMapping("/main")
 public class MainController {
 
     @Autowired
@@ -59,14 +61,16 @@ public class MainController {
         return listado;
     }
 
-    @GetMapping("/dameElemento")
-    public IElemento getElemento(@RequestParam int api , @RequestParam int item) throws IOException {
 
-        IElemento elemento;
+    @GetMapping("/dameElemento")
+    public ElementoGeneral getElemento(@RequestParam int api , @RequestParam int item) throws IOException {
+
+        ElementoGeneral elemento;
         conexionApi.setApiForElement(api ,item);
         elemento= conexionApi.getItem();
         return elemento;
     }
+
 
 
 }
