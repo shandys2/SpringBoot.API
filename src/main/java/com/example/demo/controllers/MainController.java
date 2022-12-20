@@ -54,41 +54,17 @@ public class MainController {
     @GetMapping("/dameListado")
     public  List<ElementoListado> getListado(@RequestParam int api) throws IOException {
 
-      conexionApi.setApi(api);
+      conexionApi.setApiForList(api);
       List<ElementoListado> listado =conexionApi.getListadoItems();
         return listado;
     }
 
     @GetMapping("/dameElemento")
-    public IElemento getElemento(@RequestParam int api) throws IOException {
+    public IElemento getElemento(@RequestParam int api , @RequestParam int item) throws IOException {
 
-        IElemento elemento=null;
-
-
-     /*   switch (api){
-            case 1:
-                elemento=new EntidadJuego();
-
-                ((EntidadJuego) elemento).setGenero("rol");
-                ((EntidadJuego) elemento).setPlataform("PC");
-                return elemento;
-            case 2:
-                elemento=new EntidadPokemon();
-                ((EntidadPokemon)elemento).setTipo("tierra");
-                elemento=new EntidadPokemon();
-                return elemento;
-            case 3:
-                elemento=new EntidadSerie();
-                ((EntidadSerie) elemento).setDuracion(60);
-                List<String> generos=new ArrayList<>();
-                        generos.add("miedo");
-                        generos.add("drama");
-                ((EntidadSerie) elemento).setGeneros(generos);
-                return elemento;
-        }*/
-
-       // conexionApi.setApi(api);
-
+        IElemento elemento;
+        conexionApi.setApiForElement(api ,item);
+        elemento= conexionApi.getItem();
         return elemento;
     }
 
