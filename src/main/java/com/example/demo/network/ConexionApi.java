@@ -1,19 +1,14 @@
 package com.example.demo.network;
 
-import com.example.demo.controllers.MainController;
 import com.example.demo.daos.PokemonDao;
-import com.example.demo.daos.UsuarioDao;
-import com.example.demo.daos.repoPokemon;
 import com.example.demo.modelos.*;
+import com.example.demo.repositories.PokemonRepository;
 import jakarta.transaction.Transactional;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 
 import java.io.BufferedReader;
@@ -22,24 +17,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
 
 @Service
 @Transactional
 public class ConexionApi {
-
-   /* @Autowired
-    repoPokemon repPokemon;
-    */
     @Autowired
-    PokemonDao pokemonDao;
-    public static ConexionApi conexionApi;
+    PokemonRepository pokemonRepository;
+
     final String URL_FREE_TO_PLAY_LIST = "https://www.freetogame.com/api/games";
     final String URL_POKEAPI_LIST = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
     final String URL_NETFLIX_LIST = "https://api.tvmaze.com/shows";
@@ -143,7 +131,7 @@ public class ConexionApi {
             try {
                 JSONObject jsonObject = new JSONObject(response);
 
-                    switch (API){
+                switch (API){
                     case 1 :
                         elemento=new ElementoGeneral();
                         elemento.setId(jsonObject.getInt("id"));
@@ -160,8 +148,7 @@ public class ConexionApi {
                         cosasJuegos.put("valor4", "valorrrrrrr");
                         cosasJuegos.put("valor5", "valorrrrrrr");
 
-
-                        ((ElementoGeneral) elemento).setCosas(cosasJuegos);
+                        elemento.setCosas(cosasJuegos);
                         break;
                     case 2 :
                         elemento=new ElementoGeneral();
@@ -253,7 +240,7 @@ public class ConexionApi {
             }
             if (API==2){
 
-                List<PokemonListFormat> list= pokemonDao.getAllPokemon();
+                List<PokemonListFormat> list= pokemonRepository.getAllPokemons();
                 if (list==null || list.size()==0){
                     listaElementos=cargarPokemons();
                 }else {
@@ -286,7 +273,6 @@ public class ConexionApi {
     }
 
     public String parseGeneros(JSONArray array) throws JSONException {
-
         String generos="";
 
         for (int i = 0; i <array.length() ; i++) {
@@ -305,8 +291,6 @@ public class ConexionApi {
 
     public String getPokemonDescription() throws IOException, JSONException {
 
-
-
         URL urlPoke = new URL("https://pokeapi.co/api/v2/pokemon-species/"+ITEM);
         List<ElementoListado> lista =new ArrayList<>();
         HttpURLConnection urlConnection = null;
@@ -324,9 +308,10 @@ public class ConexionApi {
         if (inputStream == null) {      //Si no nos devuelve nada salimos
             return null;
         }
-        reader = new BufferedReader(new InputStreamReader(inputStream));
 
+        reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
+
         while ((line = reader.readLine()) != null) {
             stringBuffer.append(line); // salida por consola con salto de linea  mientras haya más registros
         }
@@ -334,6 +319,7 @@ public class ConexionApi {
         if (stringBuffer.length() == 0) {
             return null;
         }
+
         response = stringBuffer.toString();
         JSONObject jsonObject = new JSONObject(response);
         JSONArray jsonArray=jsonObject.getJSONArray("flavor_text_entries");
@@ -349,7 +335,6 @@ public class ConexionApi {
         return descripcion;
     }
     public List<ElementoListado> cargarPokemons() throws IOException, JSONException {
-
 
         URL urlPoke = new URL(URL_POKEAPI_LIST);
         List<ElementoListado> lista =new ArrayList<>();
@@ -368,6 +353,7 @@ public class ConexionApi {
         if (inputStream == null) {      //Si no nos devuelve nada salimos
             return null;
         }
+
         reader = new BufferedReader(new InputStreamReader(inputStream));
 
         String line;
@@ -421,7 +407,7 @@ public class ConexionApi {
                     System.out.println(elementoListado.toString());
                     lista.add(elementoListado);
                     PokemonListFormat pokemon=  new PokemonListFormat(elementoListado.getName(), elementoListado.getImagen());
-                    pokemonDao.save(pokemon);
+                    pokemonRepository.insertarPokemon(pokemon);
                 }
 
                 urlConnection.disconnect();
@@ -429,15 +415,13 @@ public class ConexionApi {
             }catch (Exception e){
                 System.out.println("ERROR POKEMON -->"+  elementoListado.name+" NO DISPONIBLE EN LA API");
             }
-
-
         }
         return lista;
     }
 
     public String getPokemonImage(){
         String image;
-        PokemonListFormat pokemon= pokemonDao.getReferenceById(ITEM);
+        PokemonListFormat pokemon= pokemonRepository.getPokemonById(ITEM);
         image=pokemon.getImagen();
         return image;
     }

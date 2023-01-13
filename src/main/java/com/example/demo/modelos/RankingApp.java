@@ -1,7 +1,7 @@
-package com.example.demo.models;
+package com.example.demo.modelos;
 
 
-import com.example.demo.models.claves.Rankin_id;
+import com.example.demo.modelos.claves.Rankin_id;
 import jakarta.persistence.*;
 
 import java.io.Serializable;

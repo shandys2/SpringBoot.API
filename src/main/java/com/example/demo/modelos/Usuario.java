@@ -1,27 +1,33 @@
-package com.example.demo.models;
+package com.example.demo.modelos;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "USUARIOS")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
     private Integer user_id;
-
-    @Column(name = "nombre", nullable = false)
+    @NotBlank(message = "El nombre no puede ser nulo, cadena vacia o espacios en blanco")
+    @Column(name = "nombre", nullable = false ,unique = true)
     private String nombre;
-
+    @NotBlank(message = "El password no puede ser nulo, cadena vacia o espacios en blanco")
     @Column(name = "password", nullable = false)
     private String password;
-
-    @Column(name="email", nullable = true)
+    @Email(message = "El email tiene que tener un formato correcto")
+    @Column(name="email", nullable = true ,unique = true)
     private String email;
     public Usuario(){
     }
@@ -42,8 +48,38 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.nombre;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {

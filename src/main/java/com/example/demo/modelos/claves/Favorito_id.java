@@ -1,8 +1,10 @@
-package com.example.demo.models.claves;
+package com.example.demo.modelos.claves;
 
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.GeneratedValue;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,11 +16,19 @@ public class Favorito_id implements Serializable {
     private int user_id;
 
     @Column(name = "elemento_id", nullable = false)
-    private String elemento_id;
+    private int elemento_id;
 
     @Column(name = "app_id", nullable = false)
-    private String app_id;
+    private int app_id;
 
+    public Favorito_id(int user_id, int elemento_id, int app_id) {
+        this.user_id = user_id;
+        this.elemento_id = elemento_id;
+        this.app_id = app_id;
+    }
+
+    public Favorito_id() {
+    }
 
     public int getUser_id() {
         return user_id;
@@ -28,19 +38,19 @@ public class Favorito_id implements Serializable {
         this.user_id = user_id;
     }
 
-    public String getElemento_id() {
+    public int getElemento_id() {
         return elemento_id;
     }
 
-    public void setElemento_id(String elemento_id) {
+    public void setElemento_id(int elemento_id) {
         this.elemento_id = elemento_id;
     }
 
-    public String getApp_id() {
+    public int getApp_id() {
         return app_id;
     }
 
-    public void setApp_id(String app_id) {
+    public void setApp_id(int app_id) {
         this.app_id = app_id;
     }
 
@@ -56,7 +66,7 @@ public class Favorito_id implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUser_id(),getApp_id(),getElemento_id());
+        return Objects.hash(getUser_id(),getElemento_id(),getApp_id());
     }
 
 }

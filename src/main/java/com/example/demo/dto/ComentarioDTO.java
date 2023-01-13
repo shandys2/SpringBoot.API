@@ -1,4 +1,8 @@
-package com.example.demo.dtos;
+package com.example.demo.dto;
+
+import com.example.demo.modelos.Aplicacion;
+import com.example.demo.modelos.Usuario;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 

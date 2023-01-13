@@ -1,12 +1,18 @@
 package com.example.demo.controllers;
 
 
-import com.example.demo.modelos.*;
-import com.example.demo.daos.UsuarioDao;
+import com.example.demo.modelos.Aplicacion;
+import com.example.demo.modelos.Comentario;
+import com.example.demo.modelos.ElementoGeneral;
+import com.example.demo.modelos.ElementoListado;
 import com.example.demo.network.ConexionApi;
+import com.example.demo.repositories.AppRepository;
+import com.example.demo.repositories.ComentariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,59 +24,46 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    UsuarioDao repUsuario;
-    @Autowired
     ConexionApi conexionApi;
+    @Autowired
+    ComentariosRepository comentariosRepository;
+    @Autowired
+    AppRepository appRepository;
 
-    @PostMapping(value="/crearUsuario",consumes=MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
-    public Usuario crearUsuario(@RequestBody Usuario usuario) {
-        System.out.println("ANTES  ->" + usuario.getId());
-        repUsuario.save(usuario);  //Aqui ya le esta metiendo el id, esta mutando el usuario
-        System.out.println("DESPUES  ->" + usuario.getId());
-        return usuario;
-    }
-    @PostMapping(value="/borrarUsuario",consumes=MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
-    public Object borrarUsuario(@RequestBody Usuario usuario) {
+    @GetMapping("/dameApps")
+    public  List<Aplicacion> getApps() {
 
-     String respuesta;
-        try {
-            repUsuario.deleteById(usuario.getId());
-        }catch (Exception e){
-            respuesta="Ha habido un error";
-            return respuesta;
-        }
-     //Aqui ya le esta metiendo el id, esta mutando el usuario
-
-        return "usuario "+usuario.getNombre()+" eliminado";
-    }
-
-    @GetMapping("/login")
-    public boolean logear(@RequestParam String nombre, @RequestParam String password) {
-
-        Usuario usuario = repUsuario.getUsuarioByName(nombre);
-        if(usuario != null){
-            return usuario.getPassword().equals(password);
-        }
-        return false;
+        List<Aplicacion> listado =new ArrayList<>();
+        Aplicacion app1= new Aplicacion(1,"FREE TO GAME",3.6);
+        Aplicacion app2= new Aplicacion(2,"POKEDEX",4.5);
+        Aplicacion app3= new Aplicacion(3,"NETFLIZ",4.7);
+        listado.add(app1);
+        listado.add(app2);
+        listado.add(app3);
+        return listado;
     }
     @GetMapping("/dameListado")
     public  List<ElementoListado> getListado(@RequestParam int api) throws IOException {
 
-      conexionApi.setApiForList(api);
-      List<ElementoListado> listado =conexionApi.getListadoItems();
-        return listado;
-    }
+        List<ElementoListado> listado=null;
 
+        if(api==1 || api==2 || api==3){
+            conexionApi.setApiForList(api);
+            listado =conexionApi.getListadoItems();
+            return listado;
+        }
+       return listado;
+    }
 
     @GetMapping("/dameElemento")
     public ElementoGeneral getElemento(@RequestParam int api , @RequestParam int item) throws IOException {
 
+        List<Comentario> listaComentarios= comentariosRepository.getComentariosItem(appRepository.getApp(api), String.valueOf(item));
+
         ElementoGeneral elemento;
         conexionApi.setApiForElement(api ,item);
         elemento= conexionApi.getItem();
+        elemento.setComentarios(listaComentarios);
         return elemento;
     }
-
-
-
 }

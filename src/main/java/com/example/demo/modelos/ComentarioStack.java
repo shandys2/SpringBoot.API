@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.example.demo.modelos;
 
 import jakarta.persistence.*;
 
@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "COMENTARIOS_STACK")
 public class ComentarioStack implements Serializable {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

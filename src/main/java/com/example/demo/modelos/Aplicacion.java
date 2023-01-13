@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.example.demo.modelos;
 
 import jakarta.persistence.*;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -22,6 +22,12 @@ public class Aplicacion implements Serializable {
 
     @Column(name = "mediaPuntos", nullable = false)
     private double mediaPuntos;
+
+    public Aplicacion(int app_id, String nombre, double mediaPuntos) {
+        this.app_id = app_id;
+        this.nombre = nombre;
+        this.mediaPuntos = mediaPuntos;
+    }
 
     public Aplicacion(){}
     public String getNombre() {
