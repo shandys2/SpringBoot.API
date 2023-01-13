@@ -1,4 +1,4 @@
-package com.example.demo.modelos.claves;
+package com.example.demo.models.claves;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

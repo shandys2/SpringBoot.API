@@ -1,4 +1,4 @@
-package com.example.demo.modelos;
+package com.example.demo.models;
 
 import jakarta.persistence.*;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -13,7 +13,7 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id", nullable = false)
-    private Integer id;
+    private Integer user_id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -26,18 +26,12 @@ public class Usuario implements Serializable {
     public Usuario(){
     }
 
-    public Usuario(String nombre, String password, String email) {
-        this.nombre = nombre;
-        this.password = password;
-        this.email=email;
-    }
-
     public Integer getId() {
-        return id;
+        return user_id;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.user_id = id;
     }
 
     public String getNombre() {

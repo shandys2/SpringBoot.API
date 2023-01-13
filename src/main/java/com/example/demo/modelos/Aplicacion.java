@@ -1,17 +1,20 @@
-package com.example.demo.modelos;
+package com.example.demo.models;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "APLICACIONES")
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class Aplicacion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "app_id", nullable = false)
-    private int id;
+    private int app_id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -20,14 +23,7 @@ public class Aplicacion implements Serializable {
     @Column(name = "mediaPuntos", nullable = false)
     private double mediaPuntos;
 
-    public Aplicacion(){
-
-    }
-    public Aplicacion(String nombre, double mediaPuntos ) {
-        this.nombre = nombre;
-        this.mediaPuntos = mediaPuntos;
-    }
-
+    public Aplicacion(){}
     public String getNombre() {
         return nombre;
     }
@@ -36,12 +32,19 @@ public class Aplicacion implements Serializable {
         this.nombre = nombre;
     }
 
-    public double getEstrellas() {
+    public int getApp_id() {
+        return app_id;
+    }
+
+    public void setApp_id(int app_id) {
+        this.app_id = app_id;
+    }
+
+    public double getMediaPuntos() {
         return mediaPuntos;
     }
 
-    public void setEstrellas(double mediaPuntos) {
-        this.mediaPuntos = this.mediaPuntos;
-
+    public void setMediaPuntos(double mediaPuntos) {
+        this.mediaPuntos = mediaPuntos;
     }
 }
