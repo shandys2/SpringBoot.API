@@ -136,7 +136,7 @@
     "version": "2019-05-21",
     "publisher": "Phoenix Labs",
     "genero": "MMORPG",
-    "cosas": {
+    "detalles": {
         "valor5": "valorrrrrrr",
         "valor4": "valorrrrrrr",
         "valor1": "valorrrrrrr",
@@ -155,9 +155,9 @@
                 "email": "***@xxx.com",
                 "id": 1,
                 "enabled": true,
+                "username": "dani",
                 "credentialsNonExpired": true,
                 "accountNonExpired": true,
-                "username": "dani",
                 "accountNonLocked": true,
                 "authorities": null
             },
@@ -179,9 +179,9 @@
                 "email": "***@xxx.com",
                 "id": 1,
                 "enabled": true,
+                "username": "dani",
                 "credentialsNonExpired": true,
                 "accountNonExpired": true,
-                "username": "dani",
                 "accountNonLocked": true,
                 "authorities": null
             },
