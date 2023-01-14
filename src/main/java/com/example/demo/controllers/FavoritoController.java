@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 
-import com.example.demo.modelos.ElementoListado;
 import com.example.demo.modelos.Favorito;
 import com.example.demo.repositories.FavoritoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

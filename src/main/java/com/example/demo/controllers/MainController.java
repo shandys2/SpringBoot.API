@@ -7,7 +7,8 @@ import com.example.demo.modelos.ElementoGeneral;
 import com.example.demo.modelos.ElementoListado;
 import com.example.demo.network.ConexionApi;
 import com.example.demo.repositories.AppRepository;
-import com.example.demo.repositories.ComentariosRepository;
+import com.example.demo.repositories.ComentarioRepository;
+import com.example.demo.repositories.ComentarioAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,9 @@ public class MainController {
     @Autowired
     ConexionApi conexionApi;
     @Autowired
-    ComentariosRepository comentariosRepository;
+    ComentarioRepository comentariosRepository;
+    @Autowired
+    ComentarioAppRepository comentariosStackRepository;
     @Autowired
     AppRepository appRepository;
 
@@ -37,6 +40,8 @@ public class MainController {
         Aplicacion app1= new Aplicacion(1,"FREE TO GAME",3.6);
         Aplicacion app2= new Aplicacion(2,"POKEDEX",4.5);
         Aplicacion app3= new Aplicacion(3,"NETFLIZ",4.7);
+
+       // app3.setListaComentarios();
         listado.add(app1);
         listado.add(app2);
         listado.add(app3);

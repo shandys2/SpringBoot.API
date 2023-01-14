@@ -29,7 +29,6 @@ public class AuthController {
     AuthenticationManager authManager;
     @Autowired
     UsuarioRepository usuarioRepository;
-
     @PostMapping(value="/crearUsuario",consumes= MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
     public Usuario crearUsuario(@RequestBody @Valid Usuario usuario) {
 

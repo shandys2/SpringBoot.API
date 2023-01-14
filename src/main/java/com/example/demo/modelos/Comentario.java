@@ -12,16 +12,12 @@ public class Comentario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "comment_id", nullable = false)
     private int id;
-
     @Column(name = "comment_text", nullable = false)
     private String comment_text;
-
     @Column(name = "hora", nullable = false)
     private String hora;
-
     @Column(name = "elemento_id", nullable = false)
     private String elemento_id;  // se usa para hacer la llamada a la api correspondiente
-
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id" ,nullable = false)

@@ -1,6 +1,5 @@
 package com.example.demo.repositories;
 
-import com.example.demo.daos.AplicacionDao;
 import com.example.demo.daos.ComentarioDao;
 import com.example.demo.modelos.Aplicacion;
 import com.example.demo.modelos.Comentario;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ComentariosRepository {
+public class ComentarioRepository {
 
     @Autowired
     ComentarioDao comentarioDao;

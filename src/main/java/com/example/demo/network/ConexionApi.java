@@ -141,14 +141,14 @@ public class ConexionApi {
                         elemento.setGenero(jsonObject.getString("genre"));
                         elemento.setPublisher(jsonObject.getString("publisher"));
                         elemento.setVersion(jsonObject.getString("release_date"));
-                        HashMap<Object,Object> cosasJuegos= new HashMap<>();
-                        cosasJuegos.put("valor1", "valorrrrrrr");
-                        cosasJuegos.put("valor2", "valorrrrrrr");
-                        cosasJuegos.put("valor3", "valorrrrrrr");
-                        cosasJuegos.put("valor4", "valorrrrrrr");
-                        cosasJuegos.put("valor5", "valorrrrrrr");
+                        HashMap<Object,Object> detalles= new HashMap<>();
+                        detalles.put("valor1", "valorrrrrrr");
+                        detalles.put("valor2", "valorrrrrrr");
+                        detalles.put("valor3", "valorrrrrrr");
+                        detalles.put("valor4", "valorrrrrrr");
+                        detalles.put("valor5", "valorrrrrrr");
 
-                        elemento.setCosas(cosasJuegos);
+                        elemento.setDetalles(detalles);
                         break;
                     case 2 :
                         elemento=new ElementoGeneral();
@@ -174,7 +174,7 @@ public class ConexionApi {
                         cosasRow.put("habilidad2", "valorrrrrrr");
                         cosas.put("habilidades",cosasRow);
 
-                        ((ElementoGeneral) elemento).setCosas(cosas);
+                        ((ElementoGeneral) elemento).setDetalles(cosas);
                         //stats :   (dimensiones)altura peso  : habilidades
                         break;
                     case 3 :
@@ -196,7 +196,7 @@ public class ConexionApi {
                         cosasNetflix.put("valor7", "valorrrrrrr");
                         cosasNetflix.put("valor8", "valorrrrrrr");
                         cosasNetflix.put("valor9", "valorrrrrrr");
-                        ((ElementoGeneral) elemento).setCosas(cosasNetflix);
+                        ((ElementoGeneral) elemento).setDetalles(cosasNetflix);
                         break;
                 }
             }catch (Exception e){

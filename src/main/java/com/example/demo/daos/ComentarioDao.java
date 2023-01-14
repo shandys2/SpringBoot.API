@@ -2,7 +2,6 @@ package com.example.demo.daos;
 
 import com.example.demo.modelos.Aplicacion;
 import com.example.demo.modelos.Comentario;
-import com.example.demo.modelos.Usuario;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -2,7 +2,7 @@
 
 ## AUTH CONTROLLER
 
-1. [http://10.10.12.87:8080/auth/crearUsuario](http://10.10.12:8080/auth/crearUsuario)
+### 1.  [http://10.10.12.87:8080/auth/crearUsuario](http://10.10.12:8080/auth/crearUsuario)
 
 **Metodo**
 `POST`
@@ -32,7 +32,7 @@
 "accountNonLocked": true}
 ```
 
-2. [http://10.10.12.87:8080/auth/login](http://10.10.12:8080/auth/login)
+### 2.  [http://10.10.12.87:8080/auth/login](http://10.10.12:8080/auth/login)
 
 **Metodo**
 `POST`
@@ -60,7 +60,7 @@
 
 ## MAIN CONTROLLER
 
-1. [http://10.10.12.87:8080/main/dameApps](http://10.10.12:8080/main/dameApps)
+### 1.  [http://10.10.12.87:8080/main/dameApps](http://10.10.12:8080/main/dameApps)
 
 **Metodo**
 `GET`
@@ -91,7 +91,7 @@
 ```
 
 
-2. [http://10.10.12.87:8080/main/dameListado?api=1](http://10.10.12:8080/main/dameListado?api=1)
+### 2.  [http://10.10.12.87:8080/main/dameListado?api=1](http://10.10.12:8080/main/dameListado?api=1)
 
 **Metodo**
 `GET`
@@ -117,7 +117,7 @@
 ]
 ```
 
-3. [http://10.10.12.87:8080/main/dameElemento?api=?1&item=1](http://10.10.12:8080/main/dameElemento?api=1&item=1)
+### 3.  [http://10.10.12.87:8080/main/dameElemento?api=?1&item=1](http://10.10.12:8080/main/dameElemento?api=1&item=1)
 
 **Metodo**
 `GET`
@@ -136,6 +136,13 @@
     "version": "2019-05-21",
     "publisher": "Phoenix Labs",
     "genero": "MMORPG",
+    "cosas": {
+        "valor5": "valorrrrrrr",
+        "valor4": "valorrrrrrr",
+        "valor1": "valorrrrrrr",
+        "valor3": "valorrrrrrr",
+        "valor2": "valorrrrrrr"
+    },
     "comentarios": [
         {
             "id": 1,
@@ -144,20 +151,21 @@
             "elemento_id": "1",
             "user_id": {
                 "nombre": "dani",
-                "password": "$2a$10$NEVQJZplIn17/H97YadaFO8OKq9e.KdJbSnO66WRVHwxzQrLB8skm",
-                "email": "dani@gmail.com",
+                "password": "***",
+                "email": "***@xxx.com",
                 "id": 1,
                 "enabled": true,
-                "username": "dani",
-                "authorities": null,
-                "accountNonLocked": true,
                 "credentialsNonExpired": true,
-                "accountNonExpired": true
+                "accountNonExpired": true,
+                "username": "dani",
+                "accountNonLocked": true,
+                "authorities": null
             },
             "app_id": {
                 "app_id": 1,
                 "nombre": "FreeToGame",
-                "mediaPuntos": 7.6
+                "mediaPuntos": 7.6,
+                "listaComentarios": null
             }
         },
         {
@@ -167,37 +175,31 @@
             "elemento_id": "1",
             "user_id": {
                 "nombre": "dani",
-                "password": "$2a$10$NEVQJZplIn17/H97YadaFO8OKq9e.KdJbSnO66WRVHwxzQrLB8skm",
-                "email": "dani@gmail.com",
+                "password": "***",
+                "email": "***@xxx.com",
                 "id": 1,
                 "enabled": true,
-                "username": "dani",
-                "authorities": null,
-                "accountNonLocked": true,
                 "credentialsNonExpired": true,
-                "accountNonExpired": true
+                "accountNonExpired": true,
+                "username": "dani",
+                "accountNonLocked": true,
+                "authorities": null
             },
             "app_id": {
                 "app_id": 1,
                 "nombre": "FreeToGame",
-                "mediaPuntos": 7.6
+                "mediaPuntos": 7.6,
+                "listaComentarios": null
             }
         }
-    ],
-    "cosas": {
-        "valor5": "valorrrrrrr",
-        "valor4": "valorrrrrrr",
-        "valor1": "valorrrrrrr",
-        "valor3": "valorrrrrrr",
-        "valor2": "valorrrrrrr"
-    }
+    ]
 }
 ```
 
 ## USUARIOS CONTROLLER
 
 
-1. [http://10.10.12.87:8080/auth/borrarUsuario?user_id=1 ](http://10.10.12.87:8080/auth/borrarUsuario?user_id=1 )
+### 1.  [http://10.10.12.87:8080/auth/borrarUsuario?user_id=1 ](http://10.10.12.87:8080/auth/borrarUsuario?user_id=1 )
 
 **Metodo**
 `GET`
@@ -212,7 +214,7 @@ usuario con id  xxx eliminado
 ```
 ## FAVORITOS CONTROLLER
 
-1. [http://localhost:8080/favorito/crearFavorito](http://localhost:8080/favorito/crearFavorito)
+### 1.  [http://localhost:8080/favorito/cambiarFavorito](http://localhost:8080/favorito/cambiarFavorito)
 
 **Metodo**
 `POST`
@@ -227,8 +229,8 @@ usuario con id  xxx eliminado
               "elemento_id": "X",
               "app_id": "X"}
 }
-```
 
+```
 **STRING RESPONSE**
 ```
 FAVORITO GUARDADO
@@ -238,9 +240,9 @@ O
 FAVORITO ELIMINADO
 ```
 
-2. [http://localhost:8080/favorito/dameFavoritos?user_id=1](http://localhost:8080/favorito/dameFavoritos?user_id=1)
+### 2.  [http://localhost:8080/favorito/dameFavoritos?user_id=1](http://localhost:8080/favorito/dameFavoritos?user_id=1)
 
-**Metodo**
+**Método**
 `GET`
 
 **TOKEN**
@@ -269,7 +271,7 @@ FAVORITO ELIMINADO
 
 ## COMENTARIOS CONTROLLER
 
-1. [http://localhost:8080/comentario/crearComentario](http://localhost:8080/comentario/crearComentario)
+### 1.  [http://localhost:8080/comentario/crearComentario](http://localhost:8080/comentario/crearComentario)
 
 **Metodo**
 `POST`
@@ -315,3 +317,20 @@ FAVORITO ELIMINADO
 
 
 ## RANKING APP CONTROLLER
+
+### 1.  [http://localhost:8080/rankinkapp/crearRanking](http://localhost:8080/rankinkapp/crearRanking)
+
+**Metodo**
+`POST`
+
+**TOKEN**
+`SI`
+
+**JSON REQUEST**
+```
+
+```
+**JSON RESPONSE**
+```
+
+```

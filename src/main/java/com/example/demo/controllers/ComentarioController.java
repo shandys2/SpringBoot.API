@@ -5,7 +5,7 @@ import com.example.demo.modelos.Aplicacion;
 import com.example.demo.modelos.Comentario;
 import com.example.demo.modelos.Usuario;
 import com.example.demo.repositories.AppRepository;
-import com.example.demo.repositories.ComentariosRepository;
+import com.example.demo.repositories.ComentarioRepository;
 import com.example.demo.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,9 +17,8 @@ import java.util.List;
 @RequestMapping("/comentario")
 public class ComentarioController {
 
-
     @Autowired
-    ComentariosRepository comentariosRepository;
+    ComentarioRepository comentariosRepository;
     @Autowired
     UsuarioRepository usuarioRepository;
     @Autowired

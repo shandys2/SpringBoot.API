@@ -1,22 +1,13 @@
 package com.example.demo.dto;
 
-import com.example.demo.modelos.Aplicacion;
-import com.example.demo.modelos.Usuario;
-import jakarta.persistence.*;
-
 import java.io.Serializable;
 
 public class ComentarioDTO implements Serializable {
     private int id;
-
     private String comment_text;
-
     private String hora;
-
     private String elemento_id;
-
     private Integer user_id;
-
     private Integer app_id;
 
     public int getId() {

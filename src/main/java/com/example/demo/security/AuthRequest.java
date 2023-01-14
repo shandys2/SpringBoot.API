@@ -1,7 +1,6 @@
 package com.example.demo.security;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -25,28 +25,21 @@ public class ElementoListado {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public String getImagen() {
         return imagen;
     }
-
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
-
-
     public static List<ElementoListado> parse(List<PokemonListFormat> lista)
     {
         List<ElementoListado> listado = new ArrayList<>();
