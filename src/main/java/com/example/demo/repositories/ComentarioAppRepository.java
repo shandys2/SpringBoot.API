@@ -1,22 +1,31 @@
 package com.example.demo.repositories;
 
 import com.example.demo.daos.ComentarioAppDao;
+import com.example.demo.modelos.Aplicacion;
+import com.example.demo.modelos.Comentario;
 import com.example.demo.modelos.ComentarioApp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class ComentarioAppRepository {
 
     @Autowired
-    ComentarioAppDao comentarioStackDao;
+    ComentarioAppDao comentarioAppDao;
 
 
-    public Object insertarComentarioStack(ComentarioApp comentario){
+    public Object insertarComentarioStack(ComentarioApp comentario) {
 
-        comentarioStackDao.save(comentario);
+        comentarioAppDao.save(comentario);
 
         return "";
     }
+    public List<ComentarioApp> getComentariosApp(Aplicacion app_id) {
 
+        List<ComentarioApp> listaComentarios = comentarioAppDao.getComentariosApp(app_id);
+
+        return listaComentarios;
+    }
 }

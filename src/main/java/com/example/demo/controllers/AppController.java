@@ -1,28 +1,39 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dto.AplicacionDTO;
 import com.example.demo.modelos.Aplicacion;
 import com.example.demo.repositories.AppRepository;
+import com.example.demo.repositories.ComentarioAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
-    @RequestMapping("/app")
-    public class AppController {
-        @Autowired
-        AppRepository appRepository;
+@RequestMapping("/app")
+public class AppController {
+    @Autowired
+    AppRepository appRepository;
+    @Autowired
+    ComentarioAppRepository comentarioAppRepository;
 
-        @PostMapping(value="/crearApp",consumes= MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
-        public Aplicacion crearApp(@RequestBody Aplicacion app) {
-            appRepository.insertarApp(app);
-            return app;
-        }
+    @GetMapping(value = "/dameApp", produces = MediaType.APPLICATION_JSON_VALUE)
+    public AplicacionDTO getApp(@RequestParam int app_id) {
 
-        @GetMapping(value="/getApp", produces= MediaType.APPLICATION_JSON_VALUE)
-        public Aplicacion getApp(@RequestBody Aplicacion app) {
-            Aplicacion aplicacion= appRepository.getApp(app.getApp_id());
-            return aplicacion;
-        }
+        AplicacionDTO aplicacion = appRepository.getAppWithComments(app_id);
+
+        return aplicacion;
+    }
+
+    @GetMapping("/dameApps")
+    public List<Aplicacion> getApps() {
+
+        List<Aplicacion> listado = appRepository.getAllApps();
+        return listado;
+    }
+
 
 }

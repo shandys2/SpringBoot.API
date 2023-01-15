@@ -22,12 +22,12 @@ public class ComentarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
     @Autowired
-   AppRepository appRepository;
+    AppRepository appRepository;
 
-    @PostMapping(value="/crearComentario",consumes= MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/crearComentario", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Comentario crearComentario(@RequestBody ComentarioDTO comentarioDTO) {
-        Usuario usuario =usuarioRepository.getUsuario(comentarioDTO.getUser_id());
-        Aplicacion app =appRepository.getApp(comentarioDTO.getApp_id());
+        Usuario usuario = usuarioRepository.getUsuario(comentarioDTO.getUser_id());
+        Aplicacion app = appRepository.getApp(comentarioDTO.getApp_id());
         Comentario comentario = new Comentario();
         comentario.setApp_id(app);
         comentario.setUser_id(usuario);
@@ -38,10 +38,11 @@ public class ComentarioController {
         comentariosRepository.insertarComentario(comentario);  //Aqui ya le esta metiendo el id, esta mutando el usuario
         return comentario;
     }
-    @GetMapping(value="/getComentarios", produces= MediaType.APPLICATION_JSON_VALUE)
-    public List<Comentario> getComentarios(@RequestParam String app_id,@RequestParam String elemento_id) {
-        Aplicacion app= appRepository.getApp(Integer.parseInt(app_id));
-        List<Comentario> listaComentarios= comentariosRepository.getComentariosItem(app, elemento_id);
+
+    @GetMapping(value = "/getComentarios", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Comentario> getComentarios(@RequestParam String app_id, @RequestParam String elemento_id) {
+        Aplicacion app = appRepository.getApp(Integer.parseInt(app_id));
+        List<Comentario> listaComentarios = comentariosRepository.getComentariosItem(app, elemento_id);
         return listaComentarios;
     }
 }

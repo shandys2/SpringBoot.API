@@ -19,21 +19,21 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         Map<String, Map<String, Object>> respuesta = new HashMap<>();
         List<Map<String, Object>> res = new ArrayList<>();
-        List<ObjectError> listaErrores =ex.getAllErrors();
+        List<ObjectError> listaErrores = ex.getAllErrors();
         System.out.println("*************       YA SE ESTA LIANDO!!!       ***************");
-        int i=0;
-        for (ObjectError error:listaErrores) {
+        int i = 0;
+        for (ObjectError error : listaErrores) {
             FieldError fieldError = (FieldError) error;
             Map<String, Object> mapError = new HashMap<>();
-            mapError.put("objeto",fieldError.getObjectName());
-            mapError.put("mensaje",fieldError.getDefaultMessage());
-            mapError.put("valorEnviado",fieldError.getRejectedValue());
-            mapError.put("campo",fieldError.getField());
-            mapError.put("codigo",fieldError.getCodes()[0]);
+            mapError.put("objeto", fieldError.getObjectName());
+            mapError.put("mensaje", fieldError.getDefaultMessage());
+            mapError.put("valorEnviado", fieldError.getRejectedValue());
+            mapError.put("campo", fieldError.getField());
+            mapError.put("codigo", fieldError.getCodes()[0]);
             respuesta.put(String.valueOf(i), mapError);
             res.add(mapError);
             i++;
-            System.out.println("ERROR  -> "+" OBJETO :  "+ fieldError.getObjectName() +"    MENSAJE : "+fieldError.getDefaultMessage()+"    VALOR ENVIADO : "+ fieldError.getRejectedValue());
+            System.out.println("ERROR  -> " + " OBJETO :  " + fieldError.getObjectName() + "    MENSAJE : " + fieldError.getDefaultMessage() + "    VALOR ENVIADO : " + fieldError.getRejectedValue());
         }
 
         System.out.println("*************       FIN REGISTRO ERROR       ***************");

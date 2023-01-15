@@ -12,9 +12,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories({"com.example.demo"})
 public class API_SERVICE {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
+
 		SpringApplication.run(API_SERVICE.class, args);
-	}
+    }
 
 
 }

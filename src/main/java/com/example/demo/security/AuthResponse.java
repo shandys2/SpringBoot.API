@@ -6,7 +6,7 @@ public class AuthResponse {
     String accessToken;
 
     public AuthResponse(Integer user_id, String username, String accessToken) {
-        this.user_id=user_id;
+        this.user_id = user_id;
         this.username = username;
         this.accessToken = accessToken;
     }

@@ -10,7 +10,7 @@
 **TOKEN**
 `NO`
 
-**JSON  REQUEST**
+**JSON REQUEST**
 
 ```
 {"nombre" : "XXXXX",
@@ -19,6 +19,7 @@
 ```
 
 **JSON RESPONSE**
+
 ```
 {"nombre": "maider",
 "password": "$2a$10$HX9cG/0Kh4Zy6ODQoAHoUOvjmTjwGXcSMc5jIiIY09GAFb8l5dptu",
@@ -40,7 +41,7 @@
 **TOKEN**
 `NO`
 
-**JSON  REQUEST**
+**JSON REQUEST**
 
 ```
 {
@@ -50,6 +51,7 @@
 ```
 
 **JSON RESPONSE**
+
 ```
 {
 "user_id": 153,
@@ -60,7 +62,8 @@
 
 ## MAIN CONTROLLER
 
-### 1.  [http://10.10.12.87:8080/main/dameApps](http://10.10.12:8080/main/dameApps)
+
+### 1.  [http://10.10.12.87:8080/main/dameListado?api=1](http://10.10.12:8080/main/dameListado?api=1)
 
 **Metodo**
 `GET`
@@ -68,39 +71,8 @@
 **TOKEN**
 `SI`
 
-
 **JSON RESPONSE**
-```
-[
-    {
-        "app_id": 1,
-        "nombre": "FREE TO GAME",
-        "mediaPuntos": 3.6
-    },
-    {
-        "app_id": 2,
-        "nombre": "POKEDEX",
-        "mediaPuntos": 4.5
-    },
-    {
-        "app_id": 3,
-        "nombre": "NETFLIZ",
-        "mediaPuntos": 4.7
-    }
-]
-```
 
-
-### 2.  [http://10.10.12.87:8080/main/dameListado?api=1](http://10.10.12:8080/main/dameListado?api=1)
-
-**Metodo**
-`GET`
-
-**TOKEN**
-`SI`
-
-
-**JSON RESPONSE**
 ```
 [
     {
@@ -117,7 +89,7 @@
 ]
 ```
 
-### 3.  [http://10.10.12.87:8080/main/dameElemento?api=?1&item=1](http://10.10.12:8080/main/dameElemento?api=1&item=1)
+### 2.  [http://10.10.12.87:8080/main/dameElemento?api=?1&item=1](http://10.10.12:8080/main/dameElemento?api=1&item=1)
 
 **Metodo**
 `GET`
@@ -126,6 +98,7 @@
 `SI`
 
 **JSON RESPONSE**
+
 ```
 {
     "id": 1,
@@ -198,8 +171,7 @@
 
 ## USUARIOS CONTROLLER
 
-
-### 1.  [http://10.10.12.87:8080/auth/borrarUsuario?user_id=1 ](http://10.10.12.87:8080/auth/borrarUsuario?user_id=1 )
+### 1.  [http://10.10.12.87:8080/usuario/borrarUsuario?user_id=1 ](http://10.10.12.87:8080/usuario/borrarUsuario?user_id=1 )
 
 **Metodo**
 `GET`
@@ -207,11 +179,85 @@
 **TOKEN**
 `SI`
 
-
 **STRING RESPONSE**
+
 ```
 usuario con id  xxx eliminado
 ```
+
+## APP CONTROLLER
+
+### 1.  [http://10.10.12.87:8080/main/dameApps](http://10.10.12:8080/main/dameApps)
+
+**Metodo**
+`GET`
+
+**TOKEN**
+`SI`
+
+**JSON RESPONSE**
+
+```
+[
+    {
+        "app_id": 1,
+        "nombre": "FREE TO GAME",
+        "descripcion": "descripcion freetogame....",
+        "mediaPuntos": 3.6,
+        "listaComentarios": null
+    },
+    {
+        "app_id": 2,
+        "nombre": "POKEDEX",
+        "descripcion": "descripcion pokedex....",
+        "mediaPuntos": 4.5,
+        "listaComentarios": null
+    },
+    {
+        "app_id": 3,
+        "nombre": "NETFLIX",
+        "descripcion": "descripcion netflix....",
+        "mediaPuntos": 4.7,
+        "listaComentarios": null
+    }
+]]
+```
+### 1.  [http://10.10.12.87:8080/main/dameApp](http://10.10.12:8080/main/dameApp)
+
+**Metodo**
+`GET`
+
+**TOKEN**
+`SI`
+
+**JSON RESPONSE**
+
+```
+{
+    "app_id": 1,
+    "nombre": "FREE TO GAME",
+    "descripcion": "descripcion freetogame....",
+    "mediaPuntos": 3.6,
+    "listaComentarios": [
+        {
+            "comment_text": "comentario numero 0",
+            "hora": "11:00",
+            "username": "dani"
+        },
+        {
+            "comment_text": "comentario numero 0",
+            "hora": "11:00",
+            "username": "maider"
+        },
+        {
+            "comment_text": "comentario numero 0",
+            "hora": "11:00",
+            "username": "willy"
+        }
+    ]
+}
+```
+
 ## FAVORITOS CONTROLLER
 
 ### 1.  [http://localhost:8080/favorito/cambiarFavorito](http://localhost:8080/favorito/cambiarFavorito)
@@ -223,6 +269,7 @@ usuario con id  xxx eliminado
 `SI`
 
 **JSON REQUEST**
+
 ```
 {"favoritoId":{
               "user_id": "X",
@@ -231,11 +278,15 @@ usuario con id  xxx eliminado
 }
 
 ```
+
 **STRING RESPONSE**
+
 ```
 FAVORITO GUARDADO
 ```
+
 O
+
 ```
 FAVORITO ELIMINADO
 ```
@@ -249,6 +300,7 @@ FAVORITO ELIMINADO
 `SI`
 
 **JSON RESPONSE**
+
 ```
 [
     {
@@ -268,7 +320,6 @@ FAVORITO ELIMINADO
 ]
 ```
 
-
 ## COMENTARIOS CONTROLLER
 
 ### 1.  [http://localhost:8080/comentario/crearComentario](http://localhost:8080/comentario/crearComentario)
@@ -280,6 +331,7 @@ FAVORITO ELIMINADO
 `SI`
 
 **JSON REQUEST**
+
 ```
 {"comment_text":"XXXXX XXX XX XXXXXXX XXXX XXXX",
 "hora":"XX:X",
@@ -288,7 +340,9 @@ FAVORITO ELIMINADO
 "app_id":"X"
 }
 ```
+
 **JSON RESPONSE**
+
 ```
 {
     "id": 52,
@@ -315,7 +369,6 @@ FAVORITO ELIMINADO
 }
 ```
 
-
 ## RANKING APP CONTROLLER
 
 ### 1.  [http://localhost:8080/rankinkapp/crearRanking](http://localhost:8080/rankinkapp/crearRanking)
@@ -327,10 +380,13 @@ FAVORITO ELIMINADO
 `SI`
 
 **JSON REQUEST**
+
 ```
 
 ```
+
 **JSON RESPONSE**
+
 ```
 
 ```

@@ -33,7 +33,7 @@ public class ConexionApi {
     final String URL_NETFLIX_LIST = "https://api.tvmaze.com/shows";
     final String URL_FREE_TO_PLAY_ELEMENT = "https://www.freetogame.com/api/game?id=";
     final String URL_POKEAPI_ELEMENT = "https://pokeapi.co/api/v2/pokemon-form/";
-    final String URL_NETFLIX_ELEMENT = URL_NETFLIX_LIST+"/";
+    final String URL_NETFLIX_ELEMENT = URL_NETFLIX_LIST + "/";
     URL urlGame;
     URL urlPoke;
     URL urlNetflix;
@@ -47,16 +47,17 @@ public class ConexionApi {
     Integer ITEM;
     List<ElementoListado> listaElementos;
 
-    public ConexionApi() throws MalformedURLException {}
+    public ConexionApi() throws MalformedURLException {
+    }
 
     public void setApiForList(int api) throws IOException {
-        this.API=api;
+        this.API = api;
         setUrlForList();
     }
 
-    public void setApiForElement(int api ,int item) throws IOException {
-        this.API=api;
-        this.ITEM =item;
+    public void setApiForElement(int api, int item) throws IOException {
+        this.API = api;
+        this.ITEM = item;
         setUrlForElement();
     }
 
@@ -69,7 +70,7 @@ public class ConexionApi {
                 urlConnection = (HttpURLConnection) urlGame.openConnection();
                 break;
             case 2:
-                this.urlPoke = new URL(URL_POKEAPI_ELEMENT +ITEM);
+                this.urlPoke = new URL(URL_POKEAPI_ELEMENT + ITEM);
                 urlConnection = (HttpURLConnection) urlPoke.openConnection();
                 break;
             case 3:
@@ -82,6 +83,7 @@ public class ConexionApi {
 
         conectar();
     }
+
     public void setUrlForList() throws IOException {
         this.urlGame = new URL(URL_FREE_TO_PLAY_LIST);
         this.urlPoke = new URL(URL_POKEAPI_LIST);
@@ -114,94 +116,95 @@ public class ConexionApi {
             reader = new BufferedReader(new InputStreamReader(inputStream));
         }
     }
+
     public ElementoGeneral getItem() throws IOException {
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuffer.append(line); // salida por consola con salto de linea  mientras haya más registros
+        String line;
+        while ((line = reader.readLine()) != null) {
+            stringBuffer.append(line); // salida por consola con salto de linea  mientras haya más registros
+        }
+
+        if (stringBuffer.length() == 0) {
+            return null;
+        }
+        response = stringBuffer.toString();
+
+        ElementoGeneral elemento = null;
+
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+
+            switch (API) {
+                case 1:
+                    elemento = new ElementoGeneral();
+                    elemento.setId(jsonObject.getInt("id"));
+                    elemento.setName(jsonObject.getString("title"));
+                    elemento.setImage(jsonObject.getString("thumbnail"));
+                    elemento.setDescription(jsonObject.getString("description"));
+                    elemento.setGenero(jsonObject.getString("genre"));
+                    elemento.setPublisher(jsonObject.getString("publisher"));
+                    elemento.setVersion(jsonObject.getString("release_date"));
+                    HashMap<Object, Object> detalles = new HashMap<>();
+                    detalles.put("valor1", "valorrrrrrr");
+                    detalles.put("valor2", "valorrrrrrr");
+                    detalles.put("valor3", "valorrrrrrr");
+                    detalles.put("valor4", "valorrrrrrr");
+                    detalles.put("valor5", "valorrrrrrr");
+
+                    elemento.setDetalles(detalles);
+                    break;
+                case 2:
+                    elemento = new ElementoGeneral();
+                    elemento.setId(jsonObject.getInt("id"));
+                    elemento.setName(jsonObject.getJSONObject("pokemon").getString("name"));
+                    elemento.setVersion(jsonObject.getJSONObject("version_group").getString("name"));
+                    elemento.setGenero(parseTiposPokemon(jsonObject.getJSONArray("types")));
+                    elemento.setPublisher("GAME FREAK");
+                    elemento.setImage(getPokemonImage());
+                    elemento.setDescription(getPokemonDescription());
+                    HashMap<Object, Object> cosas = new HashMap<>();
+                    HashMap<Object, Object> cosasRow = new HashMap<>();
+                    cosasRow.put("stats 1", "valorrrrrrr");
+                    cosasRow.put("stats 2", "valorrrrrrr");
+                    cosasRow.put("stats 3", "valorrrrrrr");
+                    cosas.put("stats", cosasRow);
+                    cosasRow = new HashMap<>();
+                    cosasRow.put("altura", "valorrrrrrr");
+                    cosasRow.put("peso", "valorrrrrrr");
+                    cosas.put("dimensiones", cosasRow);
+                    cosasRow = new HashMap<>();
+                    cosasRow.put("habilidad1", "valorrrrrrr");
+                    cosasRow.put("habilidad2", "valorrrrrrr");
+                    cosas.put("habilidades", cosasRow);
+
+                    ((ElementoGeneral) elemento).setDetalles(cosas);
+                    //stats :   (dimensiones)altura peso  : habilidades
+                    break;
+                case 3:
+                    elemento = new ElementoGeneral();
+                    elemento.setId(jsonObject.getInt("id"));
+                    elemento.setName(jsonObject.getString("name"));
+                    elemento.setImage(jsonObject.getJSONObject("image").getString("medium"));
+                    elemento.setDescription(jsonObject.getString("summary"));
+                    elemento.setPublisher(jsonObject.getJSONObject("network").getString("name"));
+                    elemento.setVersion(jsonObject.getString("premiered"));
+                    elemento.setGenero(parseGeneros(jsonObject.getJSONArray("genres")));
+                    HashMap<Object, Object> cosasNetflix = new HashMap<>();
+                    cosasNetflix.put("valor1", "valorrrrrrr");
+                    cosasNetflix.put("valor2", "valorrrrrrr");
+                    cosasNetflix.put("valor3", "valorrrrrrr");
+                    cosasNetflix.put("valor4", "valorrrrrrr");
+                    cosasNetflix.put("valor5", "valorrrrrrr");
+                    cosasNetflix.put("valor6", "valorrrrrrr");
+                    cosasNetflix.put("valor7", "valorrrrrrr");
+                    cosasNetflix.put("valor8", "valorrrrrrr");
+                    cosasNetflix.put("valor9", "valorrrrrrr");
+                    ((ElementoGeneral) elemento).setDetalles(cosasNetflix);
+                    break;
             }
-
-            if (stringBuffer.length() == 0) {
-                return null;
-            }
-            response = stringBuffer.toString();
-
-            ElementoGeneral elemento = null;
-
-            try {
-                JSONObject jsonObject = new JSONObject(response);
-
-                switch (API){
-                    case 1 :
-                        elemento=new ElementoGeneral();
-                        elemento.setId(jsonObject.getInt("id"));
-                        elemento.setName(jsonObject.getString("title"));
-                        elemento.setImage(jsonObject.getString("thumbnail"));
-                        elemento.setDescription(jsonObject.getString("description"));
-                        elemento.setGenero(jsonObject.getString("genre"));
-                        elemento.setPublisher(jsonObject.getString("publisher"));
-                        elemento.setVersion(jsonObject.getString("release_date"));
-                        HashMap<Object,Object> detalles= new HashMap<>();
-                        detalles.put("valor1", "valorrrrrrr");
-                        detalles.put("valor2", "valorrrrrrr");
-                        detalles.put("valor3", "valorrrrrrr");
-                        detalles.put("valor4", "valorrrrrrr");
-                        detalles.put("valor5", "valorrrrrrr");
-
-                        elemento.setDetalles(detalles);
-                        break;
-                    case 2 :
-                        elemento=new ElementoGeneral();
-                        elemento.setId(jsonObject.getInt("id"));
-                        elemento.setName(jsonObject.getJSONObject("pokemon").getString("name"));
-                        elemento.setVersion(jsonObject.getJSONObject("version_group").getString("name"));
-                        elemento.setGenero(parseTiposPokemon(jsonObject.getJSONArray("types")));
-                        elemento.setPublisher("GAME FREAK");
-                        elemento.setImage(getPokemonImage());
-                        elemento.setDescription( getPokemonDescription());
-                        HashMap<Object,Object> cosas= new HashMap<>();
-                        HashMap<Object,Object> cosasRow= new HashMap<>();
-                        cosasRow.put("stats 1", "valorrrrrrr");
-                        cosasRow.put("stats 2", "valorrrrrrr");
-                        cosasRow.put("stats 3", "valorrrrrrr");
-                        cosas.put("stats",cosasRow);
-                        cosasRow= new HashMap<>();
-                        cosasRow.put("altura", "valorrrrrrr");
-                        cosasRow.put("peso", "valorrrrrrr");
-                        cosas.put("dimensiones",cosasRow);
-                        cosasRow= new HashMap<>();
-                        cosasRow.put("habilidad1", "valorrrrrrr");
-                        cosasRow.put("habilidad2", "valorrrrrrr");
-                        cosas.put("habilidades",cosasRow);
-
-                        ((ElementoGeneral) elemento).setDetalles(cosas);
-                        //stats :   (dimensiones)altura peso  : habilidades
-                        break;
-                    case 3 :
-                        elemento=new ElementoGeneral();
-                        elemento.setId(jsonObject.getInt("id"));
-                        elemento.setName(jsonObject.getString("name"));
-                        elemento.setImage(jsonObject.getJSONObject("image").getString("medium"));
-                        elemento.setDescription(jsonObject.getString("summary"));
-                        elemento.setPublisher(jsonObject.getJSONObject("network").getString("name"));
-                        elemento.setVersion(jsonObject.getString("premiered"));
-                        elemento.setGenero(parseGeneros(jsonObject.getJSONArray("genres")));
-                        HashMap<Object,Object> cosasNetflix= new HashMap<>();
-                        cosasNetflix.put("valor1", "valorrrrrrr");
-                        cosasNetflix.put("valor2", "valorrrrrrr");
-                        cosasNetflix.put("valor3", "valorrrrrrr");
-                        cosasNetflix.put("valor4", "valorrrrrrr");
-                        cosasNetflix.put("valor5", "valorrrrrrr");
-                        cosasNetflix.put("valor6", "valorrrrrrr");
-                        cosasNetflix.put("valor7", "valorrrrrrr");
-                        cosasNetflix.put("valor8", "valorrrrrrr");
-                        cosasNetflix.put("valor9", "valorrrrrrr");
-                        ((ElementoGeneral) elemento).setDetalles(cosasNetflix);
-                        break;
-                }
-            }catch (Exception e){
-            }
-                return elemento;
+        } catch (Exception e) {
+        }
+        return elemento;
     }
 
     public List<ElementoListado> getListadoItems() throws IOException {
@@ -215,20 +218,21 @@ public class ConexionApi {
             return null;
         }
         response = stringBuffer.toString();
-        listaElementos= new ArrayList<>(){};
+        listaElementos = new ArrayList<>() {
+        };
 
         try {
-            if (API==1){
+            if (API == 1) {
                 JSONArray jsonArray = new JSONArray(response);
 
-                for (int i = 0; i <jsonArray.length() ; i++) {
+                for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         JSONObject jsonObject = new JSONObject(jsonArray.getString(i));
-                        ElementoListado elementoListado=new ElementoListado();
+                        ElementoListado elementoListado = new ElementoListado();
 
-                        elementoListado.id=jsonObject.getInt("id");
-                        elementoListado.name=jsonObject.getString("title");
-                        elementoListado.imagen=jsonObject.getString("thumbnail");
+                        elementoListado.id = jsonObject.getInt("id");
+                        elementoListado.name = jsonObject.getString("title");
+                        elementoListado.imagen = jsonObject.getString("thumbnail");
 
                         listaElementos.add(elementoListado);
                         System.out.println(elementoListado.toString());
@@ -238,26 +242,26 @@ public class ConexionApi {
                     }
                 }
             }
-            if (API==2){
+            if (API == 2) {
 
-                List<PokemonListFormat> list= pokemonRepository.getAllPokemons();
-                if (list==null || list.size()==0){
-                    listaElementos=cargarPokemons();
-                }else {
-                    listaElementos=  ElementoListado.parse(list);
+                List<PokemonListFormat> list = pokemonRepository.getAllPokemons();
+                if (list == null || list.size() == 0) {
+                    listaElementos = cargarPokemons();
+                } else {
+                    listaElementos = ElementoListado.parse(list);
                 }
             }
-            if (API==3){
+            if (API == 3) {
                 JSONArray jsonarray = new JSONArray(response);
 
-                for (int i = 0; i < jsonarray.length(); i++){
+                for (int i = 0; i < jsonarray.length(); i++) {
 
                     JSONObject jsonObject = jsonarray.getJSONObject(i);
 
-                    ElementoListado elementoListado =new ElementoListado();
-                    elementoListado.name=jsonObject.getString("name");
-                    elementoListado.id=jsonObject.getInt("id");
-                    elementoListado.imagen=jsonObject.getJSONObject("image").getString("medium");
+                    ElementoListado elementoListado = new ElementoListado();
+                    elementoListado.name = jsonObject.getString("name");
+                    elementoListado.id = jsonObject.getInt("id");
+                    elementoListado.imagen = jsonObject.getJSONObject("image").getString("medium");
                     listaElementos.add(elementoListado);
                     System.out.println(elementoListado.toString());
 
@@ -273,26 +277,26 @@ public class ConexionApi {
     }
 
     public String parseGeneros(JSONArray array) throws JSONException {
-        String generos="";
+        String generos = "";
 
-        for (int i = 0; i <array.length() ; i++) {
-            generos=generos+array.get(i)+";";
+        for (int i = 0; i < array.length(); i++) {
+            generos = generos + array.get(i) + ";";
         }
         return generos;
     }
 
     public String parseTiposPokemon(JSONArray array) throws JSONException {
-        String tipos="";
-        for (int i = 0; i <array.length() ; i++) {
-            tipos=tipos+array.getJSONObject(i).getJSONObject("type").getString("name") + ";";
+        String tipos = "";
+        for (int i = 0; i < array.length(); i++) {
+            tipos = tipos + array.getJSONObject(i).getJSONObject("type").getString("name") + ";";
         }
         return tipos;
     }
 
     public String getPokemonDescription() throws IOException, JSONException {
 
-        URL urlPoke = new URL("https://pokeapi.co/api/v2/pokemon-species/"+ITEM);
-        List<ElementoListado> lista =new ArrayList<>();
+        URL urlPoke = new URL("https://pokeapi.co/api/v2/pokemon-species/" + ITEM);
+        List<ElementoListado> lista = new ArrayList<>();
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String response = null;
@@ -322,22 +326,23 @@ public class ConexionApi {
 
         response = stringBuffer.toString();
         JSONObject jsonObject = new JSONObject(response);
-        JSONArray jsonArray=jsonObject.getJSONArray("flavor_text_entries");
+        JSONArray jsonArray = jsonObject.getJSONArray("flavor_text_entries");
 
-        String descripcion="";
-        for (int i = 0; i <jsonArray.length() ; i++) {
-            if(jsonArray.getJSONObject(i).getJSONObject("language").getString("name").equals("en")){
-               descripcion=descripcion+jsonArray.getJSONObject(i).getString("flavor_text") +";";
+        String descripcion = "";
+        for (int i = 0; i < jsonArray.length(); i++) {
+            if (jsonArray.getJSONObject(i).getJSONObject("language").getString("name").equals("en")) {
+                descripcion = descripcion + jsonArray.getJSONObject(i).getString("flavor_text") + ";";
             }
         }
-        descripcion=descripcion.replaceAll("\\n"," ");
-        descripcion=descripcion.replaceAll("\\u000c"," ");
+        descripcion = descripcion.replaceAll("\\n", " ");
+        descripcion = descripcion.replaceAll("\\u000c", " ");
         return descripcion;
     }
+
     public List<ElementoListado> cargarPokemons() throws IOException, JSONException {
 
         URL urlPoke = new URL(URL_POKEAPI_LIST);
-        List<ElementoListado> lista =new ArrayList<>();
+        List<ElementoListado> lista = new ArrayList<>();
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String response = null;
@@ -367,13 +372,13 @@ public class ConexionApi {
         response = stringBuffer.toString();
         JSONObject objectListadoPokemon = new JSONObject(response);
         JSONArray arrayListadoPokemon = objectListadoPokemon.getJSONArray("results");
-        for (int i = 0; i < arrayListadoPokemon.length(); i++){
+        for (int i = 0; i < arrayListadoPokemon.length(); i++) {
 
-            ElementoListado elementoListado= new ElementoListado();
+            ElementoListado elementoListado = new ElementoListado();
             // item.id=arrayListadoPokemon.getJSONObject(i).getInt("id");
-            elementoListado.name= arrayListadoPokemon.getJSONObject(i).getString("name");
-            try{
-                URL urlPoke2=new URL("https://pokeapi.co/api/v2/pokemon-form/"+elementoListado.name+"/");
+            elementoListado.name = arrayListadoPokemon.getJSONObject(i).getString("name");
+            try {
+                URL urlPoke2 = new URL("https://pokeapi.co/api/v2/pokemon-form/" + elementoListado.name + "/");
                 urlConnection = (HttpURLConnection) urlPoke2.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
@@ -397,32 +402,32 @@ public class ConexionApi {
                 response = stringBuffer.toString();
 
                 JSONObject objectPokemon = new JSONObject(response);
-                elementoListado.id=objectPokemon.getInt("id");
-                elementoListado.imagen=objectPokemon.getJSONObject("sprites").getString("front_default");
+                elementoListado.id = objectPokemon.getInt("id");
+                elementoListado.imagen = objectPokemon.getJSONObject("sprites").getString("front_default");
 
-                if (elementoListado.imagen==null){
-                    System.out.println("ERROR POKEMON -->" +elementoListado.name + " NO AÑIADIDO POR FALTA DE IMAGEN");
+                if (elementoListado.imagen == null || elementoListado.imagen == "null") {
+                    System.out.println("ERROR POKEMON -->" + elementoListado.name + " NO AÑIADIDO POR FALTA DE IMAGEN");
 
-                }else{
+                } else {
                     System.out.println(elementoListado.toString());
                     lista.add(elementoListado);
-                    PokemonListFormat pokemon=  new PokemonListFormat(elementoListado.getName(), elementoListado.getImagen());
+                    PokemonListFormat pokemon = new PokemonListFormat(elementoListado.getName(), elementoListado.getImagen());
                     pokemonRepository.insertarPokemon(pokemon);
                 }
 
                 urlConnection.disconnect();
 
-            }catch (Exception e){
-                System.out.println("ERROR POKEMON -->"+  elementoListado.name+" NO DISPONIBLE EN LA API");
+            } catch (Exception e) {
+                System.out.println("ERROR POKEMON -->" + elementoListado.name + " NO DISPONIBLE EN LA API");
             }
         }
         return lista;
     }
 
-    public String getPokemonImage(){
+    public String getPokemonImage() {
         String image;
-        PokemonListFormat pokemon= pokemonRepository.getPokemonById(ITEM);
-        image=pokemon.getImagen();
+        PokemonListFormat pokemon = pokemonRepository.getPokemonById(ITEM);
+        image = pokemon.getImagen();
         return image;
     }
 }

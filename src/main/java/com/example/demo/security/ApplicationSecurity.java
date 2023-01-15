@@ -24,7 +24,8 @@ public class ApplicationSecurity {
 
     @Autowired
     private UsuarioRepository userRepo;
-    @Autowired private JwtTokenFilter jwtTokenFilter;
+    @Autowired
+    private JwtTokenFilter jwtTokenFilter;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -37,7 +38,7 @@ public class ApplicationSecurity {
 
 
                 } catch (Exception e) {
-                   throw  new UsernameNotFoundException("Name " + name + " not found");
+                    throw new UsernameNotFoundException("Name " + name + " not found");
                 }
             }
         };
@@ -58,7 +59,7 @@ public class ApplicationSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            http.authorizeHttpRequests().requestMatchers("/auth/**").permitAll().anyRequest().authenticated();
+        http.authorizeHttpRequests().requestMatchers("/auth/**").permitAll().anyRequest().authenticated();
 
         http.exceptionHandling()
                 .authenticationEntryPoint(

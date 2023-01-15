@@ -2,6 +2,9 @@ package com.example.demo.modelos.claves;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,7 +14,6 @@ public class Rankin_id implements Serializable {
 
     @Column(name = "user_id", nullable = false)
     private int user_id;
-
     @Column(name = "app_id", nullable = false)
     private int app_id;
 
@@ -50,6 +52,6 @@ public class Rankin_id implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUser_id(),getApp_id());
+        return Objects.hash(getUser_id(), getApp_id());
     }
 }

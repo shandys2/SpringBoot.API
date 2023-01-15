@@ -14,23 +14,18 @@ public class PokemonRepository {
     @Autowired
     PokemonDao pokemonDao;
 
-    public Object insertarPokemon(PokemonListFormat pokemon){
-
+    public Object insertarPokemon(PokemonListFormat pokemon) {
         pokemonDao.save(pokemon);
-
         return pokemon;
     }
 
-    public List<PokemonListFormat> getAllPokemons(){
-
+    public List<PokemonListFormat> getAllPokemons() {
         List<PokemonListFormat> lista = pokemonDao.getAllPokemon();
-
         return lista;
     }
-    public PokemonListFormat getPokemonById(Integer id){
 
+    public PokemonListFormat getPokemonById(Integer id) {
         PokemonListFormat pokemon = pokemonDao.getReferenceById(id);
-
         return pokemon;
     }
 

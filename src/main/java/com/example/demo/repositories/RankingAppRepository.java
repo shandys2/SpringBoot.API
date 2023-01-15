@@ -14,9 +14,18 @@ public class RankingAppRepository {
     RankingAppDao rankingAppDao;
 
     public Object addRankingApp(RankingApp rankingApp){
-
         rankingAppDao.save(rankingApp);
-
         return "";
+    }
+    public RankingApp getRanking(int app_id, int user_id){
+        RankingApp rankingApp = rankingAppDao.getRanking(app_id,user_id);
+        return rankingApp;
+    }
+
+    public String updateRanking(RankingApp rankingApp){
+
+        rankingAppDao.updateRanking(rankingApp.getPuntos(),rankingApp.getRankin_id());
+        rankingAppDao.save(rankingApp);
+        return "eliminado";
     }
 }

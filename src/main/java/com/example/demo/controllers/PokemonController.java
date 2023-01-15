@@ -16,7 +16,7 @@ public class PokemonController {
     @Autowired
     PokemonRepository pokemonRepository;
 
-    @PostMapping(value="/crearPokemon",consumes= MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/crearPokemon", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public PokemonListFormat crearPokemon(@RequestBody PokemonListFormat pokemon) {
 
         pokemonRepository.insertarPokemon(pokemon);  //Aqui ya le esta metiendo el id, esta mutando el usuario

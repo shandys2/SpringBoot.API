@@ -1,33 +1,48 @@
 package com.example.demo.modelos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 
 @Entity
-@Table(name = "COMENTARIOS_APP")
 public class ComentarioApp implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "comment_id", nullable = false)
-    private int id;
+    private int comment_id;
     @Column(name = "comment_text", nullable = false)
     private String comment_text;
     @Column(name = "hora", nullable = false)
     private String hora;
 
     //CLAVES FORANEAS A CONFIGURAR
-    @Column(name = "user_id", nullable = false)
-    private String user_id;
-    @Column(name = "app_id", nullable = false)
-    private String app_id;
-    public int getId() {
-        return id;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    private Usuario user_id;
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne
+    @JoinColumn(name = "app_id", referencedColumnName = "app_id")
+    private Aplicacion app_id;
+
+    public int getComment_id() {
+        return comment_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setComment_id(int comment_id) {
+        this.comment_id = comment_id;
+    }
+
+    public ComentarioApp(String comment_text, String hora, Usuario user_id, Aplicacion app_id) {
+        this.comment_text = comment_text;
+        this.hora = hora;
+        this.user_id = user_id;
+        this.app_id = app_id;
+    }
+
+    public ComentarioApp() {
     }
 
     public String getComment_text() {
@@ -46,19 +61,19 @@ public class ComentarioApp implements Serializable {
         this.hora = hora;
     }
 
-    public String getUser_id() {
+    public Usuario getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(Usuario user_id) {
         this.user_id = user_id;
     }
 
-    public String getApp_id() {
+    public Aplicacion getApp_id() {
         return app_id;
     }
 
-    public void setApp_id(String app_id) {
+    public void setApp_id(Aplicacion app_id) {
         this.app_id = app_id;
     }
 }

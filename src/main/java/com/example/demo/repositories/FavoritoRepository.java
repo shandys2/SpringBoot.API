@@ -17,28 +17,24 @@ public class FavoritoRepository {
     @Autowired
     FavoritoDao favoritoDao;
 
-    public Object addFavorito(Favorito favorito){
+    public Object addFavorito(Favorito favorito) {
 
         int app_id = favorito.getFavoritoId().getApp_id();
         int elemento_id = favorito.getFavoritoId().getElemento_id();
         int user_id = favorito.getFavoritoId().getUser_id();
-        Favorito comprobacionFavorito= favoritoDao.getFavorito(app_id,elemento_id,user_id);
+        Favorito comprobacionFavorito = favoritoDao.getFavorito(app_id, elemento_id, user_id);
 
-        if(comprobacionFavorito==null){//no esta
+        if (comprobacionFavorito == null) {//no esta
             favoritoDao.save(favorito);
             return "FAVORITO GUARDADO";
-        }
-        else {// si esta
+        } else {// si esta
             favoritoDao.delete(favorito);
             return "FAVORITO ELIMINADO";
         }
     }
-    public List<Favorito> getFavoritosUsuario(int user_id){
 
-
+    public List<Favorito> getFavoritosUsuario(int user_id) {
         List<Favorito> listadoFavorito = favoritoDao.getFavoritosUsuario(user_id);
-
-
         return listadoFavorito;
     }
 }

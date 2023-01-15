@@ -13,11 +13,14 @@ public class Favorito implements Serializable {
 
     @EmbeddedId
     private Favorito_id favoritoId;
+
     public Favorito() {
     }
+
     public Favorito_id getFavoritoId() {
         return favoritoId;
     }
+
     public void setFavoritoId(Favorito_id favoritoId) {
         this.favoritoId = favoritoId;
     }

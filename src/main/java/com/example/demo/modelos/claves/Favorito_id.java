@@ -66,7 +66,7 @@ public class Favorito_id implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUser_id(),getElemento_id(),getApp_id());
+        return Objects.hash(getUser_id(), getElemento_id(), getApp_id());
     }
 
 }

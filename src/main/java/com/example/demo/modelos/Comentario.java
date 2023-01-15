@@ -20,12 +20,23 @@ public class Comentario implements Serializable {
     private String elemento_id;  // se usa para hacer la llamada a la api correspondiente
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id" ,nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private Usuario user_id;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne
     @JoinColumn(name = "app_id", referencedColumnName = "app_id")
     private Aplicacion app_id;
+
+    public Comentario() {
+    }
+
+    public Comentario( String comment_text, String hora, String elemento_id, Usuario user_id, Aplicacion app_id) {
+        this.comment_text = comment_text;
+        this.hora = hora;
+        this.elemento_id = elemento_id;
+        this.user_id = user_id;
+        this.app_id = app_id;
+    }
 
     public int getId() {
         return id;

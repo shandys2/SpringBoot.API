@@ -3,7 +3,6 @@ package com.example.demo.modelos;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "POKEMONS")
 public class PokemonListFormat {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -19,7 +18,7 @@ public class PokemonListFormat {
 
     public PokemonListFormat(String name, String imagen) {
         this.name = name;
-        this.imagen=imagen;
+        this.imagen = imagen;
     }
 
     public Long getId() {

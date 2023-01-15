@@ -1,6 +1,8 @@
 package com.example.demo.modelos;
 
+import com.example.demo.dto.ComentarioAppDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 
@@ -8,7 +10,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "APLICACIONES")
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class Aplicacion implements Serializable {
 
@@ -18,25 +19,21 @@ public class Aplicacion implements Serializable {
     private int app_id;
     @Column(name = "nombre", nullable = false)
     private String nombre;
+    @Column(name = "descripcion", nullable = false)
+    private String descripcion;
     @Column(name = "mediaPuntos", nullable = false)
     private double mediaPuntos;
-    List<ComentarioApp> listaComentarios ;
 
-    public List<ComentarioApp> getListaComentarios() {
-        return listaComentarios;
-    }
-
-    public void setListaComentarios(List<ComentarioApp> listaComentarios) {
-        this.listaComentarios = listaComentarios;
-    }
-
-    public Aplicacion(int app_id, String nombre, double mediaPuntos) {
+    public Aplicacion(int app_id, String nombre, double mediaPuntos ,String descripcion) {
         this.app_id = app_id;
         this.nombre = nombre;
         this.mediaPuntos = mediaPuntos;
+        this.descripcion = descripcion;
     }
 
-    public Aplicacion(){}
+    public Aplicacion() {
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -59,5 +56,13 @@ public class Aplicacion implements Serializable {
 
     public void setMediaPuntos(double mediaPuntos) {
         this.mediaPuntos = mediaPuntos;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

@@ -14,19 +14,18 @@ public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    @GetMapping(value="/borrarUsuario")
+    @GetMapping(value = "/borrarUsuario")
     public Object borrarUsuario(@RequestParam int user_id) {
 
         String respuesta;
         try {
             usuarioRepository.borrarUsuario(user_id);
-        }catch (Exception e){
-            respuesta="Ha habido un error, no se pudo eliminar el usuario porque no existe";
+        } catch (Exception e) {
+            respuesta = "Ha habido un error, no se pudo eliminar el usuario porque no existe";
             return respuesta;
         }
-        return "usuario con id  "+user_id+" eliminado";
+        return "usuario con id  " + user_id + " eliminado";
     }
-
 
 
 }

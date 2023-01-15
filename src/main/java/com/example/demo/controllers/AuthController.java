@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.modelos.Usuario;
+import com.example.demo.repositories.DemoDataRepository;
 import com.example.demo.repositories.UsuarioRepository;
 import com.example.demo.security.AuthRequest;
 import com.example.demo.security.AuthResponse;
@@ -14,10 +15,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
@@ -29,15 +29,18 @@ public class AuthController {
     AuthenticationManager authManager;
     @Autowired
     UsuarioRepository usuarioRepository;
-    @PostMapping(value="/crearUsuario",consumes= MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
+    @Autowired
+    DemoDataRepository demoDataRepository;
+
+    @PostMapping(value = "/crearUsuario", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario crearUsuario(@RequestBody @Valid Usuario usuario) {
 
         usuarioRepository.insertarUsuario(usuario);
         return usuario;
     }
 
-    @PostMapping(value="/login",consumes= MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request){
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request) {
 
         try {
             Authentication authentication = authManager.authenticate(
@@ -47,7 +50,7 @@ public class AuthController {
 
             Usuario user = (Usuario) authentication.getPrincipal();
             String accessToken = jwtUtil.generateAccessToken(user);
-            AuthResponse response = new AuthResponse(user.getId(),user.getUsername(), accessToken);
+            AuthResponse response = new AuthResponse(user.getId(), user.getUsername(), accessToken);
 
             return ResponseEntity.ok().body(response);
 
@@ -56,5 +59,15 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/demo")
+    public String cargarDatos() throws IOException {
+        try {
+            demoDataRepository.cargarDatosPrueba();
+            return "datos cargados correctamente";
+        } catch (Exception exception) {
+            return "Hubo un probleme con la carga de datos de prueba     :" + exception.getLocalizedMessage();
+        }
+
+    }
 
 }

@@ -15,15 +15,16 @@ public class ComentarioRepository {
     ComentarioDao comentarioDao;
 
 
-    public Object insertarComentario(Comentario comentario){
+    public Object insertarComentario(Comentario comentario) {
 
         comentarioDao.save(comentario);
 
         return comentario;
     }
-    public List<Comentario> getComentariosItem(Aplicacion app_id,String elemento_id){
 
-        List<Comentario> listaComentarios= comentarioDao.getComentariosItem(app_id,elemento_id);
+    public List<Comentario> getComentariosItem(Aplicacion app_id, String elemento_id) {
+
+        List<Comentario> listaComentarios = comentarioDao.getComentariosItem(app_id, elemento_id);
 
         return listaComentarios;
     }
