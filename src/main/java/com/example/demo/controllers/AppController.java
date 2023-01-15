@@ -4,6 +4,7 @@ import com.example.demo.dto.AplicacionDTO;
 import com.example.demo.modelos.Aplicacion;
 import com.example.demo.repositories.AppRepository;
 import com.example.demo.repositories.ComentarioAppRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,9 @@ public class AppController {
     @Autowired
     ComentarioAppRepository comentarioAppRepository;
 
+
     @GetMapping(value = "/dameApp", produces = MediaType.APPLICATION_JSON_VALUE)
-    public AplicacionDTO getApp(@RequestParam int app_id) {
+    public AplicacionDTO getApp(@RequestParam int app_id) throws JsonProcessingException {
 
         AplicacionDTO aplicacion = appRepository.getAppWithComments(app_id);
 
@@ -29,7 +31,7 @@ public class AppController {
     }
 
     @GetMapping("/dameApps")
-    public List<Aplicacion> getApps() {
+    public List<Aplicacion> getApps() throws JsonProcessingException {
 
         List<Aplicacion> listado = appRepository.getAllApps();
         return listado;

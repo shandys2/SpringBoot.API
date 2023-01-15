@@ -68,15 +68,16 @@ public class DemoDataRepository {
         appRepository.insertarApp(app2);
         appRepository.insertarApp(app3);
 
-
+        int j=0;
         //Generador de comentarios
         for (int i = 0; i < 3; i++) {
             for (Usuario usuario : listaUsuarios) {
                 Aplicacion app = listaAplicaciones.get(i);
-                Comentario comentario = new Comentario("comentario numero " + i, "10:3" + i,( i +1)+ "", usuario, app);
-                ComentarioApp comentarioApp = new ComentarioApp("comentario numero " +i,"11:0"+i,usuario,app);
+                Comentario comentario = new Comentario("comentario numero " + j, "10:3" + j,( i +1)+ "", usuario, app);
+                ComentarioApp comentarioApp = new ComentarioApp("comentario numero " +j,"11:0"+j,usuario,app);
                 comentarioRepository.insertarComentario(comentario);
                 comentarioAppRepository.insertarComentarioStack(comentarioApp);
+                j++;
             }
         }
 

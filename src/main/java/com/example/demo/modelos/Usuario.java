@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -27,6 +28,10 @@ public class Usuario implements UserDetails {
     @Column(name = "email", nullable = true, unique = true)
     private String email;
 
+    @OneToMany(mappedBy="user_id")
+    Set<ComentarioApp> comentariosApps;
+    @OneToMany(mappedBy="user_id")
+    Set<Comentario> comentarios;
     public Usuario() {
     }
 

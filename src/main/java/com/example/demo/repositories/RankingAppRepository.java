@@ -7,6 +7,9 @@ import com.example.demo.modelos.RankingApp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Repository
 public class RankingAppRepository {
 
@@ -27,5 +30,18 @@ public class RankingAppRepository {
         rankingAppDao.updateRanking(rankingApp.getPuntos(),rankingApp.getRankin_id());
         rankingAppDao.save(rankingApp);
         return "eliminado";
+    }
+
+    public  List<Object> mediaApps(){
+
+        List<Object> object =rankingAppDao.getAvgApps();
+
+        return object;
+    }
+    public  Object mediaApp(int id){
+
+        Object object =rankingAppDao.getAvgApp(id);
+
+        return object;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -30,6 +31,11 @@ public class Aplicacion implements Serializable {
         this.mediaPuntos = mediaPuntos;
         this.descripcion = descripcion;
     }
+    @OneToMany(mappedBy="app_id")
+    Set<ComentarioApp> comentariosApps;
+
+    @OneToMany(mappedBy="app_id")
+    Set<Comentario> comentariosItems;
 
     public Aplicacion() {
     }

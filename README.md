@@ -1,9 +1,12 @@
 # SpringBoot.API
-# DOCUMENTACION API REST
 
-## AUTH CONTROLLER
+## DESCRIPCION
 
-### 1.  [http://10.10.12.87:8080/auth/crearUsuario](http://10.10.12:8080/auth/crearUsuario)
+
+
+## AUTH CONTROLLER ENDPOINTS
+
+### 1.  [http://localhost:8080/auth/crearUsuario](http://localhost:8080/auth/crearUsuario)
 
 **Metodo**
 `POST`
@@ -34,7 +37,7 @@
 "accountNonLocked": true}
 ```
 
-### 2.  [http://10.10.12.87:8080/auth/login](http://10.10.12:8080/auth/login)
+### 2.  [http://localhost:8080/auth/login](http://localhost:8080/auth/login)
 
 **Metodo**
 `POST`
@@ -61,10 +64,10 @@
 }
 ```
 
-## MAIN CONTROLLER
+## MAIN CONTROLLER ENDPOINTS
 
 
-### 1.  [http://10.10.12.87:8080/main/dameListado?api=1](http://10.10.12:8080/main/dameListado?api=1)
+### 1.  [http://localhost:8080/main/dameListado?api=1](http://localhost:8080/main/dameListado?api=1)
 
 **Metodo**
 `GET`
@@ -90,7 +93,7 @@
 ]
 ```
 
-### 2.  [http://10.10.12.87:8080/main/dameElemento?api=?1&item=1](http://10.10.12:8080/main/dameElemento?api=1&item=1)
+### 2.  [http://localhost:8080/main/dameElemento?api=?1&item=1](http://localhost:8080/main/dameElemento?api=1&item=1)
 
 **Metodo**
 `GET`
@@ -170,9 +173,9 @@
 }
 ```
 
-## USUARIOS CONTROLLER
+## USUARIOS CONTROLLER ENDPOINTS
 
-### 1.  [http://10.10.12.87:8080/usuario/borrarUsuario?user_id=1 ](http://10.10.12.87:8080/usuario/borrarUsuario?user_id=1 )
+### 1.  [http://localhost:8080/usuario/borrarUsuario?user_id=1 ](http://localhost:8080/usuario/borrarUsuario?user_id=1 )
 
 **Metodo**
 `GET`
@@ -186,9 +189,9 @@
 usuario con id  xxx eliminado
 ```
 
-## APP CONTROLLER
+## APP CONTROLLER ENDPOINTS
 
-### 1.  [http://10.10.12.87:8080/main/dameApps](http://10.10.12:8080/main/dameApps)
+### 1.  [http://localhost:8080/main/dameApps](http://localhost:8080/main/dameApps)
 
 **Metodo**
 `GET`
@@ -223,7 +226,7 @@ usuario con id  xxx eliminado
     }
 ]]
 ```
-### 1.  [http://10.10.12.87:8080/main/dameApp](http://10.10.12:8080/main/dameApp)
+### 2.  [http://localhost:8080/main/dameApp](http://localhost:8080/main/dameApp)
 
 **Metodo**
 `GET`
@@ -259,7 +262,7 @@ usuario con id  xxx eliminado
 }
 ```
 
-## FAVORITOS CONTROLLER
+## FAVORITOS CONTROLLER ENDPOINTS
 
 ### 1.  [http://localhost:8080/favorito/cambiarFavorito](http://localhost:8080/favorito/cambiarFavorito)
 
@@ -321,7 +324,7 @@ FAVORITO ELIMINADO
 ]
 ```
 
-## COMENTARIOS CONTROLLER
+## COMENTARIOS CONTROLLER ENDPOINTS 
 
 ### 1.  [http://localhost:8080/comentario/crearComentario](http://localhost:8080/comentario/crearComentario)
 
@@ -370,7 +373,57 @@ FAVORITO ELIMINADO
 }
 ```
 
-## RANKING APP CONTROLLER
+## COMENTARIOS APP CONTROLLER ENDPOINTS
+
+### 1.  [http://localhost:8080/comentariosApp/crearComentarioApp](http://localhost:8080/comentariosApp/crearComentarioApp)
+
+**Metodo**
+`POST`
+
+**TOKEN**
+`SI`
+
+**JSON REQUEST**
+
+```
+
+{"comment_text":"XXXXX XXX XX XXXXXXX XXXX XXXX",
+"hora":"XX:Xx",
+"user_id":"1",
+"app_id":"1"
+}
+```
+
+**JSON RESPONSE**
+
+```
+{
+    "comment_id": 10,
+    "comment_text": "XXXXX XXX XX XXXXXXX XXXX XXXX",
+    "hora": "XX:Xx",
+    "user_id": {
+        "nombre": "dani",
+        "password": "$2a$10$31tOGgfngDfpvqG552u5N.71O9Zy2z5IaAoJ7We6nbb.v3Jfmf65.",
+        "email": "dani@gmail.com",
+        "id": 1,
+        "enabled": true,
+        "username": "dani",
+        "accountNonLocked": true,
+        "authorities": null,
+        "accountNonExpired": true,
+        "credentialsNonExpired": true
+    },
+    "app_id": {
+        "app_id": 1,
+        "nombre": "FREE TO GAME",
+        "descripcion": "descripcion freetogame....",
+        "mediaPuntos": 3.6
+    }
+}
+```
+
+
+## RANKING APP CONTROLLER ENDPOINTS
 
 ### 1.  [http://localhost:8080/rankinkapp/crearRanking](http://localhost:8080/rankinkapp/crearRanking)
 
@@ -383,11 +436,20 @@ FAVORITO ELIMINADO
 **JSON REQUEST**
 
 ```
-
+{"rankin_id":{ "app_id": "2",
+               "user_id": "1"
+},
+"puntos":"3.1"
+}
 ```
 
 **JSON RESPONSE**
 
 ```
+{"rankin_id":{ "app_id": "2",
+               "user_id": "1"
+},
+"puntos":"3.1"
+}
 
 ```

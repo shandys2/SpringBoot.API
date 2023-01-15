@@ -28,6 +28,9 @@ public class ComentarioController {
     public Comentario crearComentario(@RequestBody ComentarioDTO comentarioDTO) {
         Usuario usuario = usuarioRepository.getUsuario(comentarioDTO.getUser_id());
         Aplicacion app = appRepository.getApp(comentarioDTO.getApp_id());
+        if(app==null){
+            return new Comentario(); // ¿? porque no hace bien la relacion con la foreign key
+        }
         Comentario comentario = new Comentario();
         comentario.setApp_id(app);
         comentario.setUser_id(usuario);
@@ -35,7 +38,7 @@ public class ComentarioController {
         comentario.setComment_text(comentarioDTO.getComment_text());
         comentario.setElemento_id(comentarioDTO.getElemento_id());
 
-        comentariosRepository.insertarComentario(comentario);  //Aqui ya le esta metiendo el id, esta mutando el usuario
+        comentariosRepository.insertarComentario(comentario);
         return comentario;
     }
 
