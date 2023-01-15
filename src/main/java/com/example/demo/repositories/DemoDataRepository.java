@@ -28,8 +28,9 @@ public class DemoDataRepository {
     @Autowired
     ComentarioAppRepository comentarioAppRepository;
     @Autowired
-    FavoritoRepository FavoritoRepository;
-
+    FavoritoRepository favoritoRepository;
+    @Autowired
+    RankingAppRepository rankingAppRepository;
     public String cargarDatosPrueba() {
 
         Usuario usuario1 = new Usuario();
@@ -80,6 +81,31 @@ public class DemoDataRepository {
                 j++;
             }
         }
+
+        //Generador de ranking
+
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            for (int k = 0; k < listaAplicaciones.size(); k++) {
+
+                RankingApp rankingApp = new RankingApp();
+                Rankin_id rankinId = new Rankin_id(i+1,k+1) ;
+                rankingApp.setRankin_id(rankinId);
+                rankingApp.setPuntos("3."+i);
+                rankingAppRepository.addRankingApp(rankingApp);
+            }
+
+        }
+
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            for (int k = 0; k < listaAplicaciones.size(); k++) {
+
+                Favorito favorito = new Favorito();
+                Favorito_id favorito_id = new Favorito_id(i+1,i+1,k+1);
+                favorito.setFavoritoId(favorito_id);
+                favoritoRepository.addFavorito(favorito);
+            }
+        }
+
 
         return "Datos cargados correctamente";
     }

@@ -1,10 +1,50 @@
 # SpringBoot.API
 
-## DESCRIPCION
+## GETTING STARTED
 
+Para levantar el proyecto necesitamos una base de datos en MYSQL  llamada **'intermodular'** . Una vez arrancada la API, las tablas se generaran automaticamente con sus
+respectivos campos gracias a la ayuda de hibernate . 
 
+Para poder trabajar más comodamente existe un endpoint que cargará unos datos de prueba con fines de desarrollo.
+
+Para acceder a la API :
+ 
+1. Nos creamos un usuario 
+2. Logueamos con él para que la API nos devuelva el TOKEN y podamos seguir accediendo al resto de sus endpoints.
+
+¿Qué se puede hacer con la API? 
+
+Una vez logueados y estando en posesión del token...
+
+1. Obtener una lista de las aplicaciones disponibles 
+2. Poder comentar y puntuar dichas aplicaciones
+3. Ver las reseñas de otros usuarios sobre la aplicacion
+
+Una vez dentro de la aplicación...
+
+1. Obtener un listado de los elementos que nos ofrece la aplicación, ya sean series, juegos o pokemons.
+2. Poder acceder a cada uno de esos elementos que se muestran en el listado, accediendo así a más detalles 
+   y a los comentarios de otros usuarios sobre el item, así como poder hacerlos .
+3. Se pueden añadir los elementos a Favoritos a través de un botón 'estrellita' o similar
+4. Obtener el listado de items favoritos del usuario.
+5. Darse de baja de la aplicación eliminando su usuario.
 
 ## AUTH CONTROLLER ENDPOINTS
+### 0.  [http://localhost:8080/auth/demo](http://localhost:8080/auth/demo)
+
+**Metodo**
+`GET`
+
+**TOKEN**
+`NO`
+
+
+
+**STRING RESPONSE**
+
+```
+datos cargados correctamente
+```
 
 ### 1.  [http://localhost:8080/auth/crearUsuario](http://localhost:8080/auth/crearUsuario)
 

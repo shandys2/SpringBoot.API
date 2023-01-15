@@ -19,9 +19,9 @@ import java.util.List;
 public interface RankingAppDao extends JpaRepository<RankingApp, Integer> {
     @Query("SELECT r FROM RankingApp r where r.rankin_id.app_id=?1 and r.rankin_id.user_id=?2")
     RankingApp getRanking(int app_id, int user_id);
-    @Query("SELECT AVG(cast(r.puntos as int)),r.rankin_id.app_id FROM RankingApp r group by r.rankin_id.app_id")
+    @Query("SELECT AVG(cast(r.puntos as double)),r.rankin_id.app_id FROM RankingApp r group by r.rankin_id.app_id")
     List<Object> getAvgApps();
-    @Query("SELECT AVG(cast(r.puntos as int)) FROM RankingApp r where r.rankin_id.app_id=?1")
+    @Query("SELECT AVG(cast(r.puntos as double)) FROM RankingApp r where r.rankin_id.app_id=?1")
     Object getAvgApp(int app_id);
     @Modifying
     @Transactional

@@ -71,7 +71,7 @@ public class AppRepository {
     public List<Aplicacion> getAllApps() throws JsonProcessingException {
 
         List<Object> o = rankingAppRepository.mediaApps();
-        List<Aplicacion> listaAplicaciones = (List<Aplicacion>) aplicacionDao.getAllApps();
+        List<Aplicacion> listaAplicaciones =  aplicacionDao.getAllApps();
 
         for (int i = 0; i < listaAplicaciones.size(); i++) {
             Object fila = o.get(i);
