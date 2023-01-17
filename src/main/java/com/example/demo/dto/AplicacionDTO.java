@@ -6,7 +6,7 @@ public class AplicacionDTO {
 
 
 
-    private int app_id;
+    private Integer app_id;
 
     private String nombre;
 
@@ -52,11 +52,11 @@ public class AplicacionDTO {
         this.nombre = nombre;
     }
 
-    public int getApp_id() {
+    public Integer getApp_id() {
         return app_id;
     }
 
-    public void setApp_id(int app_id) {
+    public void setApp_id(Integer app_id) {
         this.app_id = app_id;
     }
 

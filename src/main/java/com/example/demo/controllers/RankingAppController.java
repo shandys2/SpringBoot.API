@@ -41,7 +41,6 @@ public class RankingAppController {
             return false;
         }
 
-
         //ver si existe
         RankingApp rankgApp= rankingAppRepository.getRanking(rankingApp.getRankin_id().getApp_id(),rankingApp.getRankin_id().getUser_id());
         //si existe actualizar

@@ -21,10 +21,10 @@ public class UsuarioController {
         try {
             usuarioRepository.borrarUsuario(user_id);
         } catch (Exception e) {
-            respuesta = "Ha habido un error, no se pudo eliminar el usuario porque no existe";
+            respuesta = "No se pudo eliminar el usuario porque no existe";
             return respuesta;
         }
-        return "usuario con id  " + user_id + " eliminado";
+        return "usuario con id " + user_id + " eliminado";
     }
 
 

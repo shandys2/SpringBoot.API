@@ -13,4 +13,7 @@ public interface UsuarioDao extends JpaRepository<Usuario, Integer> {
     @Query("SELECT u FROM Usuario u where u.nombre = ?1")
     Usuario getUsuarioByName(String nombre);
 
+    @Query("SELECT u FROM Usuario u where u.user_id = ?1")
+    Usuario getUsuarioById(int user_id);
+
 }

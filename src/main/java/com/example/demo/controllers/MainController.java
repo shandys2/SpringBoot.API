@@ -10,6 +10,7 @@ import com.example.demo.network.ConexionApi;
 import com.example.demo.repositories.AppRepository;
 import com.example.demo.repositories.ComentarioRepository;
 import com.example.demo.repositories.ComentarioAppRepository;
+import com.example.demo.validators.AppValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,19 +33,21 @@ public class MainController {
 
     @Autowired
     AppRepository appRepository;
-
+    @Autowired
+    AppValidator appValidator;
 
     @GetMapping("/dameListado")
     public List<ElementoListado> getListado(@RequestParam int api) throws IOException {
 
         List<ElementoListado> listado = null;
 
-        if (api == 1 || api == 2 || api == 3) {
+        if (appValidator.esAppValida(api)) {
             conexionApi.setApiForList(api);
             listado = conexionApi.getListadoItems();
             return listado;
+        }else {
+            return listado;
         }
-        return listado;
     }
 
     @GetMapping("/dameElemento")

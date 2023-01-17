@@ -5,6 +5,7 @@ import com.example.demo.dto.AplicacionDTO;
 import com.example.demo.dto.ComentarioMin;
 import com.example.demo.modelos.Aplicacion;
 import com.example.demo.modelos.ComentarioApp;
+import com.example.demo.validators.AppValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -24,6 +25,7 @@ public class AppRepository {
     @Autowired
     RankingAppRepository rankingAppRepository;
 
+
     public Object insertarApp(Aplicacion app) {
         aplicacionDao.save(app);
         return "";
@@ -37,7 +39,6 @@ public class AppRepository {
     public AplicacionDTO getAppWithComments(int id) throws JsonProcessingException {
 
         Aplicacion app = aplicacionDao.getReferenceById(id);
-
 
         List<ComentarioApp> listaComentariosApp = comentarioAppRepository.getComentariosApp(app);
         List<ComentarioMin> listaComentariosMin = new ArrayList<>();

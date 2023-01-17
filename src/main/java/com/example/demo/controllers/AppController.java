@@ -4,6 +4,7 @@ import com.example.demo.dto.AplicacionDTO;
 import com.example.demo.modelos.Aplicacion;
 import com.example.demo.repositories.AppRepository;
 import com.example.demo.repositories.ComentarioAppRepository;
+import com.example.demo.validators.AppValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,14 +21,19 @@ public class AppController {
     AppRepository appRepository;
     @Autowired
     ComentarioAppRepository comentarioAppRepository;
-
+    @Autowired
+    AppValidator appValidator;
 
     @GetMapping(value = "/dameApp", produces = MediaType.APPLICATION_JSON_VALUE)
     public AplicacionDTO getApp(@RequestParam int app_id) throws JsonProcessingException {
 
-        AplicacionDTO aplicacion = appRepository.getAppWithComments(app_id);
+        if(appValidator.esAppValida(app_id)){
+            AplicacionDTO aplicacion = appRepository.getAppWithComments(app_id);
+            return aplicacion;
+        }else{
+           return new AplicacionDTO();
+        }
 
-        return aplicacion;
     }
 
     @GetMapping("/dameApps")
