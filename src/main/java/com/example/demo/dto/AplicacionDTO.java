@@ -1,11 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.modelos.ComentarioApp;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
 import java.util.List;
 
 public class AplicacionDTO {
@@ -20,7 +14,7 @@ public class AplicacionDTO {
 
     private double mediaPuntos;
 
-    List<ComentarioAppMin> listaComentarios;
+    List<ComentarioMin> listaComentarios;
 
 
     public String getDescripcion() {
@@ -31,15 +25,15 @@ public class AplicacionDTO {
         this.descripcion = descripcion;
     }
 
-    public List<ComentarioAppMin> getListaComentarios() {
+    public List<ComentarioMin> getListaComentarios() {
         return listaComentarios;
     }
 
-    public void setListaComentarios(List<ComentarioAppMin> listaComentarios) {
+    public void setListaComentarios(List<ComentarioMin> listaComentarios) {
         this.listaComentarios = listaComentarios;
     }
 
-    public AplicacionDTO(int app_id, String nombre, double mediaPuntos , String descripcion , List<ComentarioAppMin> listaComentarios) {
+    public AplicacionDTO(int app_id, String nombre, double mediaPuntos , String descripcion , List<ComentarioMin> listaComentarios) {
         this.app_id = app_id;
         this.nombre = nombre;
         this.mediaPuntos = mediaPuntos;

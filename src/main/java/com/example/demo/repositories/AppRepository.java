@@ -2,22 +2,17 @@ package com.example.demo.repositories;
 
 import com.example.demo.daos.AplicacionDao;
 import com.example.demo.dto.AplicacionDTO;
-import com.example.demo.dto.ComentarioAppMin;
-import com.example.demo.dto.MediaPuntosDTO;
+import com.example.demo.dto.ComentarioMin;
 import com.example.demo.modelos.Aplicacion;
 import com.example.demo.modelos.ComentarioApp;
-import com.example.demo.modelos.RankingApp;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.lang.runtime.ObjectMethods;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class AppRepository {
@@ -45,9 +40,9 @@ public class AppRepository {
 
 
         List<ComentarioApp> listaComentariosApp = comentarioAppRepository.getComentariosApp(app);
-        List<ComentarioAppMin> listaComentariosMin = new ArrayList<>();
+        List<ComentarioMin> listaComentariosMin = new ArrayList<>();
         for (ComentarioApp comentario : listaComentariosApp) {
-            ComentarioAppMin comentarioAppMin = new ComentarioAppMin();
+            ComentarioMin comentarioAppMin = new ComentarioMin();
             comentarioAppMin.setHora(comentario.getHora());
             comentarioAppMin.setUsername(comentario.getUser_id().getUsername());
             comentarioAppMin.setComment_text(comentario.getComment_text());

@@ -1,5 +1,7 @@
 package com.example.demo.modelos;
 
+import com.example.demo.dto.ComentarioMin;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class ElementoGeneral {
     public String publisher;
     public String genero;
     HashMap<Object, Object> detalles;
-    List<Comentario> comentarios;
+    List<ComentarioMin> comentarios;
 
     public Integer getId() {
         return id;
@@ -83,11 +85,11 @@ public class ElementoGeneral {
         this.genero = genero;
     }
 
-    public List<Comentario> getComentarios() {
+    public List<ComentarioMin> getComentarios() {
         return comentarios;
     }
 
-    public void setComentarios(List<Comentario> comentarios) {
+    public void setComentarios(List<ComentarioMin> comentarios) {
         this.comentarios = comentarios;
     }
 

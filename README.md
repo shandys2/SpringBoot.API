@@ -162,52 +162,19 @@ datos cargados correctamente
     },
     "comentarios": [
         {
-            "id": 1,
-            "comment_text": "spy el primer comentario",
-            "hora": "8.55",
-            "elemento_id": "1",
-            "user_id": {
-                "nombre": "dani",
-                "password": "***",
-                "email": "***@xxx.com",
-                "id": 1,
-                "enabled": true,
-                "username": "dani",
-                "credentialsNonExpired": true,
-                "accountNonExpired": true,
-                "accountNonLocked": true,
-                "authorities": null
-            },
-            "app_id": {
-                "app_id": 1,
-                "nombre": "FreeToGame",
-                "mediaPuntos": 7.6,
-                "listaComentarios": null
-            }
+            "comment_text": "comentario numero 0",
+            "hora": "10:30",
+            "username": "dani"
         },
         {
-            "id": 2,
-            "comment_text": "comentarioooooo sdofjhsdaifhsadfasdfaf",
-            "hora": "11:00",
-            "elemento_id": "1",
-            "user_id": {
-                "nombre": "dani",
-                "password": "***",
-                "email": "***@xxx.com",
-                "id": 1,
-                "enabled": true,
-                "username": "dani",
-                "credentialsNonExpired": true,
-                "accountNonExpired": true,
-                "accountNonLocked": true,
-                "authorities": null
-            },
-            "app_id": {
-                "app_id": 1,
-                "nombre": "FreeToGame",
-                "mediaPuntos": 7.6,
-                "listaComentarios": null
-            }
+            "comment_text": "comentario numero 1",
+            "hora": "10:31",
+            "username": "maider"
+        },
+        {
+            "comment_text": "comentario numero 2",
+            "hora": "10:32",
+            "username": "willy"
         }
     ]
 }
@@ -231,7 +198,7 @@ usuario con id  xxx eliminado
 
 ## APP CONTROLLER ENDPOINTS
 
-### 1.  [http://localhost:8080/main/dameApps](http://localhost:8080/main/dameApps)
+### 1.  [http://localhost:8080/app/dameApps](http://localhost:8080/app/dameApps)
 
 **Metodo**
 `GET`
@@ -465,7 +432,7 @@ FAVORITO ELIMINADO
 
 ## RANKING APP CONTROLLER ENDPOINTS
 
-### 1.  [http://localhost:8080/rankinkapp/crearRanking](http://localhost:8080/rankinkapp/crearRanking)
+### 1.  [http://localhost:8080/ranking/crearRanking](http://localhost:8080/ranking/crearRanking)
 
 **Metodo**
 `POST`

@@ -1,9 +1,18 @@
 package com.example.demo.dto;
 
-public class ComentarioAppMin {
+public class ComentarioMin {
     private String comment_text;
     private String hora;
     private String username;
+
+    public ComentarioMin(String comment_text, String hora, String username) {
+        this.comment_text = comment_text;
+        this.hora = hora;
+        this.username = username;
+    }
+
+    public ComentarioMin() {
+    }
 
     public String getComment_text() {
         return comment_text;
