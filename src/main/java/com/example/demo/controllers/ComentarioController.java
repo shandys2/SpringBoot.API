@@ -25,11 +25,14 @@ public class ComentarioController {
     AppRepository appRepository;
 
     @PostMapping(value = "/crearComentario", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Comentario crearComentario(@RequestBody ComentarioDTO comentarioDTO) {
+    public Boolean crearComentario(@RequestBody ComentarioDTO comentarioDTO) {
         Usuario usuario = usuarioRepository.getUsuario(comentarioDTO.getUser_id());
         Aplicacion app = appRepository.getApp(comentarioDTO.getApp_id());
         if(app==null){
-            return new Comentario(); // ¿? porque no hace bien la relacion con la foreign key
+            return false; // ¿? porque no hace bien la relacion con la foreign key
+        }
+        if(usuario.getId()==null){
+            return false; // ¿? porque no hace bien la relacion con la foreign key
         }
         Comentario comentario = new Comentario();
         comentario.setApp_id(app);
@@ -39,7 +42,8 @@ public class ComentarioController {
         comentario.setElemento_id(comentarioDTO.getElemento_id());
 
         comentariosRepository.insertarComentario(comentario);
-        return comentario;
+
+        return true;
     }
 
     @GetMapping(value = "/getComentarios", produces = MediaType.APPLICATION_JSON_VALUE)

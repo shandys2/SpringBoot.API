@@ -33,8 +33,8 @@ public class FavoritoRepository {
         }
     }
 
-    public List<Favorito> getFavoritosUsuario(int user_id) {
-        List<Favorito> listadoFavorito = favoritoDao.getFavoritosUsuario(user_id);
+    public List<Favorito> getFavoritosUsuario(int app_id,int user_id) {
+        List<Favorito> listadoFavorito = favoritoDao.getFavoritosUsuario(app_id,user_id);
         return listadoFavorito;
     }
 }

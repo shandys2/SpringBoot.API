@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,9 +27,16 @@ public class FavoritoController {
     }
 
     @GetMapping("/dameFavoritos")
-    public List<Favorito> getListadoFavoritos(@RequestParam int user_id) throws IOException {
+    public List<Integer> getListadoFavoritos(@RequestParam int app_id,@RequestParam int user_id) throws IOException {
 
-        List<Favorito> listado = favoritoRepository.getFavoritosUsuario(user_id);
-        return listado;
+        List<Favorito> listado = favoritoRepository.getFavoritosUsuario(app_id,user_id);
+        List<Integer> listadoIds = new ArrayList<>();
+
+        for (Favorito favorito:listado ) {
+            int id = favorito.getFavoritoId().getElemento_id();
+            listadoIds.add(id);
+        }
+
+        return listadoIds;
     }
 }

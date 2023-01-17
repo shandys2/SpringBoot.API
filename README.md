@@ -214,26 +214,23 @@ usuario con id  xxx eliminado
         "app_id": 1,
         "nombre": "FREE TO GAME",
         "descripcion": "descripcion freetogame....",
-        "mediaPuntos": 3.6,
-        "listaComentarios": null
+        "mediaPuntos": 3.1
     },
     {
         "app_id": 2,
         "nombre": "POKEDEX",
         "descripcion": "descripcion pokedex....",
-        "mediaPuntos": 4.5,
-        "listaComentarios": null
+        "mediaPuntos": 3.366667
     },
     {
         "app_id": 3,
         "nombre": "NETFLIX",
         "descripcion": "descripcion netflix....",
-        "mediaPuntos": 4.7,
-        "listaComentarios": null
+        "mediaPuntos": 3.1
     }
-]]
+]
 ```
-### 2.  [http://localhost:8080/main/dameApp](http://localhost:8080/main/dameApp)
+### 2.  [http://localhost:8080/app/dameApp?app_id=1](http://localhost:8080/app/dameApp?app_id=1)
 
 **Metodo**
 `GET`
@@ -248,7 +245,7 @@ usuario con id  xxx eliminado
     "app_id": 1,
     "nombre": "FREE TO GAME",
     "descripcion": "descripcion freetogame....",
-    "mediaPuntos": 3.6,
+    "mediaPuntos": 3.1,
     "listaComentarios": [
         {
             "comment_text": "comentario numero 0",
@@ -256,13 +253,13 @@ usuario con id  xxx eliminado
             "username": "dani"
         },
         {
-            "comment_text": "comentario numero 0",
-            "hora": "11:00",
+            "comment_text": "comentario numero 1",
+            "hora": "11:01",
             "username": "maider"
         },
         {
-            "comment_text": "comentario numero 0",
-            "hora": "11:00",
+            "comment_text": "comentario numero 2",
+            "hora": "11:02",
             "username": "willy"
         }
     ]
@@ -302,7 +299,7 @@ O
 FAVORITO ELIMINADO
 ```
 
-### 2.  [http://localhost:8080/favorito/dameFavoritos?user_id=1](http://localhost:8080/favorito/dameFavoritos?user_id=1)
+### 2.  [http://localhost:8080/favorito/dameFavoritos?app_id=1&user_id=1](http://localhost:8080/favorito/dameFavoritos?app_id&user_id=1)
 
 **Método**
 `GET`
@@ -314,20 +311,10 @@ FAVORITO ELIMINADO
 
 ```
 [
-    {
-        "favoritoId": {
-            "user_id": 1,
-            "elemento_id": 2,
-            "app_id": 1
-        }
-    },
-    {
-        "favoritoId": {
-            "user_id": 1,
-            "elemento_id": 3,
-            "app_id": 1
-        }
-    }
+    1,
+    2,
+    3,
+    4
 ]
 ```
 
@@ -355,30 +342,14 @@ FAVORITO ELIMINADO
 **JSON RESPONSE**
 
 ```
-{
-    "id": 52,
-    "comment_text": "COMENTARIO NUEVO",
-    "hora": "11:00",
-    "elemento_id": "3",
-    "user_id": {
-        "nombre": "dani",
-        "password": "$2a$10$NEVQJZplIn17/H97YadaFO8OKq9e.KdJbSnO66WRVHwxzQrLB8skm",
-        "email": "dani@gmail.com",
-        "id": 1,
-        "enabled": true,
-        "credentialsNonExpired": true,
-        "accountNonExpired": true,
-        "username": "dani",
-        "authorities": null,
-        "accountNonLocked": true
-    },
-    "app_id": {
-        "app_id": 1,
-        "nombre": "FreeToGame",
-        "mediaPuntos": 7.6
-    }
-}
+true
 ```
+O
+```
+false
+```
+
+PETA EN EL SERVIDOR SI NO HAY USUARIO Y NO DEVUELVE NADA!!!!!!!!!!!!!
 
 ## COMENTARIOS APP CONTROLLER ENDPOINTS
 

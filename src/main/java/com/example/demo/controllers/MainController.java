@@ -29,8 +29,7 @@ public class MainController {
     ConexionApi conexionApi;
     @Autowired
     ComentarioRepository comentariosRepository;
-    @Autowired
-    ComentarioAppRepository comentariosStackRepository;
+
     @Autowired
     AppRepository appRepository;
 
