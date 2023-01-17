@@ -72,8 +72,36 @@ public class FavoritoControllerTest {
         Collection<Integer> coleccionElement = gson.fromJson(resultado, collectionType);
         Assert.assertTrue("la lista de favoritos no esta vacia" , coleccionElement!=null);
     }
+    @Test
+    public void testDameFavoritosErrorApp() throws Exception {
+
+        MockHttpServletRequestBuilder requestBuilder = get("/favorito/dameFavoritos?app_id=11&user_id=1");
+        requestBuilder.header("Authorization", "Bearer " + this.token);
+        requestBuilder.contentType(MediaType.APPLICATION_JSON);
+        ResultActions resultActions;
+        resultActions = this.mockMvc.perform(requestBuilder);
+        String resultado= resultActions.andReturn().getResponse().getContentAsString();
+
+        Assert.assertTrue("la lista de favoritos no esta vacia" , resultado.equals("false"));
+    }
+
+    @Test
+    public void testDameFavoritosErrorUsuario() throws Exception {
+
+        MockHttpServletRequestBuilder requestBuilder = get("/favorito/dameFavoritos?app_id=1&user_id=99");
+        requestBuilder.header("Authorization", "Bearer " + this.token);
+        requestBuilder.contentType(MediaType.APPLICATION_JSON);
+        ResultActions resultActions;
+        resultActions = this.mockMvc.perform(requestBuilder);
+        String resultado= resultActions.andReturn().getResponse().getContentAsString();
+
+        Assert.assertTrue("la lista de favoritos no esta vacia" , resultado.equals("false"));
+    }
+
 
     public void testCambiarFavoritoError(){
+
+
 
     }
 

@@ -101,9 +101,9 @@ public class AppControllerTest {
     }
 
     @Test
-    void testValidorDameApp() {
+    void testValidatorDameApp() {
         try {
-            MockHttpServletRequestBuilder requestBuilder = get("/app/dameApp?app_id=4");
+            MockHttpServletRequestBuilder requestBuilder = get("/app/dameApp?app_id=4");//no existe la app 4
             requestBuilder.header("Authorization", "Bearer " + this.token);
             requestBuilder.contentType(MediaType.APPLICATION_JSON);
             ResultActions resultActions;
