@@ -35,7 +35,6 @@ public class FavoritoController {
     @GetMapping("/dameFavoritos")
     public List<Integer> getListadoFavoritos(@RequestParam int app_id,@RequestParam int user_id) throws IOException {
 
-
         List<Favorito> listado = favoritoRepository.getFavoritosUsuario(app_id,user_id);
         List<Integer> listadoIds = new ArrayList<>();
 
