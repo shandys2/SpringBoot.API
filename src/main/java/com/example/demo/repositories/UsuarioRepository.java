@@ -24,6 +24,16 @@ public class UsuarioRepository {
         Usuario usuario = usuarioDao.getReferenceById(id);
         return usuario;
     }
+    public Boolean isValid(Integer id) {
+
+        Usuario usuario = usuarioDao.getReferenceById(id);
+        if(usuario.getId()==null)
+        return false;
+        else
+            return true;
+
+    }
+
 
     public Usuario getUsuarioByName(String nombre) throws Exception {
         Usuario usuario = null;

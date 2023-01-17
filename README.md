@@ -39,11 +39,10 @@ Una vez dentro de la aplicación...
 `NO`
 
 
-
 **STRING RESPONSE**
 
 ```
-datos cargados correctamente
+Datos cargados correctamente
 ```
 
 ### 1.  [http://localhost:8080/auth/crearUsuario](http://localhost:8080/auth/crearUsuario)
@@ -307,7 +306,7 @@ FAVORITO ELIMINADO
 **TOKEN**
 `SI`
 
-**JSON RESPONSE**
+**JSON RESPONSE**  "Devuelve un listado con los ids de los elementos de la api que son favoritos"
 
 ```
 [
@@ -341,15 +340,17 @@ FAVORITO ELIMINADO
 
 **JSON RESPONSE**
 
+EN CASO DE EXITO :
 ```
 true
 ```
-O
+SINO :
+
 ```
 false
 ```
 
-PETA EN EL SERVIDOR SI NO HAY USUARIO Y NO DEVUELVE NADA!!!!!!!!!!!!!
+
 
 ## COMENTARIOS APP CONTROLLER ENDPOINTS
 
@@ -374,36 +375,23 @@ PETA EN EL SERVIDOR SI NO HAY USUARIO Y NO DEVUELVE NADA!!!!!!!!!!!!!
 
 **JSON RESPONSE**
 
+
+EN CASO DE EXITO :
 ```
-{
-    "comment_id": 10,
-    "comment_text": "XXXXX XXX XX XXXXXXX XXXX XXXX",
-    "hora": "XX:Xx",
-    "user_id": {
-        "nombre": "dani",
-        "password": "$2a$10$31tOGgfngDfpvqG552u5N.71O9Zy2z5IaAoJ7We6nbb.v3Jfmf65.",
-        "email": "dani@gmail.com",
-        "id": 1,
-        "enabled": true,
-        "username": "dani",
-        "accountNonLocked": true,
-        "authorities": null,
-        "accountNonExpired": true,
-        "credentialsNonExpired": true
-    },
-    "app_id": {
-        "app_id": 1,
-        "nombre": "FREE TO GAME",
-        "descripcion": "descripcion freetogame....",
-        "mediaPuntos": 3.6
-    }
-}
+true
 ```
+SINO :
+
+```
+false
+```
+
 
 
 ## RANKING APP CONTROLLER ENDPOINTS
 
 ### 1.  [http://localhost:8080/ranking/crearRanking](http://localhost:8080/ranking/crearRanking)
+
 
 **Metodo**
 `POST`
@@ -423,11 +411,14 @@ PETA EN EL SERVIDOR SI NO HAY USUARIO Y NO DEVUELVE NADA!!!!!!!!!!!!!
 
 **JSON RESPONSE**
 
+
+EN CASO DE EXITO :
 ```
-{"rankin_id":{ "app_id": "2",
-               "user_id": "1"
-},
-"puntos":"3.1"
-}
+true
+```
+SINO :
 
 ```
+false
+```
+

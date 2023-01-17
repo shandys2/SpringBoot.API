@@ -31,19 +31,27 @@ public class ComentarioController {
         if(app==null){
             return false; // ¿? porque no hace bien la relacion con la foreign key
         }
-        if(usuario.getId()==null){
-            return false; // ¿? porque no hace bien la relacion con la foreign key
+        try {
+            int id= usuario.getId();
+        }catch (Exception e){
+            return false;
         }
-        Comentario comentario = new Comentario();
-        comentario.setApp_id(app);
-        comentario.setUser_id(usuario);
-        comentario.setHora(comentarioDTO.getHora());
-        comentario.setComment_text(comentarioDTO.getComment_text());
-        comentario.setElemento_id(comentarioDTO.getElemento_id());
 
-        comentariosRepository.insertarComentario(comentario);
+        Boolean existe =usuarioRepository.isValid(usuario.getId());
+        if (existe){
+           Comentario comentario = new Comentario();
+           comentario.setApp_id(app);
+           comentario.setUser_id(usuario);
+           comentario.setHora(comentarioDTO.getHora());
+           comentario.setComment_text(comentarioDTO.getComment_text());
+           comentario.setElemento_id(comentarioDTO.getElemento_id());
 
-        return true;
+           comentariosRepository.insertarComentario(comentario);
+           return true;
+       }
+
+       return false;
+
     }
 
     @GetMapping(value = "/getComentarios", produces = MediaType.APPLICATION_JSON_VALUE)

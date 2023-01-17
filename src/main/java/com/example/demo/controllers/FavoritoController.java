@@ -1,8 +1,12 @@
 package com.example.demo.controllers;
 
 
+import com.example.demo.modelos.Aplicacion;
 import com.example.demo.modelos.Favorito;
+import com.example.demo.modelos.Usuario;
+import com.example.demo.repositories.AppRepository;
 import com.example.demo.repositories.FavoritoRepository;
+import com.example.demo.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +22,10 @@ public class FavoritoController {
     @Autowired
     FavoritoRepository favoritoRepository;
 
+
     @PostMapping(value = "/cambiarFavorito", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Object crearFavorito(@RequestBody Favorito favorito) {
+
 
         Object object = favoritoRepository.addFavorito(favorito);
 
@@ -28,6 +34,7 @@ public class FavoritoController {
 
     @GetMapping("/dameFavoritos")
     public List<Integer> getListadoFavoritos(@RequestParam int app_id,@RequestParam int user_id) throws IOException {
+
 
         List<Favorito> listado = favoritoRepository.getFavoritosUsuario(app_id,user_id);
         List<Integer> listadoIds = new ArrayList<>();
