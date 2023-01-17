@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.modelos.Usuario;
 import com.example.demo.security.AuthRequest;
 import com.example.demo.security.AuthResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -26,6 +28,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 public class AuthControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
+
+
+	@Test
+	void testCrearUsuario() throws IOException, InterruptedException {
+		Usuario usuario =new Usuario();
+		usuario.setNombre("maria");
+		usuario.setPassword("1");
+		usuario.setEmail("maria@gmail.com");
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			String jsonString = mapper.writeValueAsString(usuario);
+			MockHttpServletRequestBuilder requestBuilder = post("/auth/crearUsuario");
+			requestBuilder.content(jsonString);
+			requestBuilder.contentType(MediaType.APPLICATION_JSON);
+			ResultActions resultActions;
+			resultActions = this.mockMvc.perform(requestBuilder);
+			resultActions.andDo(print());
+			String resultado= resultActions.andReturn().getResponse().getContentAsString();
+			Gson gson = new Gson(); // Or use new GsonBuilder().create();
+			Usuario usuarioResponse = gson.fromJson(resultado, Usuario.class);
+			Assert.assertTrue("el username existe ", usuarioResponse.getUsername().equals("maria"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Test
 	void testToken() throws IOException, InterruptedException {
@@ -49,4 +76,21 @@ public class AuthControllerTests {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	void testDemoData() throws IOException, InterruptedException {
+
+		try {
+			MockHttpServletRequestBuilder requestBuilder = get("/auth/demo");
+			requestBuilder.contentType(MediaType.APPLICATION_JSON);
+			ResultActions resultActions;
+			resultActions = this.mockMvc.perform(requestBuilder);
+			resultActions.andDo(print());
+			String resultado= resultActions.andReturn().getResponse().getContentAsString();
+			Assert.assertTrue(resultado.equals("datos cargados correctamente"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
