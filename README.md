@@ -25,7 +25,7 @@ Una vez dentro de la aplicación...
 1. Obtener un listado de los elementos que nos ofrece la aplicación, ya sean series, juegos o pokemons.
 2. Poder acceder a cada uno de esos elementos que se muestran en el listado, accediendo así a más detalles 
    y a los comentarios de otros usuarios sobre el item, así como poder hacerlos .
-3. Se pueden añadir los elementos a Favoritos a través de un botón 'estrellita' o similar
+3. Se pueden añadir los elementos a Favoritos 
 4. Obtener el listado de items favoritos del usuario.
 5. Darse de baja de la aplicación eliminando su usuario.
 
