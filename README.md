@@ -56,15 +56,18 @@ Datos cargados correctamente
 **JSON REQUEST**
 
 ```
-{"nombre" : "XXXXX",
+{
+"nombre" : "XXXXX",
 "password" : "XXXXXX",
-"email" : "XXXX@XXXX.com"}
+"email" : "XXXX@XXXX.com"
+}
 ```
 
 **JSON RESPONSE**
 
 ```
-{"nombre": "maider",
+{
+"nombre": "maider",
 "password": "$2a$10$HX9cG/0Kh4Zy6ODQoAHoUOvjmTjwGXcSMc5jIiIY09GAFb8l5dptu",
 "email": "asd@asd.com",
 "id": 153,
@@ -73,7 +76,8 @@ Datos cargados correctamente
 "accountNonExpired": true,
 "credentialsNonExpired": true,
 "authorities": null,
-"accountNonLocked": true}
+"accountNonLocked": true
+}
 ```
 
 ### 2.  [http://localhost:8080/auth/login](http://localhost:8080/auth/login)
