@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.dto.AplicacionDTO;
 import com.example.demo.modelos.Aplicacion;
+import com.example.demo.network.ConexionApi;
 import com.example.demo.repositories.AppRepository;
 import com.example.demo.repositories.ComentarioAppRepository;
 import com.example.demo.validators.AppValidator;
@@ -33,7 +34,6 @@ public class AppController {
         }else{
            return new AplicacionDTO();
         }
-
     }
 
     @GetMapping("/dameApps")
@@ -42,6 +42,16 @@ public class AppController {
         List<Aplicacion> listado = appRepository.getAllApps();
         return listado;
     }
+    @GetMapping("/dameGeneros")
+    public List<String> getApps(@RequestParam int app_id) throws JsonProcessingException {
+        List<String> listado=null;
+    switch (app_id){
+        case 1:   listado = ConexionApi.generosJuegos; break;
+        case 2:   listado = ConexionApi.generosPokemon;   break;
+        case 3:   listado = ConexionApi.generosSeries; break;
+    }
 
+        return listado;
+    }
 
 }

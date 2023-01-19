@@ -7,6 +7,9 @@ import com.example.demo.modelos.Usuario;
 import com.example.demo.repositories.AppRepository;
 import com.example.demo.repositories.ComentarioRepository;
 import com.example.demo.repositories.UsuarioRepository;
+import com.example.demo.validators.AppValidator;
+import com.example.demo.validators.UsuarioValidator;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -24,34 +27,38 @@ public class ComentarioController {
     @Autowired
     AppRepository appRepository;
 
+    @Autowired
+    AppValidator appValidator;
+    @Autowired
+    UsuarioValidator usuarioValidator;
+    //Authorization authorization   -> se puede meter por parametro al lado del requestbody para rescatar
+                                      // datos del usuario sin necesidad de mandarlos
     @PostMapping(value = "/crearComentario", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean crearComentario(@RequestBody ComentarioDTO comentarioDTO) {
-        Usuario usuario = usuarioRepository.getUsuario(comentarioDTO.getUser_id());
-        Aplicacion app = appRepository.getApp(comentarioDTO.getApp_id());
-        if(app==null){
-            return false; // ¿? porque no hace bien la relacion con la foreign key
-        }
-        try {
-            int id= usuario.getId();
-        }catch (Exception e){
+    public Boolean crearComentario(@RequestBody ComentarioDTO comentarioDTO ) {
+
+
+        if(!appValidator.esAppValida(comentarioDTO.getApp_id()) && !usuarioValidator.esUsuarioValido(comentarioDTO.getUser_id())){
             return false;
+        }else{
+
+            Usuario usuario = usuarioRepository.getUsuario(comentarioDTO.getUser_id());
+            Aplicacion app = appRepository.getApp(comentarioDTO.getApp_id());
+            if(usuario==null || app ==null){
+                return false;
+            }
+            Boolean existe =usuarioRepository.isValid(usuario.getId());
+            if (existe){
+                Comentario comentario = new Comentario();
+                comentario.setApp_id(app);
+                comentario.setUser_id(usuario);
+                comentario.setHora(comentarioDTO.getHora());
+                comentario.setComment_text(comentarioDTO.getComment_text());
+                comentario.setElemento_id(comentarioDTO.getElemento_id());
+                comentariosRepository.insertarComentario(comentario);
+                return true;
+            }
         }
-
-        Boolean existe =usuarioRepository.isValid(usuario.getId());
-        if (existe){
-           Comentario comentario = new Comentario();
-           comentario.setApp_id(app);
-           comentario.setUser_id(usuario);
-           comentario.setHora(comentarioDTO.getHora());
-           comentario.setComment_text(comentarioDTO.getComment_text());
-           comentario.setElemento_id(comentarioDTO.getElemento_id());
-
-           comentariosRepository.insertarComentario(comentario);
-           return true;
-       }
-
        return false;
-
     }
 
     @GetMapping(value = "/getComentarios", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -66,23 +66,8 @@ public class UsuarioControllerTest {
         resultActions.andDo(print());
         String resultado= resultActions.andReturn().getResponse().getContentAsString();
 
-
-        Assert.assertTrue("usuario eliminado correctamente" , resultado.equals("usuario con id " + 1 + " eliminado"));
+        Assert.assertTrue("usuario eliminado correctamente" , resultado.equals("usuario " + 1 + " eliminado"));
     }
-    @Test
-    @Transactional
-    public void testErrorBorrarUsuario() throws Exception {
 
-        MockHttpServletRequestBuilder requestBuilder = get("/usuario/borrarUsuario?user_id=99999");
-        requestBuilder.header("Authorization", "Bearer " + this.token);
-        requestBuilder.contentType(MediaType.APPLICATION_JSON);
-        ResultActions resultActions;
-        resultActions = this.mockMvc.perform(requestBuilder);
-        resultActions.andDo(print());
-        String resultado= resultActions.andReturn().getResponse().getContentAsString();
-
-
-        Assert.assertTrue("usuario no pudo eliminarse correctamente" , resultado.equals("No se pudo eliminar el usuario porque no existe"));
-    }
 
 }

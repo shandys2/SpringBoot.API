@@ -4,8 +4,6 @@ import java.util.List;
 
 public class AplicacionDTO {
 
-
-
     private Integer app_id;
 
     private String nombre;

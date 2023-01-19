@@ -28,10 +28,6 @@ public class Usuario implements UserDetails {
     @Column(name = "email", nullable = true, unique = true)
     private String email;
 
-    @OneToMany(mappedBy="user_id")
-    Set<ComentarioApp> comentariosApps;
-    @OneToMany(mappedBy="user_id")
-    Set<Comentario> comentarios;
     public Usuario() {
     }
 

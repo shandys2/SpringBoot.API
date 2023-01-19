@@ -76,7 +76,6 @@ public class ComentarioAppControllerTest {
         comentarioAppDTO.setComment_text(" soy un comentario de test");
         comentarioAppDTO.setUser_id(1);
 
-
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(comentarioAppDTO);

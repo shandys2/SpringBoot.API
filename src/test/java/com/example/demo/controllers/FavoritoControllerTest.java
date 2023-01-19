@@ -1,9 +1,10 @@
 package com.example.demo.controllers;
 
-import com.example.demo.modelos.ElementoListado;
 import com.example.demo.modelos.Favorito;
+import com.example.demo.modelos.claves.Favorito_id;
 import com.example.demo.security.AuthRequest;
 import com.example.demo.security.AuthResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -17,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -55,10 +57,83 @@ public class FavoritoControllerTest {
             e.printStackTrace();
         }
     }
-    public void testCambiarFavorito(){
+    @Test
+    @Transactional
+    public void testCambiarFavorito() throws Exception {
+        Favorito favorito = new Favorito();
+        Favorito_id favorito_id = new Favorito_id(1,99,1);
+        favorito.setFavoritoId(favorito_id);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(favorito);
+        MockHttpServletRequestBuilder requestBuilder = post("/favorito/cambiarFavorito");
+        requestBuilder.header("Authorization", "Bearer " + this.token);
+        requestBuilder.content(jsonString);
+        requestBuilder.contentType(MediaType.APPLICATION_JSON);
+        ResultActions resultActions;
+        resultActions = this.mockMvc.perform(requestBuilder);
+        String resultado= resultActions.andReturn().getResponse().getContentAsString();
+
+        Assert.assertTrue( resultado.equals("FAVORITO GUARDADO"));
+
+        Favorito favorito2 = new Favorito();
+        Favorito_id favorito_id2 = new Favorito_id(1,99,1);
+        favorito2.setFavoritoId(favorito_id2);
+
+        //Ahora comprobamos que se elimina al volver hacer la peticion con la misma id compuesta
+
+        ObjectMapper mapper2 = new ObjectMapper();
+        String jsonString2 = mapper2.writeValueAsString(favorito2);
+        MockHttpServletRequestBuilder requestBuilder2 = post("/favorito/cambiarFavorito");
+        requestBuilder2.header("Authorization", "Bearer " + this.token);
+        requestBuilder2.content(jsonString2);
+        requestBuilder2.contentType(MediaType.APPLICATION_JSON);
+        ResultActions resultActions2;
+        resultActions2 = this.mockMvc.perform(requestBuilder2);
+        String resultado2= resultActions2.andReturn().getResponse().getContentAsString();
+        Assert.assertTrue( resultado2.equals("FAVORITO ELIMINADO"));
 
     }
-   @Test
+    @Test
+    public void testCambiarFavoritoErrorUsuario() throws Exception {
+
+        Favorito favorito = new Favorito();
+        Favorito_id favorito_id = new Favorito_id(99,1,1);
+        favorito.setFavoritoId(favorito_id);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(favorito);
+        MockHttpServletRequestBuilder requestBuilder = post("/favorito/cambiarFavorito");
+        requestBuilder.header("Authorization", "Bearer " + this.token);
+        requestBuilder.content(jsonString);
+        requestBuilder.contentType(MediaType.APPLICATION_JSON);
+        ResultActions resultActions;
+        resultActions = this.mockMvc.perform(requestBuilder);
+        String resultado= resultActions.andReturn().getResponse().getContentAsString();
+
+        Assert.assertTrue( resultado.equals("false"));
+
+    }
+    @Test
+    public void testCambiarFavoritosErrorApp() throws Exception {
+
+        Favorito favorito = new Favorito();
+        Favorito_id favorito_id = new Favorito_id(1,1,99);
+        favorito.setFavoritoId(favorito_id);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(favorito);
+        MockHttpServletRequestBuilder requestBuilder = post("/favorito/cambiarFavorito");
+        requestBuilder.header("Authorization", "Bearer " + this.token);
+        requestBuilder.content(jsonString);
+        requestBuilder.contentType(MediaType.APPLICATION_JSON);
+        ResultActions resultActions;
+        resultActions = this.mockMvc.perform(requestBuilder);
+        String resultado= resultActions.andReturn().getResponse().getContentAsString();
+
+        Assert.assertTrue( resultado.equals("false"));
+    }
+    @Test
     public void testDameFavoritos() throws Exception {
 
         MockHttpServletRequestBuilder requestBuilder = get("/favorito/dameFavoritos?app_id=1&user_id=1");
@@ -72,18 +147,6 @@ public class FavoritoControllerTest {
         Collection<Integer> coleccionElement = gson.fromJson(resultado, collectionType);
         Assert.assertTrue("la lista de favoritos no esta vacia" , coleccionElement!=null);
     }
-    @Test
-    public void testDameFavoritosErrorApp() throws Exception {
-
-        MockHttpServletRequestBuilder requestBuilder = get("/favorito/dameFavoritos?app_id=11&user_id=1");
-        requestBuilder.header("Authorization", "Bearer " + this.token);
-        requestBuilder.contentType(MediaType.APPLICATION_JSON);
-        ResultActions resultActions;
-        resultActions = this.mockMvc.perform(requestBuilder);
-        String resultado= resultActions.andReturn().getResponse().getContentAsString();
-
-        Assert.assertTrue("la lista de favoritos no esta vacia" , resultado.equals("false"));
-    }
 
     @Test
     public void testDameFavoritosErrorUsuario() throws Exception {
@@ -95,17 +158,21 @@ public class FavoritoControllerTest {
         resultActions = this.mockMvc.perform(requestBuilder);
         String resultado= resultActions.andReturn().getResponse().getContentAsString();
 
-        Assert.assertTrue("la lista de favoritos no esta vacia" , resultado.equals("false"));
+        Assert.assertTrue( resultado.equals("false"));
+    }
+    @Test
+    public void testDameFavoritosErrorApp() throws Exception {
+
+        MockHttpServletRequestBuilder requestBuilder = get("/favorito/dameFavoritos?app_id=99&user_id=1");
+        requestBuilder.header("Authorization", "Bearer " + this.token);
+        requestBuilder.contentType(MediaType.APPLICATION_JSON);
+        ResultActions resultActions;
+        resultActions = this.mockMvc.perform(requestBuilder);
+        String resultado= resultActions.andReturn().getResponse().getContentAsString();
+
+        Assert.assertTrue( resultado.equals("false"));
     }
 
 
-    public void testCambiarFavoritoError(){
 
-
-
-    }
-
-    public void testDameFavoritosError2(){
-
-    }
 }

@@ -51,9 +51,10 @@ public class UsuarioRepository {
         return usuario;
     }
 
-    public void borrarUsuario(Integer id) throws Exception {
+    public void borrarUsuario(Usuario usuario) throws Exception {
         try {
-            usuarioDao.deleteById(id);
+
+            usuarioDao.delete(usuario);
         } catch (Exception e) {
             throw new Exception();
         }

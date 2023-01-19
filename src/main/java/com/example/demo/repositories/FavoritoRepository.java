@@ -6,6 +6,8 @@ import com.example.demo.modelos.Aplicacion;
 import com.example.demo.modelos.ElementoListado;
 import com.example.demo.modelos.Favorito;
 import com.example.demo.modelos.Usuario;
+import com.example.demo.validators.AppValidator;
+import com.example.demo.validators.UsuarioValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
@@ -16,12 +18,19 @@ import java.util.List;
 public class FavoritoRepository {
     @Autowired
     FavoritoDao favoritoDao;
-
+    @Autowired
+    UsuarioValidator usuarioValidator;
+    @Autowired
+    AppValidator appValidator;
     public Object addFavorito(Favorito favorito) {
 
-        int app_id = favorito.getFavoritoId().getApp_id();
-        int elemento_id = favorito.getFavoritoId().getElemento_id();
-        int user_id = favorito.getFavoritoId().getUser_id();
+        Integer app_id = favorito.getFavoritoId().getApp_id();
+        Integer elemento_id = favorito.getFavoritoId().getElemento_id();
+        Integer user_id = favorito.getFavoritoId().getUser_id();
+
+        if (!appValidator.esAppValida(app_id) || !usuarioValidator.esUsuarioValido(user_id)){
+            return false;
+        }
         Favorito comprobacionFavorito = favoritoDao.getFavorito(app_id, elemento_id, user_id);
 
         if (comprobacionFavorito == null) {//no esta

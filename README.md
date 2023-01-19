@@ -132,7 +132,7 @@ Datos cargados correctamente
 ]
 ```
 
-### 2.  [http://localhost:8080/main/dameElemento?api=?1&item=1](http://localhost:8080/main/dameElemento?api=1&item=1)
+### .  [http://localhost:8080/main/dameElemento?api=?1&item=1](http://localhost:8080/main/dameElemento?api=1&item=1)
 
 **Metodo**
 `GET`
@@ -263,6 +263,47 @@ usuario con id  xxx eliminado
         }
     ]
 }
+```
+
+
+### 3.  [http://localhost:8080/app/dameGeneros?app_id=2](http://localhost:8080/app/dameGeneros?app_id=2)
+
+
+**Metodo**
+`GET`
+
+**TOKEN**
+`SI`
+
+**NOTA**
+`Este endpoint solo devuelve el listado de géneros una vez se haya pasado antes por el de dame listado de su 
+correspondiente app, osea, si quieres los géneros de los pokemon, antes has tenido que haber hecho el get del 
+dameListado de la api pokemon`
+
+**JSON RESPONSE**
+
+```
+[
+    "grass",
+    "poison",
+    "fire",
+    "flying",
+    "water",
+    "bug",
+    "normal",
+    "electric",
+    "ground",
+    "fairy",
+    "fighting",
+    "psychic",
+    "rock",
+    "steel",
+    "ice",
+    "ghost",
+    "dragon",
+    "dark"
+]
+
 ```
 
 ## FAVORITOS CONTROLLER ENDPOINTS

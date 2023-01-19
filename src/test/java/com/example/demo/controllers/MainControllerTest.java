@@ -74,9 +74,9 @@ public class MainControllerTest {
     }
 
     @Test
-    public void testValidadorDameListado() throws Exception {
+    public void testDameListadoErrorApp() throws Exception {
 
-        MockHttpServletRequestBuilder requestBuilder = get("/main/dameListado?user_id=1");
+        MockHttpServletRequestBuilder requestBuilder = get("/main/dameListado?app_id=99");
         requestBuilder.header("Authorization", "Bearer " + this.token);
         requestBuilder.contentType(MediaType.APPLICATION_JSON);
         ResultActions resultActions;
@@ -89,7 +89,5 @@ public class MainControllerTest {
         Assert.assertTrue("la lista de elementos esta vacia" , coleccionElement==null);
 
     }
-
-
 
 }

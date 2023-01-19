@@ -47,6 +47,10 @@ public class ConexionApi {
     Integer ITEM;
     List<ElementoListado> listaElementos;
 
+    public static List<String> generosSeries;
+    public static List<String> generosJuegos;
+    public static List<String> generosPokemon;
+
     public ConexionApi() throws MalformedURLException {
     }
 
@@ -158,7 +162,7 @@ public class ConexionApi {
                     elemento.setId(jsonObject.getInt("id"));
                     elemento.setName(jsonObject.getJSONObject("pokemon").getString("name"));
                     elemento.setVersion(jsonObject.getJSONObject("version_group").getString("name"));
-                    elemento.setGenero(parseTiposPokemon(jsonObject.getJSONArray("types")));
+                    elemento.setGenero(parseTiposPokemon(jsonObject.getJSONArray("types")));  // AQUI TENGO GENEROS
                     elemento.setPublisher("GAME FREAK");
                     elemento.setImage(getPokemonImage());
                     elemento.setDescription(getPokemonDescription());
@@ -209,6 +213,8 @@ public class ConexionApi {
 
     public List<ElementoListado> getListadoItems() throws IOException {
 
+
+
         String line;
         while ((line = reader.readLine()) != null) {
             stringBuffer.append(line); // salida por consola con salto de linea  mientras haya más registros
@@ -224,7 +230,7 @@ public class ConexionApi {
         try {
             if (API == 1) {
                 JSONArray jsonArray = new JSONArray(response);
-
+                generosJuegos= new ArrayList<>();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     try {
                         JSONObject jsonObject = new JSONObject(jsonArray.getString(i));
@@ -233,6 +239,10 @@ public class ConexionApi {
                         elementoListado.id = jsonObject.getInt("id");
                         elementoListado.name = jsonObject.getString("title");
                         elementoListado.imagen = jsonObject.getString("thumbnail");
+
+                        if(generosJuegos.indexOf(jsonObject.getString("genre"))==-1){
+                            generosJuegos.add(jsonObject.getString("genre").trim());
+                        }
 
                         listaElementos.add(elementoListado);
                         System.out.println(elementoListado.toString());
@@ -243,7 +253,7 @@ public class ConexionApi {
                 }
             }
             if (API == 2) {
-
+                generosPokemon= new ArrayList<>();
                 List<PokemonListFormat> list = pokemonRepository.getAllPokemons();
                 if (list == null || list.size() == 0) {
                     listaElementos = cargarPokemons();
@@ -253,7 +263,7 @@ public class ConexionApi {
             }
             if (API == 3) {
                 JSONArray jsonarray = new JSONArray(response);
-
+                generosSeries= new ArrayList<>();
                 for (int i = 0; i < jsonarray.length(); i++) {
 
                     JSONObject jsonObject = jsonarray.getJSONObject(i);
@@ -262,6 +272,16 @@ public class ConexionApi {
                     elementoListado.name = jsonObject.getString("name");
                     elementoListado.id = jsonObject.getInt("id");
                     elementoListado.imagen = jsonObject.getJSONObject("image").getString("medium");
+
+                    String generos = parseGeneros(jsonObject.getJSONArray("genres"));
+                    String [] genres= generos.split(";");
+
+                    for (String genero:genres) {
+                        if(generosSeries.indexOf(genero)==-1 && !genero.equals("")){
+                            generosSeries.add(genero);
+                        }
+                    }
+
                     listaElementos.add(elementoListado);
                     System.out.println(elementoListado.toString());
 
@@ -404,6 +424,14 @@ public class ConexionApi {
                 JSONObject objectPokemon = new JSONObject(response);
                 elementoListado.id = objectPokemon.getInt("id");
                 elementoListado.imagen = objectPokemon.getJSONObject("sprites").getString("front_default");
+                JSONArray types= objectPokemon.getJSONArray("types");
+
+                for (int x = 0; x < types.length(); x++) {
+                 String  tipo =  types.getJSONObject(x).getJSONObject("type").getString("name") ;
+                    if (generosPokemon.indexOf(tipo)==-1){
+                        generosPokemon.add(tipo);
+                    }
+                }
 
                 if (elementoListado.imagen == null || elementoListado.imagen == "null") {
                     System.out.println("ERROR POKEMON -->" + elementoListado.name + " NO AÑIADIDO POR FALTA DE IMAGEN");
@@ -422,6 +450,10 @@ public class ConexionApi {
             }
         }
         return lista;
+    }
+
+    public void cargarGeneros(){
+
     }
 
     public String getPokemonImage() {
