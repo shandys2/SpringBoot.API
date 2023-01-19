@@ -57,7 +57,7 @@ public class ComentarioControllerTest {
         comentarioDTO.setApp_id(1);
         comentarioDTO.setHora("22:22");
         comentarioDTO.setComment_text(" soy un comentario de test");
-        comentarioDTO.setUser_id(1);
+
         comentarioDTO.setElemento_id("1");
 
         try {
@@ -83,7 +83,7 @@ public class ComentarioControllerTest {
         comentarioDTO.setApp_id(5);
         comentarioDTO.setHora("22:22");
         comentarioDTO.setComment_text(" soy un comentario de test");
-        comentarioDTO.setUser_id(1);
+
         comentarioDTO.setElemento_id("1");
 
         try {
@@ -102,32 +102,5 @@ public class ComentarioControllerTest {
             e.printStackTrace();
         }
     }
-    @Test
-    @Transactional
-    public void testCrearComentarioErrorUser(){
-        ComentarioDTO comentarioDTO = new ComentarioDTO();
-        comentarioDTO.setApp_id(1);
-        comentarioDTO.setHora("22:22");
-        comentarioDTO.setComment_text(" soy un comentario de test");
-        comentarioDTO.setUser_id(999);
-        comentarioDTO.setElemento_id("1");
-
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(comentarioDTO);
-            MockHttpServletRequestBuilder requestBuilder = post("/comentario/crearComentario");
-            requestBuilder.header("Authorization", "Bearer " + this.token);
-            requestBuilder.content(jsonString);
-            requestBuilder.contentType(MediaType.APPLICATION_JSON);
-            ResultActions resultActions;
-            resultActions = this.mockMvc.perform(requestBuilder);
-            String resultado= resultActions.andReturn().getResponse().getContentAsString();
-            Assert.assertTrue(resultado.equals("false"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }

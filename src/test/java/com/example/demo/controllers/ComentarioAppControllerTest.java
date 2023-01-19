@@ -74,12 +74,12 @@ public class ComentarioAppControllerTest {
         comentarioAppDTO.setApp_id(1);
         comentarioAppDTO.setHora("22:22");
         comentarioAppDTO.setComment_text(" soy un comentario de test");
-        comentarioAppDTO.setUser_id(1);
+
 
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(comentarioAppDTO);
-            MockHttpServletRequestBuilder requestBuilder = post("/comentariosApp/crearComentarioApp");
+            MockHttpServletRequestBuilder requestBuilder = post("/comentarioApp/crearComentarioApp");
             requestBuilder.header("Authorization", "Bearer " + this.token);
             requestBuilder.content(jsonString);
             requestBuilder.contentType(MediaType.APPLICATION_JSON);
@@ -100,13 +100,11 @@ public class ComentarioAppControllerTest {
         comentarioAppDTO.setApp_id(999);
         comentarioAppDTO.setHora("22:22");
         comentarioAppDTO.setComment_text(" soy un comentario con errores");
-        comentarioAppDTO.setUser_id(1);
-
 
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(comentarioAppDTO);
-            MockHttpServletRequestBuilder requestBuilder = post("/comentariosApp/crearComentarioApp");
+            MockHttpServletRequestBuilder requestBuilder = post("/comentarioApp/crearComentarioApp");
             requestBuilder.header("Authorization", "Bearer " + this.token);
             requestBuilder.content(jsonString);
             requestBuilder.contentType(MediaType.APPLICATION_JSON);
@@ -120,33 +118,8 @@ public class ComentarioAppControllerTest {
         }
     }
 
-    @Test
-    @Transactional
-    public void testCrearComentarioErrorUsuario(){
-
-        ComentarioAppDTO comentarioAppDTO = new ComentarioAppDTO();
-        comentarioAppDTO.setApp_id(1);
-        comentarioAppDTO.setHora("22:22");
-        comentarioAppDTO.setComment_text(" soy un comentario con errores");
-        comentarioAppDTO.setUser_id(99);
 
 
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonString = mapper.writeValueAsString(comentarioAppDTO);
-            MockHttpServletRequestBuilder requestBuilder = post("/comentariosApp/crearComentarioApp");
-            requestBuilder.header("Authorization", "Bearer " + this.token);
-            requestBuilder.content(jsonString);
-            requestBuilder.contentType(MediaType.APPLICATION_JSON);
-            ResultActions resultActions;
-            resultActions = this.mockMvc.perform(requestBuilder);
-            String resultado= resultActions.andReturn().getResponse().getContentAsString();
-            Assert.assertTrue(resultado.equals("false"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
+    //TESTEAR LAS ANOTACIONES  VALID DE SPRING
 
 }

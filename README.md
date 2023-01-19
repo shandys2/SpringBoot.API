@@ -392,7 +392,7 @@ false
 
 ## COMENTARIOS APP CONTROLLER ENDPOINTS
 
-### 1.  [http://localhost:8080/comentariosApp/crearComentarioApp](http://localhost:8080/comentariosApp/crearComentarioApp)
+### 1.  [http://localhost:8080/comentarioApp/crearComentarioApp](http://localhost:8080/comentarioApp/crearComentarioApp)
 
 **Metodo**
 `POST`
