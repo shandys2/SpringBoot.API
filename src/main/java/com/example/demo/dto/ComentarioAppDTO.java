@@ -10,8 +10,6 @@ public class ComentarioAppDTO {
     @NotBlank
     private String hora;
     @NotNull
-    private Integer user_id;
-    @NotNull
     private Integer app_id;
 
 
@@ -31,13 +29,6 @@ public class ComentarioAppDTO {
         this.hora = hora;
     }
 
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
-    }
 
     public Integer getApp_id() {
         return app_id;

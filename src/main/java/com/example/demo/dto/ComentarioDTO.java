@@ -7,7 +7,6 @@ public class ComentarioDTO implements Serializable {
     private String comment_text;
     private String hora;
     private String elemento_id;
-    private Integer user_id;
     private Integer app_id;
 
     public String getComment_text() {
@@ -34,13 +33,6 @@ public class ComentarioDTO implements Serializable {
         this.elemento_id = elemento_id;
     }
 
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
-    }
 
     public Integer getApp_id() {
         return app_id;

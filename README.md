@@ -181,7 +181,7 @@ Datos cargados correctamente
 
 ## USUARIOS CONTROLLER ENDPOINTS
 
-### 1.  [http://localhost:8080/usuario/borrarUsuario?user_id=1 ](http://localhost:8080/usuario/borrarUsuario?user_id=1 )
+### 1.  [http://localhost:8080/usuario/borrarUsuario ](http://localhost:8080/usuario/borrarUsuario )
 
 **Metodo**
 `GET`
@@ -319,10 +319,9 @@ dameListado de la api pokemon`
 **JSON REQUEST**
 
 ```
-{"favoritoId":{
-              "user_id": "X",
-              "elemento_id": "X",
-              "app_id": "X"}
+{ 
+   "elemento_id": "X",
+   "app_id": "X"}
 }
 
 ```
@@ -339,7 +338,7 @@ O
 FAVORITO ELIMINADO
 ```
 
-### 2.  [http://localhost:8080/favorito/dameFavoritos?app_id=1&user_id=1](http://localhost:8080/favorito/dameFavoritos?app_id&user_id=1)
+### 2.  [http://localhost:8080/favorito/dameFavoritos?app_id=1](http://localhost:8080/favorito/dameFavoritos?app_id)
 
 **Método**
 `GET`
@@ -374,7 +373,6 @@ FAVORITO ELIMINADO
 {"comment_text":"XXXXX XXX XX XXXXXXX XXXX XXXX",
 "hora":"XX:X",
 "elemento_id":"X",
-"user_id":"X",
 "app_id":"X"
 }
 ```
@@ -390,7 +388,6 @@ SINO :
 ```
 false
 ```
-
 
 
 ## COMENTARIOS APP CONTROLLER ENDPOINTS
@@ -409,7 +406,6 @@ false
 
 {"comment_text":"XXXXX XXX XX XXXXXXX XXXX XXXX",
 "hora":"XX:Xx",
-"user_id":"1",
 "app_id":"1"
 }
 ```
@@ -428,7 +424,6 @@ false
 ```
 
 
-
 ## RANKING APP CONTROLLER ENDPOINTS
 
 ### 1.  [http://localhost:8080/ranking/crearRanking](http://localhost:8080/ranking/crearRanking)
@@ -443,11 +438,11 @@ false
 **JSON REQUEST**
 
 ```
-{"rankin_id":{ "app_id": "2",
-               "user_id": "1"
-},
-"puntos":"3.1"
+
+{ "app_id": "2",
+  "puntos":"3.1"
 }
+
 ```
 
 **JSON RESPONSE**

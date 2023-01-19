@@ -12,13 +12,14 @@ import com.example.demo.validators.UsuarioValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/comentariosApp")
+@RequestMapping("/comentarioApp")
 public class ComentarioAppController {
 
     @Autowired
@@ -33,12 +34,14 @@ public class ComentarioAppController {
     UsuarioValidator usuarioValidator;
 
     @PostMapping(value = "/crearComentarioApp", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public boolean crearComentarioApp(@RequestBody @Valid ComentarioAppDTO comentarioAppDTO ) {
+    public boolean crearComentarioApp(@RequestBody @Valid ComentarioAppDTO comentarioAppDTO , Authentication authentication) {
 
-        if(!appValidator.esAppValida(comentarioAppDTO.getApp_id()) || !usuarioValidator.esUsuarioValido(comentarioAppDTO.getUser_id())){
+        Usuario usuario= findUserByToken(authentication);
+
+        if(!appValidator.esAppValida(comentarioAppDTO.getApp_id()) || usuario==null){
             return false;
         }
-        Usuario usuario = usuarioRepository.getUsuario(comentarioAppDTO.getUser_id());
+        //Usuario usuario = usuarioRepository.getUsuario(comentarioAppDTO.getUser_id());
         Aplicacion app = appRepository.getApp(comentarioAppDTO.getApp_id());
 
         ComentarioApp comentario = new ComentarioApp();
@@ -50,5 +53,10 @@ public class ComentarioAppController {
 
         return true;
 
+    }
+
+    public  Usuario findUserByToken(Authentication authentication){
+        Usuario recivedUser = (Usuario) authentication.getPrincipal();
+        return usuarioRepository.getUsuario(recivedUser.getId());
     }
 }

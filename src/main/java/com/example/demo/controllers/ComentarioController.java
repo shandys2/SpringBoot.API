@@ -12,6 +12,7 @@ import com.example.demo.validators.UsuarioValidator;
 import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,14 +35,14 @@ public class ComentarioController {
     //Authorization authorization   -> se puede meter por parametro al lado del requestbody para rescatar
                                       // datos del usuario sin necesidad de mandarlos
     @PostMapping(value = "/crearComentario", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Boolean crearComentario(@RequestBody ComentarioDTO comentarioDTO ) {
+    public Boolean crearComentario(@RequestBody ComentarioDTO comentarioDTO , Authentication authentication) {
 
+        Usuario usuario= findUserByToken(authentication);
 
-        if(!appValidator.esAppValida(comentarioDTO.getApp_id()) && !usuarioValidator.esUsuarioValido(comentarioDTO.getUser_id())){
+        if(!appValidator.esAppValida(comentarioDTO.getApp_id()) && usuario==null){
             return false;
         }else{
-
-            Usuario usuario = usuarioRepository.getUsuario(comentarioDTO.getUser_id());
+            //Usuario usuario = usuarioRepository.getUsuario(comentarioDTO.getUser_id());
             Aplicacion app = appRepository.getApp(comentarioDTO.getApp_id());
             if(usuario==null || app ==null){
                 return false;
@@ -66,5 +67,10 @@ public class ComentarioController {
         Aplicacion app = appRepository.getApp(Integer.parseInt(app_id));
         List<Comentario> listaComentarios = comentariosRepository.getComentariosItem(app, elemento_id);
         return listaComentarios;
+    }
+
+    public  Usuario findUserByToken(Authentication authentication){
+        Usuario recivedUser = (Usuario) authentication.getPrincipal();
+        return usuarioRepository.getUsuario(recivedUser.getId());
     }
 }

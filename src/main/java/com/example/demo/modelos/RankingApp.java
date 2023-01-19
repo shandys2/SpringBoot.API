@@ -17,9 +17,9 @@ public class RankingApp implements Serializable {
     @EmbeddedId
     private Rankin_id rankin_id;
     @Column(name = "puntos", nullable = false)
-    @NotBlank
+
     private String puntos;
-    @Valid
+
     public Rankin_id getRankin_id() {
         return rankin_id;
     }
