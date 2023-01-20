@@ -171,15 +171,18 @@ public class ConexionApi {
                     cosasRow.put("stats 1", "valorrrrrrr");
                     cosasRow.put("stats 2", "valorrrrrrr");
                     cosasRow.put("stats 3", "valorrrrrrr");
+                    cosasRow.put("stats 4", "valorrrrrrr");
+                    cosasRow.put("stats 5", "valorrrrrrr");
+                    cosasRow.put("stats 6", "valorrrrrrr");
                     cosas.put("stats", cosasRow);
                     cosasRow = new HashMap<>();
-                    cosasRow.put("altura", "valorrrrrrr");
-                    cosasRow.put("peso", "valorrrrrrr");
+                    cosasRow.put("height", "valorrrrrrr");
+                    cosasRow.put("weight", "valorrrrrrr");
                     cosas.put("dimensiones", cosasRow);
                     cosasRow = new HashMap<>();
                     cosasRow.put("habilidad1", "valorrrrrrr");
                     cosasRow.put("habilidad2", "valorrrrrrr");
-                    cosas.put("habilidades", cosasRow);
+                    cosas.put("abilities", cosasRow);
 
                     ((ElementoGeneral) elemento).setDetalles(cosas);
                     //stats :   (dimensiones)altura peso  : habilidades
