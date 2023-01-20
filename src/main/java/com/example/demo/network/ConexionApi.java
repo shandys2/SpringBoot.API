@@ -245,8 +245,9 @@ public class ConexionApi {
 
                         if(generosJuegos.indexOf(jsonObject.getString("genre"))==-1){
                             generosJuegos.add(jsonObject.getString("genre").trim());
-                        }
 
+                        }
+                        elementoListado.genres = jsonObject.getString("genre").trim();
                         listaElementos.add(elementoListado);
                         System.out.println(elementoListado.toString());
 
@@ -277,12 +278,14 @@ public class ConexionApi {
                     elementoListado.imagen = jsonObject.getJSONObject("image").getString("medium");
 
                     String generos = parseGeneros(jsonObject.getJSONArray("genres"));
-                    String [] genres= generos.split(";");
 
+                    String [] genres= generos.split(";");
+                    elementoListado.genres="";
                     for (String genero:genres) {
                         if(generosSeries.indexOf(genero)==-1 && !genero.equals("")){
                             generosSeries.add(genero);
                         }
+                        elementoListado.genres=elementoListado.genres +genero +";";
                     }
 
                     listaElementos.add(elementoListado);
@@ -428,12 +431,13 @@ public class ConexionApi {
                 elementoListado.id = objectPokemon.getInt("id");
                 elementoListado.imagen = objectPokemon.getJSONObject("sprites").getString("front_default");
                 JSONArray types= objectPokemon.getJSONArray("types");
-
+                elementoListado.genres="";
                 for (int x = 0; x < types.length(); x++) {
                  String  tipo =  types.getJSONObject(x).getJSONObject("type").getString("name") ;
                     if (generosPokemon.indexOf(tipo)==-1){
                         generosPokemon.add(tipo);
                     }
+                    elementoListado.genres= elementoListado.getGenres() + tipo + ";";
                 }
 
                 if (elementoListado.imagen == null || elementoListado.imagen == "null") {
@@ -442,7 +446,7 @@ public class ConexionApi {
                 } else {
                     System.out.println(elementoListado.toString());
                     lista.add(elementoListado);
-                    PokemonListFormat pokemon = new PokemonListFormat(elementoListado.getName(), elementoListado.getImagen());
+                    PokemonListFormat pokemon = new PokemonListFormat(elementoListado.getName(), elementoListado.getImagen() ,elementoListado.getGenres());
                     pokemonRepository.insertarPokemon(pokemon);
                 }
 

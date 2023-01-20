@@ -8,6 +8,15 @@ public class ElementoListado {
     public int id;
     public String name;
     public String imagen;
+    public String genres;
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
+    }
 
     @Override
     public String toString() {
@@ -54,6 +63,7 @@ public class ElementoListado {
             elementoListado.setId(Math.toIntExact(pokemon.getId()));
             elementoListado.setName(pokemon.getName());
             elementoListado.setImagen(pokemon.getImagen());
+            elementoListado.setGenres(pokemon.getGenres());
             listado.add(elementoListado);
         }
 

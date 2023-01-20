@@ -12,13 +12,24 @@ public class PokemonListFormat {
     private String name;
     @Column(name = "imagen", nullable = true)
     private String imagen;
+    @Column(name = "genres", nullable = true)
+    private String genres;
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
+    }
 
     public PokemonListFormat() {
     }
 
-    public PokemonListFormat(String name, String imagen) {
+    public PokemonListFormat(String name, String imagen, String genres) {
         this.name = name;
         this.imagen = imagen;
+        this.genres=genres;
     }
 
     public Long getId() {
