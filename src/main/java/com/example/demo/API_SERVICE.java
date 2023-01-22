@@ -15,12 +15,16 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class API_SERVICE {
 
     public static void main(String[] args) {
-        System.out.println("empiezo");
+
+
 		SpringApplication.run(API_SERVICE.class, args);
-        System.out.println("acabo");
 
         HiloDatosDemo cargarDatosDemo = new HiloDatosDemo();
-        cargarDatosDemo.run();
+
+        try{ cargarDatosDemo.run();}
+        catch (Exception e){
+            System.out.println("Los datos ya estaban caragados");
+        }
 
     }
 }

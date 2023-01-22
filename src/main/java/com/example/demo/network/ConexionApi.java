@@ -1,7 +1,9 @@
 package com.example.demo.network;
 
-import com.example.demo.daos.PokemonDao;
-import com.example.demo.modelos.*;
+
+import com.example.demo.modelos.ElementoGeneral;
+import com.example.demo.modelos.ElementoListado;
+import com.example.demo.modelos.PokemonListFormat;
 import com.example.demo.repositories.PokemonRepository;
 import jakarta.transaction.Transactional;
 import org.json.JSONArray;
@@ -9,7 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -33,9 +35,11 @@ public class ConexionApi {
     final String URL_NETFLIX_LIST = "https://api.tvmaze.com/shows";
     final String URL_FREE_TO_PLAY_ELEMENT = "https://www.freetogame.com/api/game?id=";
     final String URL_POKEAPI_ELEMENT = "https://pokeapi.co/api/v2/pokemon-form/";
+    final String URL_POKEAPI_ELEMENT_DETAILS = "https://pokeapi.co/api/v2/pokemon/";
     final String URL_NETFLIX_ELEMENT = URL_NETFLIX_LIST + "/";
     URL urlGame;
     URL urlPoke;
+    URL urlPokeDetails;
     URL urlNetflix;
     HttpURLConnection urlConnection = null;
     BufferedReader reader = null;
@@ -76,6 +80,7 @@ public class ConexionApi {
             case 2:
                 this.urlPoke = new URL(URL_POKEAPI_ELEMENT + ITEM);
                 urlConnection = (HttpURLConnection) urlPoke.openConnection();
+                this.urlPokeDetails =new URL(URL_POKEAPI_ELEMENT_DETAILS + ITEM);
                 break;
             case 3:
                 this.urlNetflix = new URL(URL_NETFLIX_ELEMENT + ITEM);
@@ -141,6 +146,7 @@ public class ConexionApi {
             switch (API) {
                 case 1:
                     elemento = new ElementoGeneral();
+                    elemento.setTipo("juego");
                     elemento.setId(jsonObject.getInt("id"));
                     elemento.setName(jsonObject.getString("title"));
                     elemento.setImage(jsonObject.getString("thumbnail"));
@@ -149,16 +155,17 @@ public class ConexionApi {
                     elemento.setPublisher(jsonObject.getString("publisher"));
                     elemento.setVersion(jsonObject.getString("release_date"));
                     HashMap<Object, Object> detalles = new HashMap<>();
-                    detalles.put("valor1", "valorrrrrrr");
-                    detalles.put("valor2", "valorrrrrrr");
-                    detalles.put("valor3", "valorrrrrrr");
-                    detalles.put("valor4", "valorrrrrrr");
-                    detalles.put("valor5", "valorrrrrrr");
+                    detalles.put("os", jsonObject.getJSONObject("minimum_system_requirements").getString("os"));
+                    detalles.put("processor", jsonObject.getJSONObject("minimum_system_requirements").getString("processor"));
+                    detalles.put("memory", jsonObject.getJSONObject("minimum_system_requirements").getString("memory"));
+                    detalles.put("graphics", jsonObject.getJSONObject("minimum_system_requirements").getString("graphics"));
+                    detalles.put("storage", jsonObject.getJSONObject("minimum_system_requirements").getString("storage"));
 
                     elemento.setDetalles(detalles);
                     break;
                 case 2:
                     elemento = new ElementoGeneral();
+                    elemento.setTipo("pokemon");
                     elemento.setId(jsonObject.getInt("id"));
                     elemento.setName(jsonObject.getJSONObject("pokemon").getString("name"));
                     elemento.setVersion(jsonObject.getJSONObject("version_group").getString("name"));
@@ -166,29 +173,65 @@ public class ConexionApi {
                     elemento.setPublisher("GAME FREAK");
                     elemento.setImage(getPokemonImage());
                     elemento.setDescription(getPokemonDescription());
-                    HashMap<Object, Object> cosas = new HashMap<>();
-                    HashMap<Object, Object> cosasRow = new HashMap<>();
-                    cosasRow.put("stats 1", "valorrrrrrr");
-                    cosasRow.put("stats 2", "valorrrrrrr");
-                    cosasRow.put("stats 3", "valorrrrrrr");
-                    cosasRow.put("stats 4", "valorrrrrrr");
-                    cosasRow.put("stats 5", "valorrrrrrr");
-                    cosasRow.put("stats 6", "valorrrrrrr");
-                    cosas.put("stats", cosasRow);
-                    cosasRow = new HashMap<>();
-                    cosasRow.put("height", "valorrrrrrr");
-                    cosasRow.put("weight", "valorrrrrrr");
-                    cosas.put("dimensiones", cosasRow);
-                    cosasRow = new HashMap<>();
-                    cosasRow.put("habilidad1", "valorrrrrrr");
-                    cosasRow.put("habilidad2", "valorrrrrrr");
-                    cosas.put("abilities", cosasRow);
 
-                    ((ElementoGeneral) elemento).setDetalles(cosas);
-                    //stats :   (dimensiones)altura peso  : habilidades
+                    //cierro la conexion anterior y abro la siguiente
+                    urlConnection.disconnect();
+
+                    urlConnection =(HttpURLConnection) urlPokeDetails.openConnection();
+                    conectar();
+
+                    while ((line = reader.readLine()) != null) {
+                        stringBuffer.append(line);
+                    }
+
+                    if (stringBuffer.length() == 0) {
+                        return null;
+                    }
+                    JSONObject  jsonObject2;
+                    response = stringBuffer.toString();
+                    jsonObject2 = new JSONObject(response);
+
+                    JSONArray stats = new JSONArray();
+                    JSONArray abilities = new JSONArray();
+
+                    stats=jsonObject2.getJSONArray("stats");
+                    abilities=jsonObject2.getJSONArray("abilities");
+                    Integer height =jsonObject2.getInt("height");
+                    Integer weight =jsonObject2.getInt("weight");
+
+                    String [] statNames ={"hp","attack","defense","special-attack","special-defense","speed"};
+
+                    HashMap<Object, Object> cosas = new HashMap<>();
+                    Map<String, Integer> mapaStats= new HashMap<>();
+
+                    for (int i = 0; i <stats.length() ; i++) {
+                        JSONObject statObject= stats.getJSONObject(i);
+                        Integer valor = statObject.getInt("base_stat");
+                        mapaStats.put(statNames[i],valor);
+                    }
+                    cosas.put("stats", mapaStats);
+                    Map cosasRow = new HashMap<>();
+                    cosasRow.put("height", height);
+                    cosasRow.put("weight", weight);
+                    cosas.put("dimensiones", cosasRow);
+
+                    Map<String,String> mapAbilities= new HashMap<>();
+                    List<String> habilidades= new ArrayList<>();
+                    for (int i = 0; i <abilities.length() ; i++) {
+                        JSONObject abilitieObject= abilities.getJSONObject(i);
+                        JSONObject innerObject =abilitieObject.getJSONObject("ability");
+                        String ability =innerObject.getString("name");
+
+                      habilidades.add(ability);
+                    }
+                    cosas.put("habilidades",habilidades);
+
+                    elemento.setDetalles(cosas);
+
                     break;
                 case 3:
                     elemento = new ElementoGeneral();
+                    elemento.setTipo("serie");
                     elemento.setId(jsonObject.getInt("id"));
                     elemento.setName(jsonObject.getString("name"));
                     elemento.setImage(jsonObject.getJSONObject("image").getString("medium"));
@@ -197,26 +240,28 @@ public class ConexionApi {
                     elemento.setVersion(jsonObject.getString("premiered"));
                     elemento.setGenero(parseGeneros(jsonObject.getJSONArray("genres")));
                     HashMap<Object, Object> cosasNetflix = new HashMap<>();
-                    cosasNetflix.put("valor1", "valorrrrrrr");
-                    cosasNetflix.put("valor2", "valorrrrrrr");
-                    cosasNetflix.put("valor3", "valorrrrrrr");
-                    cosasNetflix.put("valor4", "valorrrrrrr");
-                    cosasNetflix.put("valor5", "valorrrrrrr");
-                    cosasNetflix.put("valor6", "valorrrrrrr");
-                    cosasNetflix.put("valor7", "valorrrrrrr");
-                    cosasNetflix.put("valor8", "valorrrrrrr");
-                    cosasNetflix.put("valor9", "valorrrrrrr");
-                    ((ElementoGeneral) elemento).setDetalles(cosasNetflix);
+                    cosasNetflix.put("duracion", jsonObject.getString("runtime"));
+                    cosasNetflix.put("web", jsonObject.getString("officialSite"));
+                    cosasNetflix.put("inicio", jsonObject.getString("premiered"));
+                    cosasNetflix.put("fin", jsonObject.getString("ended"));
+                    cosasNetflix.put("hora", jsonObject.getJSONObject("schedule").getString("time"));
+                    List<String> listaDias = new ArrayList<>();
+                    JSONArray dias=jsonObject.getJSONObject("schedule").getJSONArray("days");
+                    for (int i = 0; i < dias.length() ; i++) {
+                        listaDias.add(dias.getString(i));
+                    }
+                    cosasNetflix.put("dias", listaDias);
+
+                    elemento.setDetalles(cosasNetflix);
                     break;
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return elemento;
     }
 
     public List<ElementoListado> getListadoItems() throws IOException {
-
-
 
         String line;
         while ((line = reader.readLine()) != null) {

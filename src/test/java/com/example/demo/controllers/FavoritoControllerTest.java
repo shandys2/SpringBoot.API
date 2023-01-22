@@ -64,7 +64,7 @@ public class FavoritoControllerTest {
 
         FavoritoDTO favoritoDTO = new FavoritoDTO();
         favoritoDTO.setApp_id("1");
-        favoritoDTO.setElemento_id("1");
+        favoritoDTO.setElemento_id("99");
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(favoritoDTO);

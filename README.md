@@ -123,20 +123,28 @@ Datos cargados correctamente
 ```
 [
     {
-        "id": 540,
-        "name": "Overwatch 2",
-        "imagen": "https://www.freetogame.com/g/540/thumbnail.jpg"
+        "id": 1,
+        "name": "Under the Dome",
+        "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/81/202627.jpg",
+        "genres": "Drama;Science-Fiction;Thriller;"
     },
     {
-        "id": 521,
-        "name": "Diablo Immortal",
-        "imagen": "https://www.freetogame.com/g/521/thumbnail.jpg"
+        "id": 2,
+        "name": "Person of Interest",
+        "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/163/407679.jpg",
+        "genres": "Action;Crime;Science-Fiction;"
+    },
+    {
+        "id": 3,
+        "name": "Bitten",
+        "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/0/15.jpg",
+        "genres": "Drama;Horror;Romance;"
     },
     ...(sigue el listado de elementos)
 ]
 ```
 
-### .  [http://localhost:8080/main/dameElemento?api=?1&item=1](http://localhost:8080/main/dameElemento?api=1&item=1)
+### 2.  [http://localhost:8080/main/dameElemento?api=?1&item=1](http://localhost:8080/main/dameElemento?api=1&item=1)
 
 **Metodo**
 `GET`
@@ -144,12 +152,12 @@ Datos cargados correctamente
 **TOKEN**
 `SI`
 
-**JSON RESPONSE**
+**JSON RESPONSE (ejemplo de las 3 apis , solo cambia la propiedad 'detalles')**
 
 ```
 {
     "id": 1,
-    "tipo": null,
+    "tipo": "juego",
     "name": "Dauntless",
     "image": "https://www.freetogame.com/g/1/thumbnail.jpg",
     "description": "Dauntless is a free-to-play, co-op action RPG developed by independent studio Phoenix Labs — a studio made of of veteran developers from Bioware, Riot, Capcom, and Blizzard. Set in a science-fantasy world, Dauntless places players in the role of elite warriors called Slayers. These Slayers protect humanity from Behemoths that are consuming the land following a cataclysmic event that turned the landscape into ever-changing, floating islands.\r\n\r\nThe gameplay may remind players of Monster Hunter, or perhaps a cheerier version of Shadow of the Colossus, where the goal is to defeat massive creates in an vast landscape.\r\n\r\nDauntless is playable solo, although it is designed with co-op play in mind. It boasts a variety of unique encounters and rewards players with items that will allow them to upgrade weapons and armor — enabling them to become even stronger warriors.",
@@ -157,11 +165,11 @@ Datos cargados correctamente
     "publisher": "Phoenix Labs",
     "genero": "MMORPG",
     "detalles": {
-        "valor5": "valorrrrrrr",
-        "valor4": "valorrrrrrr",
-        "valor1": "valorrrrrrr",
-        "valor3": "valorrrrrrr",
-        "valor2": "valorrrrrrr"
+        "memory": "4GB",
+        "os": "Windows 7 DX11 Support",
+        "graphics": "GPU: nVidia 660Ti (DX11) or equivalent",
+        "storage": "15GB of storage space",
+        "processor": "CPU: i5 SandyBridge"
     },
     "comentarios": [
         {
@@ -177,6 +185,95 @@ Datos cargados correctamente
         {
             "comment_text": "comentario numero 2",
             "hora": "10:32",
+            "username": "willy"
+        }
+    ]
+}
+```
+
+```
+{
+    "id": 2,
+    "tipo": "pokemon",
+    "name": "ivysaur",
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png",
+    "description": "When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.;
+    When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.;The bulb on its back grows by drawing energy. It gives off an aroma when it is ready to bloom.;Exposure to sun­ light adds to its strength. Sunlight also makes the bud on its back grow larger.;If the bud on its back starts to smell sweet, it is evidence that the large flower will soon bloom.;The bulb on its back grows as it absorbs nutrients. The bulb gives off a pleasant aroma when it blooms.;There is a bud on this POKéMON’s back. To support its weight, IVYSAUR’s legs and trunk grow thick and strong. If it starts spending more time lying in the sunlight, it’s a sign that the bud will bloom into a large flower soon.;There is a bud on this POKéMON’s back. To support its weight, IVYSAUR’s legs and trunk grow thick and strong. If it starts spending more time lying in the sunlight, it’s a sign that the bud will bloom into a large flower soon.;To support its bulb, IVYSAUR’s legs grow sturdy. If it spends more time lying in the sunlight, the bud will soon bloom into a large flower.;There is a plant bulb on its back. When it absorbs nutrients, the bulb is said to blossom into a large flower.;When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.;When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.;When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.;When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.;Exposure to sunlight adds to its strength. Sunlight also makes the bud on its back grow larger.;If the bud on its back starts to smell sweet, it is evidence that the large flower will soon bloom.;When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.;When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.;When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.;When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.;There is a plant bulb on its back. When it absorbs nutrients, the bulb is said to blossom into a large flower.;When the bud on its back starts swelling, a sweet aroma wafts to indicate the flower’s coming bloom.;There is a bud on this Pokémon’s back. To support its weight, Ivysaur’s legs and trunk grow thick and strong. If it starts spending more time lying in the sunlight, it’s a sign that the bud will bloom into a large flower soon.;There is a bud on this Pokémon’s back. To support its weight, Ivysaur’s legs and trunk grow thick and strong. If it starts spending more time lying in the sunlight, it’s a sign that the bud will bloom into a large flower soon.;The bud on its back grows by drawing energy. It gives off an aroma when it is ready to bloom.;The bud on its back grows by drawing energy. It gives off an aroma when it is ready to bloom.;When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.;Exposure to sunlight adds to its strength. Sunlight also makes the bud on its back grow larger.;",
+    "version": "red-blue",
+    "publisher": "GAME FREAK",
+    "genero": "grass;poison;",
+    "detalles": {
+        "dimensiones": {
+            "weight": 130,
+            "height": 10
+        },
+        "stats": {
+            "special-attack": 80,
+            "defense": 63,
+            "attack": 62,
+            "hp": 60,
+            "special-defense": 80,
+            "speed": 60
+        },
+        "habilidades": [
+            "overgrow",
+            "chlorophyll"
+        ]
+    },
+    "comentarios": [
+        {
+            "comment_text": "comentario numero 3",
+            "hora": "10:33",
+            "username": "dani"
+        },
+        {
+            "comment_text": "comentario numero 4",
+            "hora": "10:34",
+            "username": "maider"
+        },
+        {
+            "comment_text": "comentario numero 5",
+            "hora": "10:35",
+            "username": "willy"
+        }
+    ]
+}
+```
+
+```
+{
+    "id": 3,
+    "tipo": "serie",
+    "name": "Bitten",
+    "image": "https://static.tvmaze.com/uploads/images/medium_portrait/0/15.jpg",
+    "description": "<p>Based on the critically acclaimed series of novels from Kelley Armstrong. Set in Toronto and upper New York State, <b>Bitten</b> follows the adventures of 28-year-old Elena Michaels, the world's only female werewolf. An orphan, Elena thought she finally found her \"happily ever after\" with her new love Clayton, until her life changed forever. With one small bite, the normal life she craved was taken away and she was left to survive life with the Pack.</p>",
+    "version": "2014-01-11",
+    "publisher": "CTV Sci-Fi Channel",
+    "genero": "Drama;Horror;Romance;",
+    "detalles": {
+        "web": "http://bitten.space.ca/",
+        "hora": "22:00",
+        "dias": [
+            "Friday"
+        ],
+        "duracion": "60",
+        "inicio": "2014-01-11",
+        "fin": "2016-04-15"
+    },
+    "comentarios": [
+        {
+            "comment_text": "comentario numero 6",
+            "hora": "10:36",
+            "username": "dani"
+        },
+        {
+            "comment_text": "comentario numero 7",
+            "hora": "10:37",
+            "username": "maider"
+        },
+        {
+            "comment_text": "comentario numero 8",
+            "hora": "10:38",
             "username": "willy"
         }
     ]
