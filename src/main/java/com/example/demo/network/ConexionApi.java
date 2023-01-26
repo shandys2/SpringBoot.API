@@ -207,7 +207,7 @@ public class ConexionApi {
                     for (int i = 0; i <stats.length() ; i++) {
                         JSONObject statObject= stats.getJSONObject(i);
                         Integer valor = statObject.getInt("base_stat");
-                        mapaStats.put(statNames[i],valor);
+                        mapaStats.put(statNames[i].replace("-","_"),valor);
                     }
                     cosas.put("stats", mapaStats);
                     Map cosasRow = new HashMap<>();

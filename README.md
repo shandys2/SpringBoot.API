@@ -144,7 +144,7 @@ Datos cargados correctamente
 ]
 ```
 
-### 2.  [http://localhost:8080/main/dameElemento?api=?1&item=1](http://localhost:8080/main/dameElemento?api=1&item=1)
+### 2.  [http://localhost:8080/main/dameElemento?api=1&item=1](http://localhost:8080/main/dameElemento?api=1&item=1)
 
 **Metodo**
 `GET`
@@ -208,12 +208,12 @@ Datos cargados correctamente
             "height": 10
         },
         "stats": {
-            "special-attack": 80,
-            "defense": 63,
-            "attack": 62,
-            "hp": 60,
-            "special-defense": 80,
-            "speed": 60
+            "defense": 49,
+            "attack": 49,
+            "hp": 45,
+            "special_defense": 65,
+            "special_attack": 65,
+            "speed": 45
         },
         "habilidades": [
             "overgrow",
