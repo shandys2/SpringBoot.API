@@ -11,10 +11,11 @@ import com.example.demo.validators.UsuarioValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class FavoritoRepository {
     @Autowired
     FavoritoDao favoritoDao;

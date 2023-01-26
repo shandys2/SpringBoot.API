@@ -34,4 +34,13 @@ public class AuthResponse {
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
+
+    @Override
+    public String toString() {
+        return "AuthResponse{" +
+                "user_id=" + user_id +
+                ", username='" + username + '\'' +
+                ", accessToken='" + accessToken + '\'' +
+                '}';
+    }
 }

@@ -32,13 +32,14 @@ public class AuthController {
     @Autowired
     DemoDataRepository demoDataRepository;
 
+    @CrossOrigin
     @PostMapping(value = "/crearUsuario", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Usuario crearUsuario(@RequestBody @Valid Usuario usuario) {
 
         usuarioRepository.insertarUsuario(usuario);
         return usuario;
     }
-
+    @CrossOrigin
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request) {
 
@@ -51,7 +52,7 @@ public class AuthController {
             Usuario user = (Usuario) authentication.getPrincipal();
             String accessToken = jwtUtil.generateAccessToken(user);
             AuthResponse response = new AuthResponse(user.getId(), user.getUsername(), accessToken);
-
+            System.out.println(response.toString());
             return ResponseEntity.ok().body(response);
 
         } catch (BadCredentialsException ex) {
@@ -65,7 +66,7 @@ public class AuthController {
             demoDataRepository.cargarDatosPrueba();
             return "datos cargados correctamente";
         } catch (Exception exception) {
-            return "Hubo un probleme con la carga de datos de prueba     :" + exception.getLocalizedMessage();
+            return "Hubo un probleme con la carga de datos de prueba :" + exception.getLocalizedMessage();
         }
 
     }

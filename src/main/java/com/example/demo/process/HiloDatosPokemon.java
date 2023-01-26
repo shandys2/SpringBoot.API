@@ -1,12 +1,11 @@
 package com.example.demo.process;
 
-import com.example.demo.security.AuthRequest;
-
 import java.io.IOException;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 public class HiloDatosPokemon extends Thread {
 

@@ -35,7 +35,7 @@ public class AppController {
            return new AplicacionDTO();
         }
     }
-
+    @CrossOrigin(origins = ("*"))
     @GetMapping("/dameApps")
     public List<Aplicacion> getApps() throws JsonProcessingException {
 

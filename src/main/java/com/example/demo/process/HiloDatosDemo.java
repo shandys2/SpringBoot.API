@@ -1,18 +1,12 @@
 package com.example.demo.process;
 
-import com.example.demo.modelos.Usuario;
 import com.example.demo.security.AuthRequest;
 import com.example.demo.security.AuthResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import org.apache.coyote.Request;
-
-
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
 import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;

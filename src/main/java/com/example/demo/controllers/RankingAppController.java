@@ -49,17 +49,22 @@ public class RankingAppController {
         rankingAppNuevo.setRankin_id(rankingAppNuevoId);
         rankingAppNuevo.setPuntos(rankingAppDTO.getPuntos());
 
+
         //ver si existe
         RankingApp rankingExistente= rankingAppRepository.getRanking(app.getApp_id(),usuario.getId());
         //si existe actualizar
         if(rankingExistente!=null){
            rankingAppRepository.updateRanking(rankingAppNuevo);
+           return rankingAppRepository.mediaApp(Integer.parseInt(rankingAppDTO.getApp_id()));
         }else{ //sino crear
             rankingAppRepository.addRankingApp(rankingAppNuevo);
+            return rankingAppRepository.mediaApp(Integer.parseInt(rankingAppDTO.getApp_id()));
         }
 
+    }
 
-        return true;
+    public void dameRankingApp(){
+
     }
 
     public  Usuario findUserByToken(Authentication authentication){

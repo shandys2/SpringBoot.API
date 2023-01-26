@@ -6,10 +6,11 @@ import com.example.demo.modelos.Comentario;
 import com.example.demo.modelos.ComentarioApp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class ComentarioAppRepository {
 
     @Autowired

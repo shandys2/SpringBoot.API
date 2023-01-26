@@ -5,10 +5,11 @@ import com.example.demo.modelos.claves.Favorito_id;
 import com.example.demo.modelos.claves.Rankin_id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-@Repository
+@Service
 public class DemoDataRepository {
 
     Usuario usuario;
