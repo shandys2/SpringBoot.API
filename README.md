@@ -551,7 +551,44 @@ false
 
 EN CASO DE EXITO :
 ```
-true
+3.111
+```
+SINO :
+
+```
+false
+```
+
+
+### 2.  [http://localhost:8080/ranking/dameRankings](http://localhost:8080/ranking/crearRanking)
+
+
+**Metodo**
+`GET`
+
+**TOKEN**
+`SI`
+
+
+**JSON RESPONSE**
+
+
+EN CASO DE EXITO :
+```
+[
+    {
+        "app_id": "1",
+        "puntos": "3.0"
+    },
+    {
+        "app_id": "2",
+        "puntos": "3.1"
+    },
+    {
+        "app_id": "3",
+        "puntos": "3.0"
+    }
+]
 ```
 SINO :
 

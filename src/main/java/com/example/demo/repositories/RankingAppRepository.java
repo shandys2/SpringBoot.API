@@ -26,6 +26,11 @@ public class RankingAppRepository {
         return rankingApp;
     }
 
+    public List<RankingApp> getRankingsUser(int user_id){
+        List<RankingApp>  rankingApps = rankingAppDao.getRankingAppsUser(user_id);
+        return rankingApps;
+    }
+
     public String updateRanking(RankingApp rankingApp){
 
         rankingAppDao.updateRanking(rankingApp.getPuntos(),rankingApp.getRankin_id());

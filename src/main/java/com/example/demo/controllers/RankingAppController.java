@@ -14,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.EscapedErrors;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/ranking")
@@ -62,9 +62,21 @@ public class RankingAppController {
         }
 
     }
-
-    public void dameRankingApp(){
-
+    @GetMapping("/dameRankings")
+    public List<RankingAppDTO> dameRankingAppsUser(Authentication authentication){
+        Usuario usuario = findUserByToken(authentication);
+        List<RankingAppDTO> listadoRankingAppDTO =new ArrayList<>();
+        if (usuario==null){
+         return  listadoRankingAppDTO;
+        }
+        List<RankingApp> listaRanking = rankingAppRepository.getRankingsUser(usuario.getId());
+        for (RankingApp ranking:listaRanking ) {
+            RankingAppDTO rankingAppDTO = new RankingAppDTO();
+            rankingAppDTO.setApp_id(String.valueOf(ranking.getRankin_id().getApp_id()));
+            rankingAppDTO.setPuntos(ranking.getPuntos());
+            listadoRankingAppDTO.add(rankingAppDTO);
+        }
+        return listadoRankingAppDTO;
     }
 
     public  Usuario findUserByToken(Authentication authentication){
