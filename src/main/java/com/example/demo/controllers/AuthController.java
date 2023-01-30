@@ -68,8 +68,5 @@ public class AuthController {
         } catch (Exception exception) {
             return "Hubo un probleme con la carga de datos de prueba :" + exception.getLocalizedMessage();
         }
-
     }
-
-
 }

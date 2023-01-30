@@ -14,7 +14,6 @@ public class AplicacionDTO {
 
     List<ComentarioMin> listaComentarios;
 
-
     public String getDescripcion() {
         return descripcion;
     }

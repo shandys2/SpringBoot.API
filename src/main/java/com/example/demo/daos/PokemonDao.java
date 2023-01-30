@@ -15,4 +15,6 @@ public interface PokemonDao extends JpaRepository<PokemonListFormat, Integer> {
 
     @Query("SELECT a FROM PokemonListFormat a")
     List<PokemonListFormat> getAllPokemon();
+    @Query("SELECT a FROM PokemonListFormat a where a.name=?1")
+    PokemonListFormat getPokemonByName(String name);
 }

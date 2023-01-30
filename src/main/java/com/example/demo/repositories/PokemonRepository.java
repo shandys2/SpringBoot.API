@@ -17,6 +17,12 @@ public class PokemonRepository {
 
     public Object insertarPokemon(PokemonListFormat pokemon) {
         pokemonDao.save(pokemon);
+      //  pokemonDao.flush();
+        return pokemon;
+    }
+    public Object borrarPokemon(PokemonListFormat pokemon) {
+        pokemonDao.delete(pokemon);
+       // pokemonDao.flush();
         return pokemon;
     }
 
@@ -27,6 +33,11 @@ public class PokemonRepository {
 
     public PokemonListFormat getPokemonById(Integer id) {
         PokemonListFormat pokemon = pokemonDao.getReferenceById(id);
+        return pokemon;
+    }
+
+    public PokemonListFormat getPokemonByName(String name) {
+        PokemonListFormat pokemon = pokemonDao.getPokemonByName(name);
         return pokemon;
     }
 

@@ -49,6 +49,7 @@ public class ConexionApi {
 
     Integer API;
     Integer ITEM;
+    String STRING_ITEM;
     List<ElementoListado> listaElementos;
 
     public static List<String> generosSeries;
@@ -63,9 +64,16 @@ public class ConexionApi {
         setUrlForList();
     }
 
-    public void setApiForElement(int api, int item) throws IOException {
-        this.API = api;
-        this.ITEM = item;
+    public void setApiForElement(int api, String item) throws IOException {
+
+        if(api==2){
+            this.API = api;
+            this.STRING_ITEM=item;
+        }else {
+            this.API = api;
+            this.ITEM = Integer.valueOf(item);
+        }
+
         setUrlForElement();
     }
 
@@ -78,9 +86,9 @@ public class ConexionApi {
                 urlConnection = (HttpURLConnection) urlGame.openConnection();
                 break;
             case 2:
-                this.urlPoke = new URL(URL_POKEAPI_ELEMENT + ITEM);
+                this.urlPoke = new URL(URL_POKEAPI_ELEMENT + STRING_ITEM);
                 urlConnection = (HttpURLConnection) urlPoke.openConnection();
-                this.urlPokeDetails =new URL(URL_POKEAPI_ELEMENT_DETAILS + ITEM);
+                this.urlPokeDetails =new URL(URL_POKEAPI_ELEMENT_DETAILS + STRING_ITEM);
                 break;
             case 3:
                 this.urlNetflix = new URL(URL_NETFLIX_ELEMENT + ITEM);
@@ -176,7 +184,6 @@ public class ConexionApi {
 
                     //cierro la conexion anterior y abro la siguiente
                     urlConnection.disconnect();
-
                     urlConnection =(HttpURLConnection) urlPokeDetails.openConnection();
                     conectar();
 
@@ -366,7 +373,7 @@ public class ConexionApi {
 
     public String getPokemonDescription() throws IOException, JSONException {
 
-        URL urlPoke = new URL("https://pokeapi.co/api/v2/pokemon-species/" + ITEM);
+        URL urlPoke = new URL("https://pokeapi.co/api/v2/pokemon-species/" + STRING_ITEM);
         List<ElementoListado> lista = new ArrayList<>();
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
@@ -486,19 +493,28 @@ public class ConexionApi {
                 }
 
                 if (elementoListado.imagen == null || elementoListado.imagen == "null") {
-                    System.out.println("ERROR POKEMON -->" + elementoListado.name + " NO AÑIADIDO POR FALTA DE IMAGEN");
+                    System.out.println("ERROR POKEMON -->" + elementoListado.name + " NO AÑADIDO POR FALTA DE IMAGEN");
+                 /*   PokemonListFormat pokemon = new PokemonListFormat();
+                    pokemonRepository.insertarPokemon(pokemon);
+                    pokemon.setName("ERROR");
+                    pokemonRepository.borrarPokemon(pokemon);*/
 
                 } else {
                     System.out.println(elementoListado.toString());
                     lista.add(elementoListado);
                     PokemonListFormat pokemon = new PokemonListFormat(elementoListado.getName(), elementoListado.getImagen() ,elementoListado.getGenres());
                     pokemonRepository.insertarPokemon(pokemon);
+
                 }
 
                 urlConnection.disconnect();
 
             } catch (Exception e) {
                 System.out.println("ERROR POKEMON -->" + elementoListado.name + " NO DISPONIBLE EN LA API");
+             /*   PokemonListFormat pokemon = new PokemonListFormat();
+                pokemon.setName("ERROR");
+               pokemonRepository.insertarPokemon(pokemon);
+                pokemonRepository.borrarPokemon(pokemon);*/
             }
         }
         return lista;
@@ -510,7 +526,7 @@ public class ConexionApi {
 
     public String getPokemonImage() {
         String image;
-        PokemonListFormat pokemon = pokemonRepository.getPokemonById(ITEM);
+        PokemonListFormat pokemon = pokemonRepository.getPokemonByName(STRING_ITEM);
         image = pokemon.getImagen();
         return image;
     }

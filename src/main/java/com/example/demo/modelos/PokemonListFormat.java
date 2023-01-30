@@ -8,7 +8,7 @@ public class PokemonListFormat {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = true)
     private String name;
     @Column(name = "imagen", nullable = true)
     private String imagen;

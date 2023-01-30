@@ -33,7 +33,13 @@ public class ComentarioRepository {
 
     public List<Comentario> getComentariosItem(Aplicacion app_id, String elemento_id) {
 
-        List<Comentario> listaComentarios = comentarioDao.getComentariosItem(app_id, elemento_id);
+        List<Comentario> listaComentarios;
+        if(app_id.getApp_id()==2){
+           listaComentarios  = comentarioDao.getComentariosPokemon(elemento_id);
+        }else{
+            listaComentarios  = comentarioDao.getComentariosItem(app_id.getApp_id(),elemento_id);
+        }
+
 
         return listaComentarios;
     }

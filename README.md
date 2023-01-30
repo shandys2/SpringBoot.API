@@ -551,7 +551,7 @@ false
 
 EN CASO DE EXITO :
 ```
-3.111
+3.5445 (la media de la app)
 ```
 SINO :
 

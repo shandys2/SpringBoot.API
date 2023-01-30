@@ -35,7 +35,7 @@ public class AppController {
            return new AplicacionDTO();
         }
     }
-    @CrossOrigin(origins = ("*"))
+    @CrossOrigin
     @GetMapping("/dameApps")
     public List<Aplicacion> getApps() throws JsonProcessingException {
 
@@ -43,7 +43,7 @@ public class AppController {
         return listado;
     }
     @GetMapping("/dameGeneros")
-    public List<String> getApps(@RequestParam int app_id) throws JsonProcessingException {
+    public List<String> getGeneros(@RequestParam int app_id) throws JsonProcessingException {
         List<String> listado=null;
     switch (app_id){
         case 1:   listado = ConexionApi.generosJuegos; break;

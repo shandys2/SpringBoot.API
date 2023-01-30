@@ -72,7 +72,7 @@ public class ApplicationSecurity {
                 );
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-
+        http.cors();
         return http.build();
     }
 
