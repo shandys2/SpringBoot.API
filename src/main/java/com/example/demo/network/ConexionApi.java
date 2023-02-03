@@ -309,9 +309,10 @@ public class ConexionApi {
                 }
             }
             if (API == 2) {
-                generosPokemon= new ArrayList<>();
+
                 List<PokemonListFormat> list = pokemonRepository.getAllPokemons();
                 if (list == null || list.size() == 0) {
+                    generosPokemon= new ArrayList<>();
                     listaElementos = cargarPokemons();
                 } else {
                     listaElementos = ElementoListado.parse(list);
