@@ -5,7 +5,7 @@
 Para levantar el proyecto necesitamos una base de datos en MYSQL  llamada **'intermodular'** . Una vez arrancada la API, las tablas se generaran automaticamente con sus
 respectivos campos gracias a la ayuda de hibernate . 
 
-Para poder trabajar más comodamente existe un endpoint que cargará unos datos de prueba con fines de desarrollo.
+Para poder trabajar más comodamente existe un proceso que cargará unos datos de prueba con fines de desarrollo.
 
 Para acceder a la API :
  
@@ -376,10 +376,6 @@ usuario con id  xxx eliminado
 **TOKEN**
 `SI`
 
-**NOTA**
-`Este endpoint solo devuelve el listado de géneros una vez se haya pasado antes por el de dame listado de su 
-correspondiente app, osea, si quieres los géneros de los pokemon, antes has tenido que haber hecho el get del 
-dameListado de la api pokemon`
 
 **JSON RESPONSE**
 
@@ -467,6 +463,9 @@ FAVORITO ELIMINADO
 
 **TOKEN**
 `SI`
+
+**NOTA**
+`En caso de ser un comentario para la aplicacion de POKEMONS, deberemos mandar el nombre del pokemon en vez de un id numerico`
 
 **JSON REQUEST**
 

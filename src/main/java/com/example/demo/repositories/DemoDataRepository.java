@@ -11,15 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class DemoDataRepository {
-
-    Usuario usuario;
-    Aplicacion aplicacion;
-    Comentario comentario;
-    ComentarioApp comentarioApp;
-    Favorito favorito;
-    Favorito_id favoritoId;
-    RankingApp rankingApp;
-    Rankin_id rankin_id;
     @Autowired
     UsuarioRepository usuarioRepository;
     @Autowired
@@ -75,8 +66,15 @@ public class DemoDataRepository {
         for (int i = 0; i < 3; i++) {
             for (Usuario usuario : listaUsuarios) {
                 Aplicacion app = listaAplicaciones.get(i);
-                Comentario comentario = new Comentario("comentario numero " + j, "10:3" + j,( i +1)+ "", usuario, app);
-                ComentarioApp comentarioApp = new ComentarioApp("comentario numero " +j,"11:0"+j,usuario,app);
+                Comentario comentario;
+                ComentarioApp comentarioApp;
+                if(app.getApp_id()==2){
+                     comentario = new Comentario("comentario numero " + j, "10:3" + j,"bulbasaur", usuario, app);
+                }else {
+                     comentario = new Comentario("comentario numero " + j, "10:3" + j,( i +1)+ "", usuario, app);
+
+                }
+                comentarioApp = new ComentarioApp("comentario numero " +j,"11:0"+j,usuario,app);
                 comentarioRepository.insertarComentario(comentario);
                 comentarioAppRepository.insertarComentarioStack(comentarioApp);
                 j++;
