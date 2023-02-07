@@ -95,11 +95,18 @@ public class DemoDataRepository {
 
         }
 
+        String[] a = {"bulbasaur","charmander","pikachu"};
         for (int i = 0; i < listaUsuarios.size(); i++) {
-            for (int k = 0; k < listaAplicaciones.size(); k++) {
 
+            for (int k = 1; k < listaAplicaciones.size(); k++) {
                 Favorito favorito = new Favorito();
-                Favorito_id favorito_id = new Favorito_id(i+1,i+1,k+1);
+                Favorito_id favorito_id;
+                if(k==2){
+                     favorito_id = new Favorito_id(i+1,a[i],k);
+                }else{
+                     favorito_id = new Favorito_id(i+1,i+1+"",k);
+                }
+
                 favorito.setFavoritoId(favorito_id);
                 favoritoRepository.addFavorito(favorito);
             }

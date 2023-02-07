@@ -26,10 +26,10 @@ public class FavoritoRepository {
     public Object addFavorito(Favorito favorito) {
 
         Integer app_id = favorito.getFavoritoId().getApp_id();
-        Integer elemento_id = favorito.getFavoritoId().getElemento_id();
+        String elemento_id = favorito.getFavoritoId().getElemento_id();
         Integer user_id = favorito.getFavoritoId().getUser_id();
 
-        if (!appValidator.esAppValida(app_id) || !usuarioValidator.esUsuarioValido(user_id)){
+        if (!appValidator.esAppValida(app_id) || !usuarioValidator.esUsuarioValido(user_id)) {
             return false;
         }
         Favorito comprobacionFavorito = favoritoDao.getFavorito(app_id, elemento_id, user_id);

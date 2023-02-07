@@ -10,7 +10,7 @@ public class FavoritoDTO {
     @NotBlank
     private String elemento_id;
 
-    @NotBlank // porque no se validan?
+    @NotBlank
     private String app_id;
 
     public String getElemento_id() {

@@ -16,12 +16,12 @@ public class Favorito_id implements Serializable {
     private int user_id;
 
     @Column(name = "elemento_id", nullable = false)
-    private int elemento_id;
+    private String elemento_id;
 
     @Column(name = "app_id", nullable = false)
     private int app_id;
 
-    public Favorito_id(int user_id, int elemento_id, int app_id) {
+    public Favorito_id(int user_id, String elemento_id, int app_id) {
         this.user_id = user_id;
         this.elemento_id = elemento_id;
         this.app_id = app_id;
@@ -38,11 +38,11 @@ public class Favorito_id implements Serializable {
         this.user_id = user_id;
     }
 
-    public int getElemento_id() {
+    public String getElemento_id() {
         return elemento_id;
     }
 
-    public void setElemento_id(int elemento_id) {
+    public void setElemento_id(String elemento_id) {
         this.elemento_id = elemento_id;
     }
 
@@ -65,8 +65,7 @@ public class Favorito_id implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getUser_id(), getElemento_id(), getApp_id());
+    public int hashCode() {  return Objects.hash(getUser_id(), getElemento_id(), getApp_id());
     }
 
 }

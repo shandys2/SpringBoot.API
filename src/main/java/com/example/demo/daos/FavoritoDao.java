@@ -15,7 +15,7 @@ public interface FavoritoDao extends JpaRepository<Favorito, Integer> {
 
 
     @Query("SELECT f FROM Favorito f where f.favoritoId.app_id=?1 and f.favoritoId.elemento_id=?2 and f.favoritoId.user_id=?3")
-    Favorito getFavorito(int app_id, int elemento_id, int user_id);
+    Favorito getFavorito(int app_id, String elemento_id, int user_id);
 
     @Query("SELECT f FROM Favorito f where f.favoritoId.app_id=?1 and f.favoritoId.user_id=?2")
     List<Favorito> getFavoritosUsuario(int app_id,int user_id);

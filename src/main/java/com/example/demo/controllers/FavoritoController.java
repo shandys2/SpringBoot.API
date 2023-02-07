@@ -38,7 +38,7 @@ public class FavoritoController {
 
         Usuario usuario= findUserByToken(authentication);
         Favorito favorito = new Favorito();
-        Favorito_id favorito_id = new Favorito_id(usuario.getId(),Integer.parseInt(favoritoDTO.getElemento_id()),Integer.parseInt(favoritoDTO.getApp_id()));
+        Favorito_id favorito_id = new Favorito_id(usuario.getId(),favoritoDTO.getElemento_id(),Integer.parseInt(favoritoDTO.getApp_id()));
         favorito.setFavoritoId(favorito_id);
         Object object = favoritoRepository.addFavorito(favorito);
 
@@ -51,13 +51,13 @@ public class FavoritoController {
         Usuario usuario= findUserByToken(authentication);
 
         List<Favorito> listado = favoritoRepository.getFavoritosUsuario(app_id,usuario.getId());
-        List<Integer> listadoIds = new ArrayList<>();
+        List<String> listadoIds = new ArrayList<>();
 
         if(!appValidator.esAppValida(app_id) || usuario==null){
             return false;
         }
         for (Favorito favorito:listado ) {
-            int id = favorito.getFavoritoId().getElemento_id();
+            String id = favorito.getFavoritoId().getElemento_id();
             listadoIds.add(id);
         }
         return listadoIds;
